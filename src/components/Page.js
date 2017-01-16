@@ -12,11 +12,13 @@ class Home extends Component {
     initPage: PropTypes.func,
   };
   componentWillMount(){
+    this.props.initPage();
     this.fetchPage(this.props.params);
   }
   componentWillReceiveProps(nextProps){
     const { params } = nextProps;
     if(this.props.params.splat != params.splat){
+      this.props.initPage();
       this.fetchPage(params);
     }
   }

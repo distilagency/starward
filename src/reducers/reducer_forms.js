@@ -15,11 +15,11 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
   case GET_FORM:
-    return { ...state, active_form: action.payload, confirmation: null, submitSuccess: false, form_values: [] };
+    return { ...state, active_form: action.payload, confirmation: null, submitSuccess: false };
   case UPDATE_FORM: {
     let items = state.form_values;
     items[action.payload.id] = action.payload;
-    return { ...state, form_values: items };
+    return { ...state, form_values: items, isValid: isValid(items) };
   }
   case SUBMIT_FORM:
     return { ...state, confirmation: null, submitSuccess: false, loading: true };
@@ -29,3 +29,9 @@ export default function(state = INITIAL_STATE, action) {
     return state;
   }
 }
+
+const isValid = (fields) => {
+  if(fields.length > 0){
+    return Object.values(fields).every(field => field.valid);
+  }
+};

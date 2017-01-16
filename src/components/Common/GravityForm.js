@@ -19,7 +19,6 @@ class GravityFrom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      canSubmit : false,
       submitFailed: false
     };
   }
@@ -30,24 +29,20 @@ class GravityFrom extends Component {
     if(this.props.form_id != nextProps.form_id){
       this.props.getForm(nextProps.form_id);
     }
-    this.isValid(nextProps.forms.form_values);
-  }
-  isValid(fields){
-    this.setState({ canSubmit: Object.values(fields).every(field => field.valid) });
   }
   updateFormHandler(value, field, valid){
     this.props.updateForm(value, field, valid);
   }
-  getButtonClasses(canSubmit, loading){
+  getButtonClasses(isValid, loading){
     if(loading){
       return 'loading';
-    } else if(!canSubmit){
+    } else if(!isValid){
       return 'disabled';
     }
   }
   submit(event){
     event.preventDefault();
-    if(this.state.canSubmit){
+    if(this.props.forms.isValid){
       this.setState({submitFailed: false});
       this.props.submitForm(this.props.form_id, this.props.forms.form_values);
     } else{
@@ -56,9 +51,9 @@ class GravityFrom extends Component {
   }
   render() {
     const { forms, showTitle, showDescription } = this.props;
-    const { active_form, form_values, confirmation, loading, submitSuccess } = forms;
+    const { active_form, form_values, confirmation, loading, submitSuccess, isValid } = forms;
     const { title, description, button, fields } = active_form;
-    const { canSubmit, submitFailed } = this.state;
+    const { submitFailed } = this.state;
     if(!fields){
       return null;
     }
@@ -84,7 +79,7 @@ class GravityFrom extends Component {
           />
           <Button
             text={button.text}
-            className={this.getButtonClasses(canSubmit, loading)}
+            className={this.getButtonClasses(isValid, loading)}
             showLoading={loading}
           />
         </form>
