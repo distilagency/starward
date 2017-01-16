@@ -1,0 +1,13 @@
+// Common elements such as headings and forms
+
+.wrap{
+  @include span-columns(12);
+}
+
+
+@include media($tablet) {
+
+}
+@include media($mobile) {
+
+}
