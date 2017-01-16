@@ -43,3 +43,5 @@ docs/api/
 
 # DotEnv
 .env
+
+src/config.js
