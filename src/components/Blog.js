@@ -9,14 +9,22 @@ class Blog extends Component {
   static propTypes = {
     posts: PropTypes.object,
     pages: PropTypes.object,
+    params: PropTypes.object,
     initPage: PropTypes.func,
     getPosts: PropTypes.func,
     getPage: PropTypes.func,
   };
   componentWillMount(){
+    const page = this.props.params.page ? this.props.params.page : 1;
     this.props.initPage();
     this.props.getPage('blog');
-    this.props.getPosts();
+    this.props.getPosts(page);
+  }
+  componentWillReceiveProps(nextProps){
+    if(this.props.params != nextProps.params){
+      const page = nextProps.params.page ? nextProps.params.page : 1;
+      nextProps.getPosts(page);
+    }
   }
   componentWillUnmount() {
     this.props.initPage();
@@ -24,14 +32,20 @@ class Blog extends Component {
   render() {
     const { posts, pages } = this.props;
     const { active_page } = pages;
-    const { active_posts, loading, categories } = posts;
+    const { active_posts, categories, total_items, total_pages, loading } = posts;
     if(loading){
       return <Loading />;
     }
     return(
-      <div className="blog">
-        <PostList posts={active_posts} categories={categories} />
-      </div>
+      <main className="content" role="main">
+        <PostList
+          posts={active_posts}
+          categories={categories}
+          total_items={total_items}
+          total_pages={total_pages}
+          url_base="blog"
+         />
+      </main>
 
     );
   }

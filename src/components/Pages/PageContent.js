@@ -16,7 +16,7 @@ export const PageContent = props => {
   }
   if(layout){
     return (
-      <main id="content">
+      <main className="content" role="main">
         <article>
           {layout.map(item => getComponent(item))}
         </article>
@@ -24,7 +24,7 @@ export const PageContent = props => {
     );
   }
   return(
-    <main id="content" role="main">
+    <main className="content" role="main">
       <article>
         <Title title={page_title} tag="h1" />
         <RenderContent content={content} />

@@ -3,10 +3,11 @@ import Header from './Common/Header';
 import { Footer } from './Common/Footer';
 
 const App = ({children, history}) => {
+  const isHome = children.props.location.pathname === "/";
   return (
-    <div className="container">
+    <div className={isHome ? "home" : children.props.location.pathname.split('/').join(' ')}>
       <Header
-        isHome={children.props.location.pathname === "/"}
+        isHome={isHome}
         pathname={children.props.location.pathname}
       />
       {children}

@@ -14,7 +14,7 @@ class Header extends Component {
   };
   componentWillMount(){
     this.props.getMenu('Header');
-    this.props.getSettings('Header');
+    this.props.getSettings();
   }
   render() {
     const { wp, pathname } = this.props;

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { FeaturedImage } from './FeaturedImage';
 import { Title } from '../Common/Content/Title';
+import { RenderContent } from '../Common/Content/RenderContent';
 
 export const PostListItem = props => {
   const {
@@ -16,7 +17,7 @@ export const PostListItem = props => {
       <Link to={`/blog/${slug}`}>
         <FeaturedImage size="thumbnail" {...better_featured_image} />
         <Title title={title.rendered} tag="h3" />
-        <div class="entry-summary" dangerouslySetInnerHTML={{__html: excerpt.rendered}} />
+        <RenderContent content={excerpt.rendered} />
       </Link>
     </article>
   );

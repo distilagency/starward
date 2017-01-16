@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Loading } from './Common/Content/Loading';
-import { getCategory, initCategory } from '../actions/actions_posts';
+import { getCategory, initCategory, getAuthor } from '../actions/actions_posts';
 import { PostList } from './Posts/PostList';
 
 class Category extends Component {
@@ -10,32 +10,47 @@ class Category extends Component {
     category: PropTypes.object,
     params: PropTypes.object,
     initCategory: PropTypes.func,
-    getCategory: PropTypes.func
+    getCategory: PropTypes.func,
+    getAuthor: PropTypes.func,
   };
-  constructor(props) {
-    super(props);
-    this.state = { page: 1 };
-  }
   componentWillMount(){
-    this.props.getCategory(this.props.params.slug, this.state.page);
+    this.initComponent(this.props.params);
   }
   componentWillReceiveProps(nextProps){
-    if(this.props.params.slug != nextProps.params.slug)
-    nextProps.getCategory(nextProps.params.slug, this.state.page);
+    if(this.props.params != nextProps.params){
+      this.initComponent(nextProps.params);
+    }
+  }
+  initComponent(params){
+    const { category, author, page } = params;
+    if(category){
+      this.props.getCategory(category, page);
+    } else{
+      this.props.getAuthor(author, page);
+    }
   }
   render() {
-    const { posts } = this.props;
-    const { active_posts, loading, categories } = posts;
+    const { posts, params } = this.props;
+    const {
+      active_posts,
+      categories,
+      total_items,
+      total_pages,
+      loading
+    } = posts;
     if(loading){
       return <Loading />;
     }
     return(
-      <div className="blog">
+      <main className="content" role="main">
         <PostList
           posts={active_posts}
           categories={categories}
+          total_items={total_items}
+          total_pages={total_pages}
+          url_base={params.category ? `category/${params.category}` : `author/${params.author}`}
         />
-      </div>
+      </main>
 
     );
   }
@@ -47,4 +62,4 @@ const mapStateToProps = ({ posts }) => {
   };
 };
 
-export default connect(mapStateToProps, { getCategory, initCategory })(Category);
+export default connect(mapStateToProps, { getCategory, initCategory, getAuthor })(Category);

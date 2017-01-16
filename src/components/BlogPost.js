@@ -51,20 +51,22 @@ class BlogPost extends Component {
       return <FourOhFour />;
     }
     return (
-      <article className="hentry">
-        <Title title={title.rendered} />
-        <PostMeta date={date} author={author} />
-        <FeaturedImage
-          size="large"
-          {...better_featured_image}
-        />
-        <RenderContent content={content.rendered} />
-        <PostCategories categories={categories} />
-        <PostItemPagination
-          next_post={next_post}
-          previous_post={previous_post}
-        />
-      </article>
+      <main className="content" role="main">
+        <article className="hentry">
+          <Title title={title.rendered} />
+          <PostMeta date={date} author={author} />
+          <FeaturedImage
+            size="large"
+            {...better_featured_image}
+          />
+          <RenderContent content={content.rendered} />
+          <PostCategories categories={categories} />
+          <PostItemPagination
+            next_post={next_post}
+            previous_post={previous_post}
+          />
+        </article>
+      </main>
     );
   }
 }
