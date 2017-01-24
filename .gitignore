@@ -13,6 +13,7 @@
 *.vi
 *~
 *.sass-cache
+*.lock
 
 # OS or Editor folders
 __MACOSX/
@@ -44,4 +45,7 @@ docs/api/
 # DotEnv
 .env
 
-src/config.js
+# Starward
+public
+compiled
+config/app.js

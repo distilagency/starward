@@ -1,0 +1,14 @@
+{
+    "verbose": false,
+    "watch": [
+      "app/utils",
+      "app/fetch-data",
+      "app/client.jsx",
+      "app/routes.jsx",
+      "server",
+      "data",
+      "webpack/webpack.config.dev-client.js",
+      "webpack/webpack.config.dev-server.js"
+    ],
+    "exec": "npm run build:dev && node compiled/server.dev.js"
+}
