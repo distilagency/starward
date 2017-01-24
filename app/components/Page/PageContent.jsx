@@ -11,7 +11,6 @@ export const PageContent = props => {
     return <ComponentName key={item.acf_fc_layout} {...item} />;
   };
   const { acf, content, title, seo, siteName } = props;
-  console.log('props', props);
   if (!acf.layout && !content) return <FourOhFour />;
   if (acf && acf.layout) {
     return (
