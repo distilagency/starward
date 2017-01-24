@@ -6,20 +6,16 @@ import { Footer } from '../components/Common/Footer';
 class App extends Component {
   render() {
     const { children, starward, location } = this.props;
-    const { settings, headerMenu, footerMenu } = starward;
+    const { settings, headerMenu } = starward;
     return (
       <div>
         <Header
           siteName={settings.name}
-          navigation={headerMenu.items}
+          navigation={headerMenu ? headerMenu.items : []}
           currentPath={location.pathname}
         />
         {children}
-        <Footer
-          siteName={settings.name}
-          navigation={footerMenu.items}
-          currentPath={location.pathname}
-        />
+        <Footer siteName={settings.name} />
       </div>
     );
   }
