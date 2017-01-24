@@ -8,7 +8,6 @@ export const PostCategories = props => {
       <Link key={cat.slug} to={`/category/${cat.slug}`}>{cat.name}</Link>
     ))
   );
-  console.log("categories", categories);
   return (
     <div classNames="entry-categories">
       <p>Posted in: {getPostCategories(categories)}</p>

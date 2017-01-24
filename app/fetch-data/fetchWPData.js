@@ -69,7 +69,6 @@ const fetchWPData = (params, routeName) => {
     }
     // BlogPost container data
     case 'BlogPost': {
-      console.log('params', params);
       return getPost(params.post)
       .then(({data}) => {
         return { activePost: data.data.activePost };

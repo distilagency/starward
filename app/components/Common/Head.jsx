@@ -43,7 +43,6 @@ export const Head = (props, context) => {
         if (link.href) return link;
         return {};
       })}
-      onChangeClientState={(newState) => console.log('newState', newState)}
     />
   );
 };
