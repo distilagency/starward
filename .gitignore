@@ -33,9 +33,6 @@ node_modules/
 # Brunch folder for temporary files.
 tmp/
 
-# Brunch output folder.
-public/
-
 # Bower stuff.
 bower_components/
 
@@ -46,6 +43,7 @@ docs/api/
 .env
 
 # Starward
-public
+public/assets/app.js
+public/assets/app.js.map
 compiled
 config/app.js
