@@ -49,9 +49,9 @@ module.exports = [
     },
     module: {
       loaders: commonLoaders.concat(
-        {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1')
+        { 
+          test: /\.scss$/i, 
+          loader: ExtractTextPlugin.extract(['css','sass']) 
         }
       )
     },
@@ -61,7 +61,7 @@ module.exports = [
     },
     plugins: [
         // extract inline css from modules into separate files
-        new ExtractTextPlugin('styles/main.css', { allChunks: true }),
+        new ExtractTextPlugin('../assets/css/styles.css', { allChunks: true }),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {
             warnings: false

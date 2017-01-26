@@ -1,0 +1,48 @@
+// --------------------------------------------------------------------------
+//
+//  Hidden  Elements
+//
+// --------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------
+//   Mixins
+// --------------------------------------------------------------------------
+
+@mixin invisible {
+  visibility: hidden;
+}
+
+@mixin visually-hidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+@mixin image-replace {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+
+// --------------------------------------------------------------------------
+//   Useage classes
+// --------------------------------------------------------------------------
+
+.ir,
+.hide-text,
+.text-replace,
+.image-replace {
+  @include image-replace;
+}
+
+.hide,
+.hidden {
+  @include invisible;
+  display: none;
+}

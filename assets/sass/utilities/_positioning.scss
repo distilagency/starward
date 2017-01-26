@@ -1,0 +1,24 @@
+// --------------------------------------------------------------------------
+//
+//   Positioning mixins
+//
+// --------------------------------------------------------------------------
+
+@mixin vertical-align($position: absolute) {
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin horizontal-align($position: absolute) {
+  position: $position;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin center-align($position: absolute) {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}

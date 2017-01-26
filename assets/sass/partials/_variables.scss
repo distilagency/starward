@@ -1,0 +1,18 @@
+/* ------------------------------------------------------
+  Variables
+------------------------------------------------------ */
+// Responsive breakpoints
+$small: new-breakpoint(max-width 480px 12);
+$mobile: new-breakpoint(max-width 640px 12);
+$medium: new-breakpoint(max-width 800px 12);
+$tablet: new-breakpoint(max-width 1024px 12);
+$desktop: new-breakpoint(max-width 1200px 12);
+$desktoplarge: new-breakpoint(min-width 1500px 12);
+$large: new-breakpoint(min-width 1800px 12);
+
+// Colours
+$black: #000;
+$white: #FFF;
+
+// Fonts
+$fontstack: '';
