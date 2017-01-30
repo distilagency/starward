@@ -21,22 +21,12 @@ var commonLoaders = [
       presets: ['react-hmre', 'es2015', 'react', 'stage-0'],
       plugins: ['transform-decorators-legacy']
     },
-    exclude: path.join(__dirname, '..', 'node_modules')
+    exclude: path.join( __dirname, '..', 'node_modules')
   },
-  // {
-  //   test: /\.scss$/,
-  //   loaders: [
-  //       'style?sourceMap',
-  //       'css?modules&importLoaders=1&localIdentName=[name]--[local]',
-  //       'sass?sourceMap'
-  //       // 'autoprefixer?browsers=last 3 versions',
-  //       // 'sass?outputStyle=expanded'
-  //   ]
-  // },
   {
       test: /\.scss$/,
       loader: 'style!css!postcss!sass',
-      include: path.join(__dirname, '../assets/sass')
+      include: path.join( __dirname, '..', 'public/assets/sass')
   },
   { 
     test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
@@ -114,7 +104,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.EnvironmentPlugin(['NODE_ENV']),
-        new ExtractTextPlugin('../assets/css/styles.css', {
+        new ExtractTextPlugin('../public/assets/css/styles.css', {
           allChunks: true
         })
     ],

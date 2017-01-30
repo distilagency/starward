@@ -11,7 +11,7 @@ const createApp = (store, props) => renderToString(
   </Provider>
 );
 
-const styles = process.env.NODE_ENV === 'production' ? '<link rel="stylesheet" href="/assets/css/styles.css">' : '';
+const styles = '<link rel="stylesheet" href="/assets/css/styles.css">' ;
 
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
   return `

@@ -29,7 +29,7 @@ module.exports = {
       libraryTarget: 'commonjs2'
     },
     sassLoader: {
-      includePaths: [ '../assets/sass' ]
+      includePaths: [ '../public/assets/sass' ]
     },
     module: {
       loaders: commonLoaders.concat({
