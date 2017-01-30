@@ -24,9 +24,9 @@ var commonLoaders = [
     exclude: path.join( __dirname, '..', 'node_modules')
   },
   {
-      test: /\.scss$/,
-      loader: 'style!css!postcss!sass',
-      include: path.join( __dirname, '..', 'public/assets/sass')
+    test: /\.scss$/,
+    loader: 'style!css?sourceMap!sass?sourceMap&sourceComments',
+    include: path.join( __dirname, '..', 'public/assets/sass')
   },
   { 
     test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
@@ -44,7 +44,7 @@ var commonLoaders = [
 
 module.exports = {
     // eval - Each module is executed with eval and //@ sourceURL.
-    devtool: 'eval',
+    devtool: 'source-map',
     // The configuration for the client
     name: 'browser',
     /* The entry point of the bundle
@@ -81,13 +81,13 @@ module.exports = {
       publicPath: publicPath
     },
     sassLoader: {
-      includePaths: [ '../assets/sass' ]
+      includePaths: [ path.join( __dirname, '..', 'public/assets/sass') ]
     },
     module: {
       loaders: commonLoaders
       .concat({
           test: /\.css$/,
-          loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          loader: ['style', 'css']
         })
     },
     postcss: () => {
@@ -103,9 +103,6 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.EnvironmentPlugin(['NODE_ENV']),
-        new ExtractTextPlugin('../public/assets/css/styles.css', {
-          allChunks: true
-        })
+        new webpack.EnvironmentPlugin(['NODE_ENV'])
     ],
 };

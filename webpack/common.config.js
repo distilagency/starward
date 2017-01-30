@@ -46,24 +46,7 @@ module.exports = {
       exclude: path.join(__dirname, '..', 'node_modules')
     },
     { test: /\.json$/, loader: 'json-loader' },
-    // {
-    //   test: /\.scss$/,
-    //   loaders: [
-    //       'style?sourceMap',
-    //       'css?modules&importLoaders=1&localIdentName=[name]--[local]',
-    //       'sass?sourceMap'
-    //       // 'autoprefixer?browsers=last 3 versions',
-    //       // 'sass?outputStyle=expanded'
-    //   ]
-    // },
-    {
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-      loader: 'url',
-      query: {
-        name: '[hash].[ext]',
-        limit: 10000,
-      }
-    },
+
     { test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
       loader: 'file-loader?name=fonts/[name].[ext]'
     },
