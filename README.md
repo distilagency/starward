@@ -55,3 +55,67 @@ Rename `/config/app-template.js` to `/config/app.js`
 or using NPM
 
 `npm install && npm run dev`
+
+### Styling
+
+Sass partials are contained within `/public/assets/sass` and are split between four folders:
+
+#### /base
+
+Boilerplate partials including a reset, default typography rules, grid, print and reusable, per project mixins like *_omega-reset.scss*
+
+#### /helpers
+
+For storing mixins, functions and other Sass tools used across the project including *_variables.scss* and *_animations.scss*
+
+#### /components
+
+Adheres to the same name spacing as the app/components folder, each partial contains styling for the equivalent React component
+
+#### /containers
+
+Adheres to the same name spacing as the core app/containers folders, each partial contain the styling for the React/Redux container that does not fit within an individual component partial. App.scss will contain app specific reusable and global styles.
+
+#### /vendor
+
+Contains Bourbon and Bourbon Neat and any other vendor specific styling
+
+### GraphQL
+
+All data from WP-API is consumed in GraphQL with Graph.ql (https://github.com/matthewmueller/graph.ql), which returns a smaller, more succinct response using Express. The purpose is to reduce the amount of JSON contained within the initial state that gets supplied to the document by the server when running universally.
+
+The GraphQL schema is located within `data/schemas`
+
+The Express endpoints are defined within `server/init/graphql.js`
+
+Out of the box the following API requests can be made to the API server `localhost:3000/api` and can be extended by adding additional GraphQL schema within `data/schemas`:
+
+#### Get site name and description
+
+`/settings`
+
+#### Get a page
+
+`/page?slug=*`
+
+#### Get a post
+
+`/post?slug=*`
+
+#### Get collection of posts
+
+`/posts?page=*`
+
+#### Get a category and list of posts
+
+`/category?slug=*&page=*`
+
+#### Get an author and list of posts
+
+`/author?name=*&page=*`
+
+#### Get a Gravity Form
+
+`/gravityforms?id=*`
+
+*Please note submitting the Gravity Form is handled by a direct API post request to the WP GF API v2 service inside an action, please view app/actions/gravityforms.js*
