@@ -20,7 +20,7 @@ var externalNodeModules =
 
 module.exports = {
   output: {
-    publicPath: '/public/assets/',
+    publicPath: '/assets/',
     assetsPath: path.join(__dirname, '..', 'public', 'assets'),
     distPath: path.join(__dirname, '..', 'compiled')
   },
