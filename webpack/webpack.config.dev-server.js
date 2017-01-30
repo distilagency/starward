@@ -28,6 +28,9 @@ module.exports = {
       publicPath: publicPath,
       libraryTarget: 'commonjs2'
     },
+    sassLoader: {
+      includePaths: [ '../public/assets/sass' ]
+    },
     module: {
       loaders: commonLoaders.concat({
         test: /\.css$/,
