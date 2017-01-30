@@ -43,6 +43,7 @@ docs/api/
 .env
 
 # Starward
-public/assets/
+public/assets/app.js
+public/assets/app.js.map
 compiled
 config/app.js

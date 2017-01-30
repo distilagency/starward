@@ -25,10 +25,10 @@ var commonLoaders = [
   },
   {
       test: /\.scss$/,
-      loader: 'style!css!postcss!sass',
+      loader: 'style!css?sourceMap!postcss!sass?sourceMap!import-glob',
       include: path.join( __dirname, '..', 'public/assets/sass')
   },
-  { 
+  {
     test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
     loader: 'file-loader?name=fonts/[name].[ext]'
   },

@@ -11,7 +11,7 @@ import BlogPost from './containers/BlogPost';
 import Category from './containers/Category';
 import Author from './containers/Author';
 // fetchWPData contains switch statement based on route name.
-//It's determines which data to load for route on the server
+// It determines which data to load for route on the server
 import { fetchWPData } from './fetch-data';
 
 // Map paths to components
