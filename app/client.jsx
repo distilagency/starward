@@ -8,6 +8,7 @@ import * as types from './actions/types';
 import configureStore from './utils/configureStore';
 import fetchDataForRoute from './utils/fetchDataForRoute';
 import fetchDataForApp from './utils/fetchDataForApp';
+import styles from '../public/assets/sass/styles.scss';
 
 // Grab the state from a global injected into
 // server-generated HTML

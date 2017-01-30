@@ -11,6 +11,8 @@ const createApp = (store, props) => renderToString(
   </Provider>
 );
 
+const styles = '<link rel="stylesheet" href="/assets/css/styles.css">' ;
+
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
   return `
 <!doctype html>
@@ -19,6 +21,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
     ${headAssets.title.toString()}
     ${headAssets.meta.toString()}
     ${headAssets.link.toString()}
+    ${styles}
   </head>
   <body>
     <div id="app">${componentHTML}</div>
