@@ -18,7 +18,7 @@
 - [**Express 4.x**](https://expressjs.com/en/api.html) server
 
 ## Wordpress Dependencies
-Requires Wordpress setup using the following plugins:
+Requires a Wordpress setup using the following plugins:
 - [**WP Rest API**](https://en-au.wordpress.org/plugins/rest-api/)
 - [**WP API Basic Auth**](https://github.com/WP-API/Basic-Auth)
 - [**WP API Menus**](https://en-au.wordpress.org/plugins/wp-api-menus/)
@@ -39,7 +39,7 @@ Optional supported plugins
 Rename `/config/app-template.js` to `/config/app.js`
 
 - `WP_URL` root URL of Wordpress installation
-- `API_URL` root of WP API *(does not require changing from default)*
+- `WP_API` root of WP API *(does not require changing from default)*
 - `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms
 - `POSTS_PER_PAGE` number of posts to be shown on blog, category and author listing pages, default **10**
 - `HOME_SLUG` WP slug for front page, default **homepage**
@@ -74,7 +74,7 @@ Adheres to the same name spacing as the app/components folder, each partial cont
 
 #### /containers
 
-Adheres to the same name spacing as the core app/containers folders, each partial contain the styling for the React/Redux container that does not fit within an individual component partial. App.scss will contain app specific reusable and global styles.
+Adheres to the same name spacing as the core app/containers folders, each partial contain the styling for the React Redux container that does not fit within an individual component partial. App.scss will contain app specific reusable and global styles.
 
 #### /vendor
 
@@ -82,7 +82,7 @@ Contains Bourbon and Bourbon Neat and any other vendor specific styling
 
 ### GraphQL
 
-All data from WP-API is consumed in GraphQL with Graph.ql (https://github.com/matthewmueller/graph.ql), which returns a smaller, more succinct response using Express. The purpose is to reduce the amount of JSON contained within the initial state that gets supplied to the document by the server when running universally.
+All data from WP-API is consumed in GraphQL with the help of Graph.ql (https://github.com/matthewmueller/graph.ql), which returns a smaller, more succinct response using Express. The purpose is to reduce the amount of JSON contained within the initial state that gets supplied to the document by the server when running universally.
 
 The GraphQL schema is located within `data/schemas`
 
