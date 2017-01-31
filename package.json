@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.2.0",
     "eslint-plugin-react": "^6.2.0",
+    "import-glob-loader": "^1.1.0",
     "nodemon": "^1.10.2",
     "null-loader": "^0.1.1",
     "react-addons-test-utils": "^15.4.1",

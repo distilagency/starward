@@ -12,7 +12,7 @@ class Blog extends Component {
   render() {
     const { page, blog, settings, loading, params } = this.props;
     if (loading) return <Loading />;
-    if (!page && !blog) return <FourOhFour />;
+    if (!page || !blog) return <FourOhFour />;
     const { activePosts, categories, totalItems, totalPages } = blog;
     return (
       <main className="content" role="main">

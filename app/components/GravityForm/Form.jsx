@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getForm, updateForm, submitForm } from '../../actions/gravityforms';
-import { RenderFields } from './GravityForm/RenderFields';
-import { Button } from './GravityForm/Button';
-import { FormError } from './GravityForm/FormError';
-import { FormConfirmation } from './GravityForm/FormConfirmation';
+import { RenderFields } from './RenderFields';
+import { Button } from './Button';
+import { FormError } from './FormError';
+import { FormConfirmation } from './FormConfirmation';
 
 class GravityFrom extends Component {
   constructor(props) {

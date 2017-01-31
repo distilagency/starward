@@ -19,21 +19,17 @@ const fetchWPData = (params, routeName) => {
     // App component data using axios.all() https://github.com/mzabriskie/axios#example
     // -- Fetching basic WP settings
     // -- Fetching menu for header component
-    // -- Fetching menu for footer component
     case 'App': {
       return axios.all([
         getSettings(),
-        getMenu('Header'),
-        getMenu('Footer')
+        getMenu('Header')
       ])
       .then(([
         settings,
-        headerMenu,
-        footerMenu
+        headerMenu
       ]) => ({
         settings: settings.data.data.settings,
-        headerMenu: headerMenu.data.data.menu,
-        footerMenu: footerMenu.data.data.menu
+        headerMenu: headerMenu.data.data.menu
       }))
       .catch(error => console.log('error', error));
     }

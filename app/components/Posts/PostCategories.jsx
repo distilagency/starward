@@ -9,7 +9,7 @@ export const PostCategories = props => {
     ))
   );
   return (
-    <div classNames="entry-categories">
+    <div className="entry-categories">
       <p>Posted in: {getPostCategories(categories)}</p>
     </div>
   );

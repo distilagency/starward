@@ -1,0 +1,60 @@
+/*=============================================>>>>>
+= Print Resets =
+===============================================>>>>>*/
+
+@media print {
+
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    text-shadow: none !important;
+    height: auto !important;
+    width: auto !important;
+    float: none !important;
+  }
+
+  nav {
+    display: none !important;
+  }
+
+  a,
+  a:visited {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  a::after {
+    content: ' (' attr(href) ')';
+  }
+
+  abbr::after {
+    content: ' (' attr(title) ')';
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+
+  img {
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 0.2cm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+}
