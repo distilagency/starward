@@ -26,12 +26,12 @@ export default(app) => {
         menu(name: $name) {
           items{
             title,
-            object_slug,
+            url,
             order,
             classes,
             children{
               title,
-              object_slug,
+              url,
               order,
               classes
             }

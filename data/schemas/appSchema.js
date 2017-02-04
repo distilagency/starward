@@ -21,7 +21,7 @@ const appSchema = graphqlSchema(`
   type MenuItem {
     # Menu links
     title: String!,
-    object_slug: String!,
+    url: String!,
     order: Int!,
     classes: String,
     children: [MenuItem]

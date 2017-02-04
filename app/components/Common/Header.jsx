@@ -3,7 +3,8 @@ import Navigation from './Navigation';
 import { Logo } from './Logo';
 
 export const Header = props => {
-  const { siteName, navigation, pathname } = props;
+  const { siteName, navigation, currentPath } = props;
+  console.log('header pathname', currentPath);
   return (
     <header id="banner" role="banner">
       <Logo
@@ -12,7 +13,7 @@ export const Header = props => {
       />
       <Navigation
         items={navigation}
-        currentPath={pathname}
+        currentPath={currentPath}
       />
     </header>
   );
