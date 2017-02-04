@@ -4,7 +4,6 @@ import { Logo } from './Logo';
 
 export const Header = props => {
   const { siteName, navigation, currentPath } = props;
-  console.log('header pathname', currentPath);
   return (
     <header id="banner" role="banner">
       <Logo

@@ -22,8 +22,6 @@ export default class Navigation extends Component {
   }
   render() {
     const { items, currentPath } = this.props;
-    console.log('currentPath', currentPath);
-    console.log('items', items);
     return (
       <nav className="nav_banner" role="navigation">
         <ul>
