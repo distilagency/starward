@@ -3,7 +3,7 @@ import axios from 'axios';
 import { WP_API } from '../../config/app';
 
 /* ----------- WP REST API v2 endpoints ----------- */
-const wpMenusUrl = `${WP_API}/wp-api-menus/v2/menus/`;
+const wpMenusUrl = `${WP_API}/wp-api-menus/v2/menu-locations/`;
 
 /* ----------- GraphQL Schema using graph.ql ----------- */
 const appSchema = graphqlSchema(`
@@ -13,15 +13,10 @@ const appSchema = graphqlSchema(`
     description: String,
   }
 
-  type Menu {
-    # Menu
-    items: [MenuItem]
-  }
-
   type MenuItem {
     # Menu links
     title: String!,
-    object_slug: String!,
+    url: String!,
     order: Int!,
     classes: String,
     children: [MenuItem]
@@ -29,7 +24,7 @@ const appSchema = graphqlSchema(`
 
   type Query {
     settings: Settings
-    menu (name: String): Menu
+    menu (name: String): [MenuItem]
   }
 `, {
   /* ----------- Fetch data for Schema ----------- */
@@ -41,13 +36,8 @@ const appSchema = graphqlSchema(`
       });
     },
     menu(query, args) {
-      return axios.get(wpMenusUrl)
-      .then(({data}) => {
-        const navObject = data.filter(item => item.name === args.name)[0];
-        const navId = navObject.ID;
-        return axios.get(wpMenusUrl + navId)
-        .then(res => res.data);
-      });
+      return axios.get(wpMenusUrl + args.name)
+      .then(({data}) => data);
     },
   }
 });

@@ -24,17 +24,15 @@ export default(app) => {
     appSchema(`
       query get_menu($name: String) {
         menu(name: $name) {
-          items{
+          title,
+          url,
+          order,
+          classes,
+          children{
             title,
-            object_slug,
+            url,
             order,
-            classes,
-            children{
-              title,
-              object_slug,
-              order,
-              classes
-            }
+            classes
           }
         }
       }`, {name: req.query.name})

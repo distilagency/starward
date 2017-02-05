@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { getSlug } from '../../utils/wpHelpers';
 
 export default class Navigation extends Component {
-  getSlug(slug, parentSlug) {
-    if (slug === 'homepage') {
-      return '/';
-    }
-    if (parentSlug) {
-      return `/${parentSlug}/${slug}`;
-    }
-    return `/${slug}`;
+  getClassNames(item, currentPath) {
+    const isActive = getSlug(item.url) === currentPath;
+    return isActive ? `active ${item.classes}` : `${item.classes}`;
   }
-  getClassNames(item, currentPath, parentSlug) {
-    const activeSlug = this.getSlug(item.object_slug, parentSlug);
-    const isActive = activeSlug === currentPath;
-    return isActive ? `active ${item.object_slug} ${item.classes}` : `${item.object_slug} ${item.classes}`;
-  }
-  renderSubNavigation(subItems, parentSlug, currentPath) {
+  renderSubNavigation(subItems, currentPath) {
     return (
       <ul>
         {subItems.map((subItem, index) => (
-          <li key={index} className={this.getClassNames(subItem, currentPath, parentSlug)}>
-            <Link to={this.getSlug(subItem.object_slug, parentSlug)}>
+          <li key={index} className={this.getClassNames(subItem, currentPath)}>
+            <Link to={`${getSlug(subItem.url)}`}>
               {subItem.title}
             </Link>
           </li>
@@ -36,10 +27,10 @@ export default class Navigation extends Component {
         <ul>
           {items.map((item, index) => (
             <li key={index} className={this.getClassNames(item, currentPath)}>
-              <Link to={this.getSlug(item.object_slug)}>
+              <Link to={`${getSlug(item.url)}`}>
                 {item.title}
               </Link>
-              {item.children ? this.renderSubNavigation(item.children, item.object_slug, currentPath) : null}
+              {item.children ? this.renderSubNavigation(item.children, currentPath) : null}
             </li>
           ))}
         </ul>

@@ -5,9 +5,9 @@ import { Title } from '../Content/Title';
 import { RenderContent } from '../Content/RenderContent';
 
 export const HomeContent = props => {
-  const getComponent = (item) => {
+  const getComponent = (item, index) => {
     const ComponentName = Layout[item.acf_fc_layout];
-    return <ComponentName key={item.acf_fc_layout} {...item} />;
+    return <ComponentName key={index} {...item} />;
   };
   const { acf, content, title, seo, siteName } = props;
   if (acf && acf.layout) {
@@ -15,7 +15,7 @@ export const HomeContent = props => {
       <main className="content" role="main">
         <Head {...seo} defaultTitle={`${title} - ${siteName}`} />
         <article>
-          {acf.layout.map(item => getComponent(item))}
+          {acf.layout.map((item, index) => getComponent(item, index))}
         </article>
       </main>
     );

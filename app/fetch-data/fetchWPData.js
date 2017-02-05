@@ -22,7 +22,7 @@ const fetchWPData = (params, routeName) => {
     case 'App': {
       return axios.all([
         getSettings(),
-        getMenu('Header')
+        getMenu('primary_navigation')
       ])
       .then(([
         settings,
@@ -85,7 +85,6 @@ const fetchWPData = (params, routeName) => {
       const pageNumber = params.page ? params.page : 1;
       return getAuthor(params.name, pageNumber)
       .then(res => {
-        console.log('author data', res.data.data.author);
         return res.data.data;
       })
       .catch(error => console.log('error', error));
