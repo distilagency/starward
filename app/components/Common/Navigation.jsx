@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { getWPSlug } from '../../utils/getWPSlug';
+import { getSlug } from '../../utils/wpHelpers';
 
 export default class Navigation extends Component {
   getClassNames(item, currentPath) {
-    const isActive = getWPSlug(item.url) === currentPath;
+    const isActive = getSlug(item.url) === currentPath;
     return isActive ? `active ${item.classes}` : `${item.classes}`;
   }
   renderSubNavigation(subItems, currentPath) {
@@ -12,7 +12,7 @@ export default class Navigation extends Component {
       <ul>
         {subItems.map((subItem, index) => (
           <li key={index} className={this.getClassNames(subItem, currentPath)}>
-            <Link to={`${getWPSlug(subItem.url)}`}>
+            <Link to={`${getSlug(subItem.url)}`}>
               {subItem.title}
             </Link>
           </li>
@@ -27,7 +27,7 @@ export default class Navigation extends Component {
         <ul>
           {items.map((item, index) => (
             <li key={index} className={this.getClassNames(item, currentPath)}>
-              <Link to={`${getWPSlug(item.url)}`}>
+              <Link to={`${getSlug(item.url)}`}>
                 {item.title}
               </Link>
               {item.children ? this.renderSubNavigation(item.children, currentPath) : null}
