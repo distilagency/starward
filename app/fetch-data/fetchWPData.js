@@ -10,10 +10,11 @@ const {
   getPosts,
   getPost,
   getCategory,
-  getAuthor
+  getAuthor,
+  getSearchResults
 } = wpService;
 
-const fetchWPData = (params, routeName) => {
+const fetchWPData = (params, routeName, location) => {
   // Switch statement on routeName from routes.jsx
   switch (routeName) {
     // App component data using axios.all() https://github.com/mzabriskie/axios#example
@@ -88,6 +89,15 @@ const fetchWPData = (params, routeName) => {
         return res.data.data;
       })
       .catch(error => console.log('error', error));
+    }
+    // Search container data
+    case 'Search': {
+      return getSearchResults(location.query.term, location.query.type, location.query.page, location.query.perPage)
+      .then(res => {
+        return {
+          search: res.data.data.search
+        };
+      });
     }
     default:
       return null;

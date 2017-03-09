@@ -1,99 +1,14 @@
-import graphqlSchema from 'graphql_json';
 import axios from 'axios';
 import { WP_API, POSTS_PER_PAGE } from '../../config/app';
 
 /* ----------- WP REST API v2 endpoints ----------- */
-const wpPagesUrl = `${WP_API}/wp/v2/pages`;
-const wpPostsUrl = `${WP_API}/wp/v2/posts`;
-const wpCategoriesUrl = `${WP_API}/wp/v2/categories`;
-const wpUsersUrl = `${WP_API}/wp/v2/users`;
+const WP_API_ROOT = `${WP_API}/wp/v2`;
+const wpPagesUrl = `${WP_API_ROOT}/pages`;
+const wpPostsUrl = `${WP_API_ROOT}/posts`;
+const wpCategoriesUrl = `${WP_API_ROOT}/categories`;
+const wpUsersUrl = `${WP_API_ROOT}/users`;
 
-/* ----------- GraphQL Schema using graph.ql ----------- */
-const wpSchema = graphqlSchema(`
-  type Page {
-    # Page data
-    title: String,
-    content: String,
-    slug: String,
-    yoast: JSON,
-    acf: JSON,
-    featuredImage: FeaturedImage
-  }
-
-  type Posts {
-    # Posts list
-    posts: [Post]
-    categories: [Taxonomy]
-    totalItems: Int
-    totalPages: Int
-  }
-
-  type Category {
-    # Category page
-    details: Taxonomy
-    posts (page: Int): Posts
-  }
-
-  type Author {
-    # Author page
-    details: User
-    posts (page: Int): Posts
-  }
-
-  type Post {
-    # Individual post
-    slug: String,
-    title: String,
-    content: String,
-    excerpt: String,
-    date: String,
-    featuredImage: FeaturedImage,
-    categories: [Taxonomy],
-    author: User,
-    acf: JSON,
-    yoast: JSON,
-    pagination: Pagination
-  }
-
-  type Taxonomy {
-    # Individual taxonomy
-    slug: String,
-    name: String,
-    description: String,
-    parent: Int,
-    count: Int,
-    id: Int
-  }
-
-  type User {
-    # User data
-    id: Int,
-    name: String,
-    slug: String,
-    avatar: JSON
-  }
-
-  type FeaturedImage {
-    # Featured image url and thumbnails
-    alt: String,
-    url: String,
-    sizes: JSON
-  }
-
-  type Pagination {
-    # Next and previous posts on individual post page
-    next: Post,
-    previous: Post
-  }
-
-  type Query {
-    page (slug: String): Page
-    posts (page: Int): Posts
-    category (slug: String, page: Int): Category
-    author (name: String, page: Int): Author
-    post (slug: String): Post
-  }
-`, {
+const wpQueries = {
   /* ----------- Fetch data for Schema ----------- */
   // Page items being mapped to schema keys from WP REST API v2
   // response triggered in the below Query object
@@ -108,22 +23,6 @@ const wpSchema = graphqlSchema(`
       return page.better_featured_image;
     }
   },
-  // Posts list being mapped to schema keys from WP REST API v2
-  // response triggered in the below Query object
-  Posts: {
-    posts(posts) {
-      return posts.active_posts;
-    },
-    categories(posts) {
-      return posts.categories;
-    },
-    totalItems(posts) {
-      return posts.total_items;
-    },
-    totalPages(posts) {
-      return posts.total_pages;
-    }
-  },
   // Category page data being mapped to schema keys from WP REST API v2
   // response triggered in the below Query object
   Category: {
@@ -133,9 +32,9 @@ const wpSchema = graphqlSchema(`
       return axios.get(wpCategoryPostsURL)
       .then(res => {
         return {
-          active_posts: res.data,
-          total_items: res.headers['x-wp-total'],
-          total_pages: res.headers['x-wp-totalpages']
+          items: res.data,
+          totalItems: res.headers['x-wp-total'],
+          totalPages: res.headers['x-wp-totalpages']
         };
       });
     }
@@ -149,9 +48,9 @@ const wpSchema = graphqlSchema(`
       return axios.get(wpAuthorPostsURL)
       .then(res => {
         return {
-          active_posts: res.data,
-          total_items: res.headers['x-wp-total'],
-          total_pages: res.headers['x-wp-totalpages']
+          items: res.data,
+          totalItems: res.headers['x-wp-total'],
+          totalPages: res.headers['x-wp-totalpages']
         };
       });
     }
@@ -229,10 +128,10 @@ const wpSchema = graphqlSchema(`
         categories
       ]) => {
         return {
-          active_posts: posts.data,
+          items: posts.data,
           categories: categories.data,
-          total_items: posts.headers['x-wp-total'],
-          total_pages: posts.headers['x-wp-totalpages']
+          totalItems: posts.headers['x-wp-total'],
+          totalPages: posts.headers['x-wp-totalpages']
         };
       });
     },
@@ -255,8 +154,20 @@ const wpSchema = graphqlSchema(`
     post(query, args) {
       return axios.get(`${wpPostsUrl}?slug=${args.slug}`)
       .then(res => res.data[0]);
+    },
+    search(query, args) {
+      const { type, term, page, perPage } = args;
+      const wpSearchResultsUrl = `${WP_API_ROOT}/${type}?search=${term}&page=${page}&posts_per_page=${perPage}`;
+      return axios.get(wpSearchResultsUrl)
+      .then(res => {
+        return {
+          items: res.data,
+          totalItems: res.headers['x-wp-total'],
+          totalPages: res.headers['x-wp-totalpages']
+        };
+      });
     }
   }
-});
+};
 
-export default wpSchema;
+export default wpQueries;

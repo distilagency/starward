@@ -5,8 +5,9 @@
       "app/fetch-data",
       "app/client.jsx",
       "app/routes.jsx",
+      "config",
+      "graphQL",
       "server",
-      "data",
       "webpack/webpack.config.dev-client.js",
       "webpack/webpack.config.dev-server.js"
     ],

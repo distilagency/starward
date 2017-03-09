@@ -1,13 +1,11 @@
-import appSchema from '../../data/schemas/appSchema';
-import wpSchema from '../../data/schemas/wpSchema';
-import gfSchema from '../../data/schemas/gfSchema';
+import { appSettings, gravityForms, wp } from '../../graphQL';
 
 export default(app) => {
   /* ----------- App API Routes ----------- */
   /* Get Site Name and Description */
   /* Does not require a query param */
   app.get('/api/settings', (req, res) => {
-    appSchema(`
+    appSettings(`
       query{
         settings{
           name,
@@ -21,7 +19,7 @@ export default(app) => {
   /* Get Menu */
   /* Expects query param ?name= (?name=Header) */
   app.get('/api/menu', (req, res) => {
-    appSchema(`
+    appSettings(`
       query get_menu($name: String) {
         menu(name: $name) {
           title,
@@ -43,7 +41,7 @@ export default(app) => {
   /* Get Page */
   /* Expects query param ?slug= */
   app.get('/api/page', (req, res) => {
-    wpSchema(`
+    wp(`
       query get_page($slug: String) {
         active_page: page(slug: $slug) {
           title,
@@ -64,10 +62,10 @@ export default(app) => {
   /* Get Collection of Posts */
   /* Expects query param ?page= */
   app.get('/api/posts', (req, res) => {
-    wpSchema(`
+    wp(`
       query get_posts($page: Int) {
         posts(page: $page) {
-          activePosts: posts{
+          items{
             slug,
             title,
             content,
@@ -102,7 +100,7 @@ export default(app) => {
   /* Get Individual Post */
   /* Expects query param ?slug= */
   app.get('/api/post', (req, res) => {
-    wpSchema(`
+    wp(`
       query get_post($slug: String) {
         activePost: post(slug: $slug){
           slug,
@@ -154,7 +152,7 @@ export default(app) => {
   /* Get Category and Collection of Posts */
   /* Expects query param ?slug= && ?page= */
   app.get('/api/category', (req, res) => {
-    wpSchema(`
+    wp(`
       query get_category($slug: String, $page: Int) {
         category(slug: $slug) {
           details{
@@ -164,7 +162,7 @@ export default(app) => {
             id
           }
           posts(page: $page){
-            activePosts: posts{
+            items{
               slug,
               title,
               content,
@@ -194,7 +192,7 @@ export default(app) => {
   /* Get Author and Collection of Posts */
   /* Expects query param ?name && ?page= */
   app.get('/api/author', (req, res) => {
-    wpSchema(`
+    wp(`
       query get_author($name: String, $page: Int) {
         author(name: $name) {
           details{
@@ -203,7 +201,7 @@ export default(app) => {
             id
           }
           posts(page: $page){
-            activePosts: posts{
+            items{
               slug,
               title,
               content,
@@ -230,11 +228,43 @@ export default(app) => {
     .then(data => res.json(data))
     .catch(err => res.json(err));
   });
+  /* Perform search and return results */
+  /* Expects query param ?term= (OPTIONAL = ?type= && ?page= && ?perPage=) */
+  app.get('/api/search', (req, res) => {
+    wp(`
+      query search($term: String, $type: String, $page: Int, $perPage: Int) {
+        search(term: $term, type: $type, page: $page, perPage: $perPage) {
+          items{
+            slug,
+            title,
+            content,
+            featuredImage{
+              alt,
+              url,
+              sizes
+            },
+            acf,
+            categories{
+              name,
+              slug
+            },
+            author{
+              name,
+              avatar
+            }
+          },
+          totalItems,
+          totalPages
+        }
+      }`, {term: req.query.term, type: req.query.type, page: req.query.page, perPage: req.query.perPage})
+    .then(data => res.json(data))
+    .catch(err => res.json(err));
+  });
   /* ----------- Gravity Forms Endpoints ----------- */
   /* Get Gravity Form */
   /* Expects query param ?id= */
   app.get('/api/gravityforms', (req, res) => {
-    gfSchema(`
+    gravityForms(`
       query get_form($id: Int) {
         form(id: $id) {
           title,
