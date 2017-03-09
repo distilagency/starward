@@ -9,6 +9,7 @@ export const HOME_SLUG = 'homepage';
 export const BLOG_SLUG = 'blog';
 export const CATEGORY_SLUG = 'category';
 export const AUTHOR_SLUG = 'author';
+export const SEARCH_SLUG = 'search';
 
 // Starward
 export const baseURL = `http://${HOST}:${PORT}`;

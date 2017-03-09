@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BLOG_SLUG } from '../../config/app';
+import { SEARCH_SLUG } from '../../config/app';
 import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
-import { RenderContent } from '../components/Content/RenderContent';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 import { PostList } from '../components/Posts/PostList.jsx';
+import SearchForm from '../components/Search/SearchForm';
 
-class Blog extends Component {
+class Search extends Component {
   render() {
-    const { page, blog, settings, loading, params } = this.props;
+    const { search, settings, loading, params } = this.props;
     if (loading) return <Loading />;
-    if (!page || !blog) return <FourOhFour />;
-    const { items, categories, totalItems, totalPages } = blog;
+    if (!search) return <FourOhFour />;
+    const { items, totalItems, totalPages } = search;
     return (
       <main className="content" role="main">
-        <Head {...page.seo} defaultTitle={`${page.title} - ${settings.name}`} />
-        <Title title={page.title} />
-        <RenderContent content={page.content} />
+        <Head defaultTitle={`${this.props.location.query.term} - ${settings.name}`} />
+        <Title title={`Search results for ${this.props.location.query.term}`} />
+        <SearchForm />
         <PostList
           posts={items}
-          categories={categories}
           totalItems={totalItems}
           totalPages={totalPages}
-          urlBase={BLOG_SLUG}
+          urlBase={SEARCH_SLUG}
           currentPage={params.page}
          />
       </main>
@@ -33,13 +32,12 @@ class Blog extends Component {
 }
 
 function mapStateToProps({starward, loading}) {
-  const { page, posts, settings } = starward;
+  const { search, settings } = starward;
   return {
     loading,
-    page,
     settings,
-    blog: posts
+    search
   };
 }
 
-export default connect(mapStateToProps, { })(Blog);
+export default connect(mapStateToProps, { })(Search);

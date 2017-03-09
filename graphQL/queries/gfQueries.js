@@ -1,39 +1,13 @@
-import graphqlSchema from 'graphql_json';
 import axios from 'axios';
 import { WP_API, WP_AUTH } from '../../config/app';
 
+/* ----------- Basic auth required for Gravity Forms ----------- */
 const auth = { Authorization: `Basic ${WP_AUTH}` };
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const gravityFormApi = `${WP_API}/gf/v2/forms`;
 
-/* ----------- GraphQL Schema using graph.ql ----------- */
-const gfSchema = graphqlSchema(`
-  type Form {
-    # Gravity Forms form data
-    title: String,
-    description: String,
-    button: String,
-    confirmation: String,
-    fields: [Field]
-  }
-
-  type Field {
-    # Form field
-    type: String,
-    id: Int,
-    label: String,
-    placeholder: String,
-    cssClass: String,
-    visibility: String,
-    isRequired: Boolean,
-    choices: JSON
-  }
-
-  type Query {
-    form(id: Int): Form
-  }
-`, {
+const gfQueries = {
   /* ----------- Fetch data for Schema ----------- */
   // Form items being mapped to schema keys from Gravity Forms API
   // response triggered in the below Query object
@@ -56,6 +30,6 @@ const gfSchema = graphqlSchema(`
       .catch(error => console.log('GF Error', error));
     }
   }
-});
+};
 
-export default gfSchema;
+export default gfQueries;

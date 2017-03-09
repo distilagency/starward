@@ -6,7 +6,7 @@ import { Button } from './Button';
 import { FormError } from './FormError';
 import { FormConfirmation } from './FormConfirmation';
 
-class GravityFrom extends Component {
+class GravityForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,4 +79,4 @@ const mapStateToProps = ({gravityforms}) => {
   };
 };
 
-export default connect(mapStateToProps, { getForm, updateForm, submitForm })(GravityFrom);
+export default connect(mapStateToProps, { getForm, updateForm, submitForm })(GravityForm);

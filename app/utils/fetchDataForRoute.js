@@ -1,10 +1,10 @@
 const defaultFetchData = () => Promise.resolve();
 
-function fetchDataForRoute({ routes, params }) {
+function fetchDataForRoute({ routes, params, location }) {
   const matchedRoute = routes[routes.length - 1];
   const routeName = matchedRoute.name;
   const fetchDataHandler = matchedRoute.fetchData || defaultFetchData;
-  return fetchDataHandler(params, routeName);
+  return fetchDataHandler(params, routeName, location);
 }
 
 export default fetchDataForRoute;

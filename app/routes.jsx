@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 // Global URLs determined in app.js configuration
-import { BLOG_SLUG, CATEGORY_SLUG, AUTHOR_SLUG } from '../config/app';
+import { BLOG_SLUG, CATEGORY_SLUG, AUTHOR_SLUG, SEARCH_SLUG } from '../config/app';
 // Import containers used for below routes
 import App from './containers/App';
 import Home from './containers/Home';
@@ -10,6 +10,7 @@ import Blog from './containers/Blog';
 import BlogPost from './containers/BlogPost';
 import Category from './containers/Category';
 import Author from './containers/Author';
+import Search from './containers/Search';
 // fetchWPData contains switch statement based on route name.
 // It determines which data to load for route on the server
 import { fetchWPData } from './fetch-data';
@@ -30,6 +31,7 @@ export default (store) => {
       <Route path={`/${CATEGORY_SLUG}/:slug/page/:page`} component={Category} name="Category" fetchData={fetchWPData} />
       <Route path={`/${AUTHOR_SLUG}/:name`} component={Author} name="Author" fetchData={fetchWPData} />
       <Route path={`/${AUTHOR_SLUG}/:name/page/:page`} component={Author} name="Author" fetchData={fetchWPData} />
+      <Route path={`/${SEARCH_SLUG}`} component={Search} name="Search" fetchData={fetchWPData} />
       <Route path="*" component={Page} name="Page" fetchData={fetchWPData} />
     </Route>
   );

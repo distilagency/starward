@@ -1,32 +1,10 @@
-import graphqlSchema from 'graphql_json';
 import axios from 'axios';
 import { WP_API } from '../../config/app';
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const wpMenusUrl = `${WP_API}/wp-api-menus/v2/menu-locations/`;
 
-/* ----------- GraphQL Schema using graph.ql ----------- */
-const appSchema = graphqlSchema(`
-  type Settings {
-    # WP generic data
-    name: String!,
-    description: String,
-  }
-
-  type MenuItem {
-    # Menu links
-    title: String!,
-    url: String!,
-    order: Int!,
-    classes: String,
-    children: [MenuItem]
-  }
-
-  type Query {
-    settings: Settings
-    menu (name: String): [MenuItem]
-  }
-`, {
+const appQueries = {
   /* ----------- Fetch data for Schema ----------- */
   Query: {
     settings() {
@@ -40,6 +18,6 @@ const appSchema = graphqlSchema(`
       .then(({data}) => data);
     },
   }
-});
+};
 
-export default appSchema;
+export default appQueries;

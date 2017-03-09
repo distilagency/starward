@@ -13,13 +13,13 @@ class Category extends Component {
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
     const { details, posts } = category;
-    const { activePosts, totalItems, totalPages } = posts;
+    const { items, totalItems, totalPages } = posts;
     return (
       <main className="content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
         <Title title={details.name} />
         <PostList
-          posts={activePosts}
+          posts={items}
           totalItems={totalItems}
           totalPages={totalPages}
           urlBase={`${CATEGORY_SLUG}/${params.slug}`}
