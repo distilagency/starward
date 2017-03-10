@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header } from '../components/Common/Header';
 import { Footer } from '../components/Common/Footer';
+import { TrackingScript } from '../components/Common/TrackingScript';
 
 class App extends Component {
   render() {
@@ -16,6 +17,10 @@ class App extends Component {
         />
         {children}
         <Footer siteName={settings.name} />
+        <TrackingScript
+          type={!settings.trackingType ? 'none' : settings.trackingType}
+          id={!settings.trackingId ? '' : settings.trackingId}
+        />
       </div>
     );
   }

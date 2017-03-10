@@ -3,7 +3,6 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
-import { createAppScript, createTrackingScript } from './createScripts';
 
 const createApp = (store, props) => renderToString(
   <Provider store={store}>
@@ -26,8 +25,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
   <body>
     <div id="app">${componentHTML}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
-    ${createTrackingScript()}
-    ${createAppScript()}
+    <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
   </body>
 </html>`;
 };
