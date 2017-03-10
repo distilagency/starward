@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { wpService } from './services';
-import { HOME_SLUG, BLOG_SLUG } from '../../config/app';
+import { SITE_NAME, HOME_SLUG, BLOG_SLUG } from '../../config/app';
 
 // GraphQL WP API Services using axios.get() https://github.com/mzabriskie/axios#example
 const {
@@ -29,7 +29,7 @@ const fetchWPData = (params, routeName, location) => {
         settings,
         headerMenu
       ]) => ({
-        settings: !settings.data.data.settings ? { name: 'Starward' } : settings.data.data.settings,
+        settings: !settings.data.data.settings ? { name: SITE_NAME } : settings.data.data.settings,
         headerMenu: headerMenu.data.data.menu
       }))
       .catch(error => console.log('error', error));
