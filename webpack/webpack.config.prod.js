@@ -49,9 +49,9 @@ module.exports = [
     },
     module: {
       loaders: commonLoaders.concat(
-        { 
-          test: /\.scss$/i, 
-          loader: ExtractTextPlugin.extract(['css','sass']) 
+        {
+          test: /\.scss$/i,
+          loader: ExtractTextPlugin.extract(['css','sass','import-glob'])
         }
       )
     },
