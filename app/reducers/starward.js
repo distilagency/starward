@@ -3,8 +3,10 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  page: {},
   settings: {},
+  page: {},
+  posts: {},
+  search: {}
 };
 
 export default function (state = INITIAL_STATE, action) {

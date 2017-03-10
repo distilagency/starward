@@ -3,7 +3,15 @@ const appSchema = `
   type Settings {
     # WP generic data
     name: String!,
-    description: String,
+    emailAddress: String,
+    phoneNumber: String,
+    faxNumber: String,
+    officeAddress: String,
+    socialLinks: JSON,
+    trackingType: String,
+    trackingId: String,
+    googleMapsApiKey: String,
+    additionalScripts: String
   }
 
   type MenuItem {

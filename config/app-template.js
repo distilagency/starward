@@ -21,7 +21,3 @@ export const ROOT_API = `${baseURL}/api`;
 export const isProduction = ENV === 'production';
 export const isDebug = ENV === 'development';
 export const isClient = typeof window !== 'undefined';
-
-// Google Analytics
-// Replace with 'UA-########-#' or similar to enable tracking
-export const trackingID = null;

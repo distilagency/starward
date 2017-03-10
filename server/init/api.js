@@ -9,7 +9,15 @@ export default(app) => {
       query{
         settings{
           name,
-          description
+          emailAddress,
+          phoneNumber,
+          faxNumber,
+          officeAddress,
+          socialLinks,
+          trackingType,
+          trackingId,
+          googleMapsApiKey,
+          additionalScripts
         }
       }
     `)

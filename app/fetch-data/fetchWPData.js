@@ -29,7 +29,7 @@ const fetchWPData = (params, routeName, location) => {
         settings,
         headerMenu
       ]) => ({
-        settings: settings.data.data.settings,
+        settings: !settings.data.data.settings ? { name: 'Starward' } : settings.data.data.settings,
         headerMenu: headerMenu.data.data.menu
       }))
       .catch(error => console.log('error', error));
