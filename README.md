@@ -126,6 +126,10 @@ Pulls data from a [custom option page](https://www.advancedcustomfields.com/reso
 
 `GET: api/author?name=*&page=*`
 
+#### Get results from a search request
+
+`GET: api/search?term=SEARCH_TERM&type=posts&page=1&perPage=10`
+
 #### Get a Gravity Form
 
 `GET: api/gravityforms?id=*`
