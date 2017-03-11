@@ -26,9 +26,12 @@ Requires a Wordpress setup using the following plugins:
 - [**Yoast SEO**](https://yoast.com/wordpress/plugins/seo/)
 - [**WP REST API Yoast SEO**](https://en-au.wordpress.org/plugins/wp-api-yoast-meta/)
 
-Optional supported plugins
-- [**ACF/ACF Pro**](https://www.advancedcustomfields.com/pro/)
+**Strongly** recommended plugins
+- [**ACF Pro**](https://www.advancedcustomfields.com/pro/)
 - [**ACF to REST API**](https://en-au.wordpress.org/plugins/acf-to-rest-api/)
+
+Optional supported plugins
+- [**ACF**](https://www.advancedcustomfields.com/)
 - [**Gravity Forms**](http://www.gravityforms.com/)
 - [**Gravity Forms REST API v2**](https://www.gravityhelp.com/gravity-forms-rest-api-v2-beta-2-released/)
 
@@ -38,6 +41,7 @@ Optional supported plugins
 
 Rename `/config/app-template.js` to `/config/app.js`
 
+- `SITE_NAME` fallback site name if ACF options page is unavailable
 - `WP_URL` root URL of Wordpress installation
 - `WP_API` root of WP API *(does not require changing from default)*
 - `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms
@@ -47,7 +51,13 @@ Rename `/config/app-template.js` to `/config/app.js`
 - `CATEGORY_SLUG` desired root slug for category pages, default **category**
 - `AUTHOR_SLUG` desired root slug for author pages, default **author**
 - `ROOT_API` GraphQL root URL *(does not require changing from default)*
-- `trackingID` Google Analytics tracking ID, replace with 'UA-########-#'
+
+### Quick and dirty ACF Pro Setup
+
+Two ready to import [JSON field groups](https://support.advancedcustomfields.com/forums/topic/import-export-fields-groups/) are located here `/wp/ACF`:
+
+- `page_flexible_content.json` - Component based (`/app/components/ACF/layout`) field group using the native ACF PRO flexible content field
+- `settings_option_page.json` - Generic setting fields designed for a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) within Wordpress and accessible from the GraphQL endpoint `/api/settings`
 
 ### Running Server
 `yarn && yarn dev`
@@ -90,32 +100,34 @@ The Express endpoints are defined within `server/init/graphql.js`
 
 Out of the box the following API requests can be made to the API server `localhost:3000/api` and can be extended by adding additional GraphQL schema within `data/schemas`:
 
-#### Get site name and description
+#### Get site settings from ACF PRO options page
 
-`/settings`
+Pulls data from a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) with the following ACF fields `/wp/ACF/settings_option_page.json`
+
+`GET: api/settings`
 
 #### Get a page
 
-`/page?slug=*`
+`GET: api/page?slug=*`
 
 #### Get a post
 
-`/post?slug=*`
+`GET: api/post?slug=*`
 
 #### Get collection of posts
 
-`/posts?page=*`
+`GET: api/posts?page=*`
 
 #### Get a category and list of posts
 
-`/category?slug=*&page=*`
+`GET: api/category?slug=*&page=*`
 
 #### Get an author and list of posts
 
-`/author?name=*&page=*`
+`GET: api/author?name=*&page=*`
 
 #### Get a Gravity Form
 
-`/gravityforms?id=*`
+`GET: api/gravityforms?id=*`
 
 *Please note submitting the Gravity Form is handled by a direct API post request to the WP GF API v2 service inside an action, please view app/actions/gravityforms.js*
