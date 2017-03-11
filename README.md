@@ -76,7 +76,7 @@ Boilerplate partials including a reset, default typography rules, grid, print an
 
 #### /helpers
 
-For storing mixins, functions and other Sass tools used across the project including *_variables.scss* and *_animations.scss*
+For storing mixins, functions and other Sass tools used across the project
 
 #### /components
 
@@ -94,15 +94,15 @@ Contains Bourbon and Bourbon Neat and any other vendor specific styling
 
 All data from WP-API is consumed in GraphQL with the help of Graph.ql (https://github.com/matthewmueller/graph.ql), which returns a smaller, more succinct response using Express. The purpose is to reduce the amount of JSON contained within the initial state that gets supplied to the document by the server when running universally.
 
-The GraphQL schema is located within `data/schemas`
+The GraphQL schemas and queries are located within `/graphQL`
 
-The Express endpoints are defined within `server/init/graphql.js`
+The GraphQL API endpoints are defined within `server/init/api.js`
 
-Out of the box the following API requests can be made to the API server `localhost:3000/api` and can be extended by adding additional GraphQL schema within `data/schemas`:
+Out of the box the following API requests can be made to the API server `localhost:3000/api` and can be extended by adding additional GraphQL schema within `/graphQL`:
 
 #### Get site settings from ACF PRO options page
 
-Pulls data from a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) with the following ACF fields `/wp/ACF/settings_option_page.json`
+Pulls data from a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) containing the following ACF fields `/wp/ACF/settings_option_page.json`
 
 `GET: api/settings`
 
