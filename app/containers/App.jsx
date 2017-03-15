@@ -12,7 +12,7 @@ class App extends Component {
       <div>
         <Header
           siteName={settings.name}
-          navigation={headerMenu.length > 0 ? headerMenu : []}
+          navigation={headerMenu && headerMenu.length > 0 ? headerMenu : []}
           currentPath={location.pathname}
         />
         {children}
