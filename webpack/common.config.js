@@ -47,7 +47,8 @@ module.exports = {
     },
     { test: /\.json$/, loader: 'json-loader' },
 
-    { test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
+    {
+      test: /\.(ttf|woff(2)?|eot)(\?.*$|$)/,
       loader: 'file-loader?name=fonts/[name].[ext]'
     },
     { test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/, loader: "file-loader" }

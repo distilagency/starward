@@ -9,7 +9,11 @@ export const PostMeta = props => {
       <time className="updated" dateTime={moment(date).format('YYYY-MM-DD HH:mm')}>
         Posted {moment(date).calendar()}
       </time>
-      <p className="byline author vcard">By <Link to={`/author/${author.slug}`} rel="author" className="fn">{author.name}</Link></p>
+      {author ?
+        <p className="byline author vcard">
+          By <Link to={`/author/${author.slug}`} rel="author" className="fn">{author.name}</Link>
+        </p>
+      : <span /> }
     </div>
   );
 };

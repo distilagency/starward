@@ -30,7 +30,7 @@ export default class Navigation extends Component {
               <Link to={`${getSlug(item.url)}`}>
                 {item.title}
               </Link>
-              {item.children ? this.renderSubNavigation(item.children, currentPath) : null}
+              {item.children && item.children.length > 0 ? this.renderSubNavigation(item.children, currentPath) : null}
             </li>
           ))}
         </ul>

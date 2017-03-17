@@ -286,6 +286,8 @@ export default(app) => {
             placeholder,
             classes: cssClass,
             required: isRequired,
+            prePopulated,
+            prePopulatedParam,
             choices
           }
         }

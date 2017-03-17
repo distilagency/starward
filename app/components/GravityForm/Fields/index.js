@@ -7,3 +7,4 @@ export Select from './Select';
 export Text from './Text';
 export Textarea from './Textarea';
 export Website from './Website';
+export Hidden from './Hidden';

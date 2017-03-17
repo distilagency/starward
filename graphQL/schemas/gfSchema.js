@@ -18,6 +18,8 @@ const gfSchema = `
     cssClass: String,
     visibility: String,
     isRequired: Boolean,
+    prePopulated: Boolean,
+    prePopulatedParam: String,
     choices: JSON
   }
 

@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 };
 
 const isValid = (fields) => {
-  if (fields.length > 0) return Object.values(fields).every(field => field.valid);
+  if (fields.length > 0) return Object.keys(fields).every(key => fields[key].valid);
   return false;
 };
 

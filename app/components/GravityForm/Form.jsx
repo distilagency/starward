@@ -37,8 +37,9 @@ class GravityForm extends Component {
     } else this.setState({submitFailed: true});
   }
   render() {
-    const { gravityforms, showTitle, showDescription } = this.props;
+    const { gravityforms, formId, showTitle, showDescription } = this.props;
     const { activeForm, formValues, loading, submitSuccess, isValid } = gravityforms;
+    if (!activeForm) return <span>Form Not Found with ID {formId}</span>;
     const { title, description, button, fields, confirmation } = activeForm;
     const { submitFailed } = this.state;
     if (!fields) return null;

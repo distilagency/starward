@@ -20,6 +20,14 @@ const gfQueries = {
       return form.button.text;
     }
   },
+  Field: {
+    prePopulated(field) {
+      return field.allowsPrepopulate;
+    },
+    prePopulatedParam(field) {
+      return field.inputName;
+    }
+  },
   Query: {
     form(id, args) {
       const formApiURL = `${gravityFormApi}/${args.id}`;
