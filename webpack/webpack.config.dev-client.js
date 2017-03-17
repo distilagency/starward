@@ -25,7 +25,7 @@ var commonLoaders = [
   },
   {
     test: /\.scss$/,
-    loader: 'style!css?sourceMap!sass?sourceMap&sourceComments!import-glob',
+    loader: 'style!css!sass!import-glob',
     include: path.join( __dirname, '..', 'public/assets/sass')
   },
   {
