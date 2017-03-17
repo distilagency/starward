@@ -29,7 +29,7 @@ var commonLoaders = [
     include: path.join( __dirname, '..', 'public/assets/sass')
   },
   {
-    test: /\.(ttf|woff(2)?|eot)(\?[a-z0-9]+)?$/,
+    test: /\.(ttf|woff(2)?|eot)(\?.*$|$)/,
     loader: 'file-loader?name=fonts/[name].[ext]'
   },
   {
