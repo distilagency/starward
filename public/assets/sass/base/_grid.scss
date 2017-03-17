@@ -12,20 +12,20 @@ $default-feature:     max-width;
 
 // ----- Define breakpoints ----- //
 
-$large-desktop:       1280px;
-$desktop:             880px;
-$tablet:              680px;
-$mobile:              380px;
+$large-desktop-breakpoint:  1600px;
+$desktop-breakpoint:        1300px;
+$tablet-breakpoint:         1080px;
+$mobile-breakpoint:         80px;
 
-$large-desktop-down:  new-breakpoint(max-width ($large-desktop + 440px) 12);
-$desktop-down:        new-breakpoint(max-width ($desktop + 440px) 12);
-$tablet-down:         new-breakpoint(max-width ($tablet + 440px) 12);
-$mobile-down:         new-breakpoint(max-width ($mobile + 440px) 4);
+$large-desktop-down:        new-breakpoint(max-width ($large-desktop-breakpoint) 12);
+$desktop-down:              new-breakpoint(max-width ($desktop-breakpoint) 12);
+$tablet-down:               new-breakpoint(max-width ($tablet-breakpoint) 12);
+$mobile-down:               new-breakpoint(max-width ($mobile-breakpoint) 4);
 
-$large-desktop-up:    new-breakpoint(min-width $large-desktop 12);
-$desktop-up:          new-breakpoint(min-width $desktop 12);
-$tablet-up:           new-breakpoint(min-width $tablet 12);
-$mobile-up:           new-breakpoint(min-width $mobile 12);
+$large-desktop-up:          new-breakpoint(min-width $large-desktop-breakpoint 12);
+$desktop-up:                new-breakpoint(min-width $desktop-breakpoint 12);
+$tablet-up:                 new-breakpoint(min-width $tablet-breakpoint 12);
+$mobile-up:                 new-breakpoint(min-width $mobile-breakpoint 12);
 
 
 // --------------------------------------------------------------------------
