@@ -14,7 +14,7 @@ class GravityForm extends Component {
     };
   }
   componentWillMount() {
-    this.props.getForm(this.props.formId);
+    if (!this.props.gravityforms[this.props.formId]) this.props.getForm(this.props.formId);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.formId !== nextProps.formId) {
@@ -27,24 +27,34 @@ class GravityForm extends Component {
     return 'active';
   }
   updateFormHandler(value, field, valid) {
-    this.props.updateForm(value, field, valid);
+    this.props.updateForm(value, field, valid, this.props.formId);
   }
   submit(event) {
     event.preventDefault();
-    if (this.props.gravityforms.isValid) {
+    const {formId, gravityforms} = this.props;
+    if (gravityforms[formId].isValid) {
       this.setState({submitFailed: false});
-      this.props.submitForm(this.props.formId, this.props.gravityforms.formValues);
+      this.props.submitForm(formId, gravityforms[formId].formValues);
     } else this.setState({submitFailed: true});
   }
   render() {
     const { gravityforms, formId, showTitle, showDescription } = this.props;
-    const { activeForm, formValues, loading, submitSuccess, isValid } = gravityforms;
-    if (!activeForm) return <span>Form Not Found with ID {formId}</span>;
+    // Handle no form with formId
+    if (!gravityforms[formId]) return <p>No form found with ID {formId}</p>;
+    // Pluck values from Gravity Form API response made in componentWillMount
+    const { activeForm, formValues, loading, submitting, submitSuccess, isValid } = gravityforms[formId];
+    // Handle form loading
+    if (loading) return <p className="loading">Loading</p>;
+    // Handle error
+    if (!activeForm) return <span>Something went wrong loading form with ID: {formId}</span>;
+    // Pluck values from activeForm in the Gravity Forms API response
     const { title, description, button, fields, confirmation } = activeForm;
+    // Submit failed watcher
     const { submitFailed } = this.state;
-    if (!fields) return null;
+    // Handle form with zero fields
+    if (!fields) return <span>Form with ID {formId} has no fields</span>;
     return (
-      <div className="form">
+      <div className="form" id={`gravity_form_${formId}`}>
         {showTitle ? <h3 className="form_title">{title}</h3> : null}
         {showDescription ? <p className="form_description">{description}</p> : null}
         <FormError
@@ -66,7 +76,7 @@ class GravityForm extends Component {
           <Button
             text={button}
             className={this.getButtonClasses(isValid, loading)}
-            showLoading={loading}
+            showLoading={submitting}
           />
         </form>
       </div>
