@@ -1,12 +1,42 @@
 /*=============================================>>>>>
-= Global variables =
+= Body font colour =
 ===============================================>>>>>*/
 $textcolor: #222;
+/*=============================================>>>>>
+= Brand colours =
+===============================================>>>>>*/
+$primary: #D95B43;
+$secondary: #EBD077;
+$tertiary: #54777B;
+$highlight: #542537;
+$primary-darker: darken($primary, 5%);
+$secondary-darker: darken($secondary, 5%);
+$tertiary-darker: darken($tertiary, 5%);
+$highlight-darker: darken($highlight, 5%);
 
 /*=============================================>>>>>
-= Colours =
+= Black/white =
 ===============================================>>>>>*/
-$black: #000;
-$white: #FFF;
-$grey: #BBB;
-$lightGrey: #EEE;
+$white: #ffffff;
+$black: #000000;
+$off-white: #f2f2f2;
+$off-black: #1a1a1a;
+
+/*=============================================>>>>>
+= User noticiation colours =
+===============================================>>>>>*/
+$success: #5cb85c;
+$warning: #f0ad4e;
+$error: #d9534f;
+
+/*=============================================>>>>>
+= Social colours =
+===============================================>>>>>*/
+$twitter-hex: #00aced;
+$facebook-hex: #3b5998;
+$linkedin-hex: #007bb6;
+$youtube-hex: #bb0000;
+$tumblr-hex: #32506d;
+$instagram-hex: #517fa4;
+$vimeo-hex: #aad450;
+$lastfm-hex: #D51007;
