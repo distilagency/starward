@@ -31,9 +31,9 @@ export default class Select extends Component {
   }
   render() {
     const { field, value, submitFailed, isValid } = this.props;
-    const { id, choices, label, placeholder, required } = field;
+    const { id, choices, label, classes, placeholder, required } = field;
     return (
-      <div className={!isValid && submitFailed ? 'field error' : 'field'}>
+      <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="select">
           <label htmlFor={id}>
             {label}{required ? <abbr>*</abbr> : null}

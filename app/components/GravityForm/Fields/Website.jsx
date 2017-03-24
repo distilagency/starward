@@ -18,15 +18,16 @@ export default class Website extends Component {
   }
   render() {
     const { field, value, submitFailed, isValid } = this.props;
-    const { id, type, label, placeholder, required, maxLength } = field;
+    const { id, type, label, classes, placeholder, required, maxLength } = field;
     return (
-      <div className={!isValid && submitFailed ? 'field error' : 'field'}>
+      <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="text">
-          <label>
+          <label htmlFor={id}>
             {label}{required ? <abbr>*</abbr> : null}
             <input
               type={type}
               value={value}
+              id={id}
               placeholder={placeholder}
               maxLength={maxLength}
               required={required}
