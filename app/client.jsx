@@ -37,6 +37,9 @@ function onUpdate() {
     window.__INITIAL_STATE__ = null;
     return;
   }
+  // Reset scroll position
+  window.scrollTo(0, 0);
+  // Handle data fetcher Redux actions
   store.dispatch({ type: types.CREATE_REQUEST });
   if (this.state.routes[0].name === 'App') {
     fetchDataForApp(this.state)
