@@ -9,7 +9,7 @@ class App extends Component {
     const { children, starward, location } = this.props;
     const { settings, headerMenu } = starward;
     return (
-      <div>
+      <div className={location.pathname === '/' ? 'home' : location.pathname.replace(/\//g, '')}>
         <Header
           siteName={settings.name}
           navigation={headerMenu && headerMenu.length > 0 ? headerMenu : []}
