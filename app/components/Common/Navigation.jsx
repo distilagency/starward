@@ -7,13 +7,21 @@ export default class Navigation extends Component {
     const isActive = getSlug(item.url) === currentPath;
     return isActive ? `active ${item.classes}` : `${item.classes}`;
   }
+  getLink(item) {
+    // External Link Case
+    if (item.classes && item.classes.indexOf('external') !== -1) {
+      return <a href={`${getSlug(item.url)}`} target="_blank" rel="noopener noreferrer">{item.title.replace(/&#038;/g, '&')}</a>;
+    }
+    // Internal Link Case
+    return <Link to={`${getSlug(item.url)}`}>{item.title.replace(/&#038;/g, '&')}</Link>;
+  }
   renderSubNavigation(subItems, currentPath) {
     return (
       <ul>
         {subItems.map((subItem, index) => (
           <li key={index} className={this.getClassNames(subItem, currentPath)}>
             <Link to={`${getSlug(subItem.url)}`}>
-              {subItem.title}
+              {this.getLink(subItem)}
             </Link>
           </li>
         ))}
@@ -28,7 +36,7 @@ export default class Navigation extends Component {
           {items.map((item, index) => (
             <li key={index} className={this.getClassNames(item, currentPath)}>
               <Link to={`${getSlug(item.url)}`}>
-                {item.title}
+                {this.getLink(item)}
               </Link>
               {item.children && item.children.length > 0 ? this.renderSubNavigation(item.children, currentPath) : null}
             </li>
