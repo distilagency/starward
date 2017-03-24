@@ -43,7 +43,18 @@ docs/api/
 .env
 
 # Starward
-public/assets/app.js
-public/assets/app.js.map
+public/assets/*
+!public/assets/css/
+public/assets/css/.DS_Store
+!public/assets/fonts/
+public/assets/fonts/.DS_Store
+!public/assets/images/
+public/assets/images/.DS_Store
+!public/assets/sass/
+public/assets/sass/.DS_Store
+public/assets/sass/*/.DS_Store
+public/assets/sass/*/*/.DS_Store
+public/assets/sass/*/*/*/.DS_Store
+public/assets/sass/*/*/*/.DS_Store
 compiled
 config/app.js

@@ -53,7 +53,7 @@ class GravityForm extends Component {
         />
         <FormConfirmation
           confirmation={confirmation}
-          showConfirmation={confirmation && !submitFailed}
+          showConfirmation={submitSuccess && confirmation}
         />
         <form onSubmit={(event) => this.submit(event)} noValidate>
           <RenderFields
