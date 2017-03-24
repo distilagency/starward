@@ -1,16 +1,13 @@
 import {
   GET_FORM,
+  GET_FORM_SUCCESS,
+  GET_FORM_FAILURE,
   UPDATE_FORM,
   SUBMIT_FORM,
   SUBMIT_FORM_SUCCESS
 } from '../actions/types/';
 
-const INITIAL_STATE = {
-  activeForm: {},
-  formValues: [],
-  submitSuccess: false,
-  confirmation: null
-};
+const INITIAL_STATE = {};
 
 const isValid = (fields) => {
   if (fields.length > 0) return Object.keys(fields).every(key => fields[key].valid);
@@ -22,19 +19,61 @@ export default function (state = INITIAL_STATE, action) {
   case GET_FORM:
     return {
       ...state,
-      activeForm: action.payload,
-      confirmation: null,
-      submitSuccess: false
+      [action.key]: {
+        loading: true,
+        confirmation: null
+      }
+    };
+  case GET_FORM_SUCCESS:
+    return {
+      ...state,
+      [action.key]: {
+        activeForm: action.payload,
+        submitSuccess: false,
+        loading: false,
+        formValues: []
+      }
+    };
+  case GET_FORM_FAILURE:
+    return {
+      ...state,
+      [action.key]: {
+        loading: false,
+        submitSuccess: false,
+        formValues: []
+      }
     };
   case UPDATE_FORM: {
-    const items = state.formValues;
+    const items = state[action.key] ? state[action.key].formValues : [];
     items[action.payload.id] = action.payload;
-    return { ...state, formValues: items, isValid: isValid(items) };
+    return {
+      ...state,
+      [action.key]: {
+        ...state[action.key],
+        formValues: items,
+        isValid: isValid(items)
+      }
+    };
   }
   case SUBMIT_FORM:
-    return { ...state, confirmation: null, submitSuccess: false, loading: true };
+    return {
+      ...state,
+      [action.key]: {
+        ...state[action.key],
+        submitSuccess: false,
+        submitting: true,
+        formValues: []
+      }
+    };
   case SUBMIT_FORM_SUCCESS:
-    return { ...state, submitSuccess: true, loading: false };
+    return {
+      ...state,
+      [action.key]: {
+        ...state[action.key],
+        submitSuccess: true,
+        submitting: false
+      }
+    };
   default:
     return state;
   }

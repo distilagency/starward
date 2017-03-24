@@ -24,9 +24,9 @@ export default class Radio extends Component {
   }
   render() {
     const { field, value, submitFailed, isValid } = this.props;
-    const { choices, label, required } = field;
+    const { choices, label, classes, required } = field;
     return (
-      <div className={!isValid && submitFailed ? 'field error' : 'field'}>
+      <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="radios">
           <p className="title">{label}{required ? <abbr>*</abbr> : null}</p>
           {choices.map((choice, index) => (

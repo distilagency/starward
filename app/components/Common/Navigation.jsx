@@ -20,9 +20,7 @@ export default class Navigation extends Component {
       <ul>
         {subItems.map((subItem, index) => (
           <li key={index} className={this.getClassNames(subItem, currentPath)}>
-            <Link to={`${getSlug(subItem.url)}`}>
-              {this.getLink(subItem)}
-            </Link>
+            {this.getLink(subItem)}
           </li>
         ))}
       </ul>
@@ -35,9 +33,7 @@ export default class Navigation extends Component {
         <ul>
           {items.map((item, index) => (
             <li key={index} className={this.getClassNames(item, currentPath)}>
-              <Link to={`${getSlug(item.url)}`}>
-                {this.getLink(item)}
-              </Link>
+              {this.getLink(item)}
               {item.children && item.children.length > 0 ? this.renderSubNavigation(item.children, currentPath) : null}
             </li>
           ))}
