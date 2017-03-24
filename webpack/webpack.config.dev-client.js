@@ -29,11 +29,15 @@ var commonLoaders = [
     include: path.join( __dirname, '..', 'public/assets/sass')
   },
   {
-    test: /\.(ttf|woff(2)?|eot)(\?.*$|$)/,
-    loader: 'file-loader?name=fonts/[name].[ext]'
+    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: "url-loader?limit=10000&mimetype=application/font-woff"
   },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: "file-loader"
+  },
+  {
+    test: /\.(png|jpg|jpeg|gif)(\?.*$|$)/,
     loader: 'url',
     query: {
         name: '[hash].[ext]',
