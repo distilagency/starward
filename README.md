@@ -1,6 +1,6 @@
 # :boom: Starward
 
-> Full-stack Wordpress boilerplate web app built using ReactJS and WP REST API v2 :tada:
+> Full-stack Wordpress boilerplate web app built using ReactJS and WP REST API v2, built on the awesome reactGo framework  :tada:
 
 :construction: Still in construction, be delicate.
 
