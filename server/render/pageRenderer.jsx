@@ -4,11 +4,18 @@ import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 
-const createApp = (store, props) => renderToString(
-  <Provider store={store}>
-    <RouterContext {...props} />
-  </Provider>
-);
+const createApp = (store, props) => {
+  try {
+    return renderToString(
+      <Provider store={store}>
+        <RouterContext {...props} />
+      </Provider>
+    );
+  } catch (err) {
+    console.error(err);
+    return '';
+  }
+};
 
 const styles = process.env.NODE_ENV === 'production' ? '<link rel="stylesheet" href="/assets/css/styles.css">' : '';
 
