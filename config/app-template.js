@@ -22,3 +22,4 @@ export const ROOT_API = `${baseURL}/api`;
 export const isProduction = ENV === 'production';
 export const isDebug = ENV === 'development';
 export const isClient = typeof window !== 'undefined';
+export const serversideStateCharacterBlacklistRegex = /\u2028/g;
