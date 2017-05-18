@@ -1,8 +1,8 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
 import { serversideStateCharacterBlacklistRegex } from '../../config/app';
 
 const createApp = (store, props) => {
