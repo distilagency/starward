@@ -1,4 +1,24 @@
 import { appSettings, gravityForms, wp } from '../../graphQL';
+import { serversideStateCharacterBlacklistRegex } from '../../config/app';
+
+/* ----------- App API Helpers ----------- */
+
+/* Removes illegal characters from WP API */
+const sanitizeJSON = (json) => {
+  const stringified = JSON.stringify(json);
+  const cleaned = stringified.replace(serversideStateCharacterBlacklistRegex, '');
+  return JSON.parse(cleaned);
+};
+/* Handle success and sanitize JSON response */
+const handleSuccess = (res) => {
+  return (data) => res.json(sanitizeJSON(data));
+};
+/* Handle error */
+const handleError = (res) => {
+  return (error) => res.json(error);
+};
+
+/* ----------- Express ----------- */
 
 export default(app) => {
   /* ----------- App API Routes ----------- */
@@ -21,8 +41,8 @@ export default(app) => {
         }
       }
     `)
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Get Menu */
   /* Expects query param ?name= (?name=Header) */
@@ -42,8 +62,8 @@ export default(app) => {
           }
         }
       }`, {name: req.query.name})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* ----------- Wordpress API Routes ----------- */
   /* Get Page */
@@ -64,8 +84,8 @@ export default(app) => {
           seo: yoast
         }
       }`, {slug: req.query.slug})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Get Collection of Posts */
   /* Expects query param ?page= */
@@ -102,8 +122,8 @@ export default(app) => {
           totalPages
         }
       }`, {page: req.query.page})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Get Individual Post */
   /* Expects query param ?slug= */
@@ -154,8 +174,8 @@ export default(app) => {
           }
         }
       }`, {slug: req.query.slug})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Get Category and Collection of Posts */
   /* Expects query param ?slug= && ?page= */
@@ -194,8 +214,8 @@ export default(app) => {
           }
         }
       }`, {slug: req.query.slug, page: req.query.page})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Get Author and Collection of Posts */
   /* Expects query param ?name && ?page= */
@@ -233,8 +253,8 @@ export default(app) => {
           }
         }
       }`, {name: req.query.name, page: req.query.page})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* Perform search and return results */
   /* Expects query param ?term= (OPTIONAL = ?type= && ?page= && ?perPage=) */
@@ -265,8 +285,8 @@ export default(app) => {
           totalPages
         }
       }`, {term: req.query.term, type: req.query.type, page: req.query.page, perPage: req.query.perPage})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
   /* ----------- Gravity Forms Endpoints ----------- */
   /* Get Gravity Form */
@@ -292,7 +312,7 @@ export default(app) => {
           }
         }
       }`, {id: req.query.id})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+      .then(handleSuccess(res))
+      .catch(handleError(res));
   });
 };

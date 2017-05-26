@@ -3,7 +3,6 @@ import Helmet from 'react-helmet';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
-import { serversideStateCharacterBlacklistRegex } from '../../config/app';
 
 const createApp = (store, props) => {
   try {
@@ -32,7 +31,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
   </head>
   <body>
     <div id="app">${componentHTML}</div>
-    <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState).replace(serversideStateCharacterBlacklistRegex, '')}</script>
+    <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
     <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
   </body>
 </html>`;
