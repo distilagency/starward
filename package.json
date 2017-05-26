@@ -10,6 +10,7 @@
     "clean": "rimraf public/assets/app.js && rimraf public/assets/app.js.map && rimraf public/assets/*.ttf && rimraf public/assets/*.svg && rimraf public/assets/*.woff && rimraf compiled",
     "start": "npm run build && cross-env NODE_ENV=production node compiled/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
+    "dev-redis": "cross-env NODE_ENV=development REDIS_ENABLED=force-enable nodemon",
     "build:dev": "cross-env NODE_ENV=development webpack ---debug --colors --display-error-details --config ./webpack/webpack.config.dev-server.js",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.prod.js"
   },
@@ -84,6 +85,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.5.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "redis": "^2.7.1"
   }
 }

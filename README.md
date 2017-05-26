@@ -8,6 +8,7 @@
 - [**ReactJS**](https://facebook.github.io/react/)
 - [**Universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) rendering :earth_asia:
 - [**GraphQL**](http://graphql.org/learn/)
+- [**Redis**](https://redis.io/) page caching
 - [**WP REST API v2**](http://v2.wp-api.org/)
 - [**Redux**](https://github.com/reactjs/redux)
 - [**React Router**](https://github.com/reactjs/react-router)
@@ -51,6 +52,21 @@ Rename `/config/app-template.js` to `/config/app.js`
 - `CATEGORY_SLUG` desired root slug for category pages, default **category**
 - `AUTHOR_SLUG` desired root slug for author pages, default **author**
 - `ROOT_API` GraphQL root URL *(does not require changing from default)*
+- `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development **This must be setup even if not using redis**
+
+### Redis Setup
+
+Install redis (optional):
+
+`brew install redis`
+
+*(you can also [manually install](https://redis.io/topics/quickstart), but if you don't have brew it's rather useful!)*
+
+Open a new terminal and run
+
+`redis-server /usr/local/etc/redis.conf`
+
+make sure to keep this terminal open as it's not running as a daemon. To see more ways of launching redis, check this [blog post](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298) out.
 
 ### Quick and dirty ACF Pro Setup
 
@@ -65,6 +81,12 @@ Two ready to import [JSON field groups](https://support.advancedcustomfields.com
 or using NPM
 
 `npm install && npm run dev`
+
+### Run with redis enabled (disabled in development by default)
+
+Make sure that your redis client is running as described above, then:
+
+`yarn && yarn dev-redis`
 
 ### Styling
 
