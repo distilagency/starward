@@ -52,7 +52,7 @@ Rename `/config/app-template.js` to `/config/app.js`
 - `CATEGORY_SLUG` desired root slug for category pages, default **category**
 - `AUTHOR_SLUG` desired root slug for author pages, default **author**
 - `ROOT_API` GraphQL root URL *(does not require changing from default)*
-- `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development **This must be setup even if not using redis**
+- `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development (required in production unless you disable redis via ENV variables)
 
 ### Redis Setup
 
