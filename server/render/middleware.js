@@ -60,7 +60,7 @@ export default function render(req, res) {
         const html = pageRenderer(store, props);
         res.status(200).send(html);
         // update cache with html after returning it to the client so they don't need to wait
-        client.setex(props.routes[0].name, redisConfig.redisLongExpiry, html);
+        client.setex(props.location.pathname, redisConfig.redisLongExpiry, html);
       })
       .catch(err => {
         console.error(err);
@@ -73,7 +73,7 @@ export default function render(req, res) {
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-      client.get(props.routes[0].name, (error, result) => {
+      client.get(props.location.pathname, (error, result) => {
         if (result) {
           res.status(200).send(result);
         } else if (props.routes[0].name === 'App') {
