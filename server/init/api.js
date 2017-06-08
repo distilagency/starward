@@ -1,7 +1,10 @@
+import moment from 'moment';
 import { appSettings, gravityForms, wp } from '../../graphQL';
-import { serversideStateCharacterBlacklistRegex } from '../../config/app';
+import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../../config/app';
+import { createRedisClient } from '../redis';
 
 /* ----------- App API Helpers ----------- */
+const client = createRedisClient(REDIS_PREFIX);
 
 /* Removes illegal characters from WP API */
 const sanitizeJSON = (json) => {
@@ -314,5 +317,14 @@ export default(app) => {
       }`, {id: req.query.id})
       .then(handleSuccess(res))
       .catch(handleError(res));
+  });
+  /* ----------- Redis Endpoints ----------- */
+  /* Flush Redis */
+  app.get('/api/flushredis', (req, res) => {
+    console.log(`${moment().format()} flushing Redis cache`);
+    client.flushdb(err => {
+      if (err) return res.json({error: err});
+      return res.json({success: true});
+    });
   });
 };

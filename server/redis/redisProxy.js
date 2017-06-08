@@ -34,8 +34,20 @@ export default (client, keyPrefix) => {
     }
   };
 
+  const __flushdb = (callback) => {
+    if (client) {
+      redisDebugLogger('flushdb start');
+      client.flushdb((fail, success) => {
+        const wasSuccess = success ? 'success' : 'a failure';
+        redisDebugLogger(`flushdb was ${wasSuccess}`);
+        callback(fail, success);
+      });
+    }
+  };
+
   return {
     get: __get,
-    setex: __setex
+    setex: __setex,
+    flushdb: __flushdb
   };
 };
