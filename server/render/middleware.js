@@ -18,7 +18,7 @@ if (environment.isRedisEnabled && !REDIS_PREFIX) {
   throw new Error('REDIS_PREFIX needs to be configured in app.js for redis to work');
 }
 // create redis client
-const client = createRedisClient(REDIS_PREFIX);
+const redisClient = createRedisClient(REDIS_PREFIX);
 
 /*
  * Export render function to be used in server/config/routes.js
@@ -60,7 +60,7 @@ export default function render(req, res) {
         const html = pageRenderer(store, props);
         res.status(200).send(html);
         // update cache with html after returning it to the client so they don't need to wait
-        client.setex(props.location.pathname, redisConfig.redisLongExpiry, html);
+        redisClient.setex(props.location.pathname, redisConfig.redisLongExpiry, html);
       })
       .catch(err => {
         console.error(err);
@@ -73,7 +73,7 @@ export default function render(req, res) {
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-      client.get(props.location.pathname, (error, result) => {
+      redisClient.get(props.location.pathname, (error, result) => {
         if (result) {
           res.status(200).send(result);
         } else if (props.routes[0].name === 'App') {
