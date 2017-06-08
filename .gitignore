@@ -46,6 +46,7 @@ docs/api/
 public/assets/*
 !public/assets/css/
 public/assets/css/.DS_Store
+public/assets/css/site.css
 !public/assets/fonts/
 public/assets/fonts/.DS_Store
 !public/assets/images/
