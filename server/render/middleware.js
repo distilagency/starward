@@ -3,13 +3,22 @@ import { createMemoryHistory, match } from 'react-router';
 import createRoutes from '../../app/routes';
 import configureStore from '../../app/utils/configureStore';
 import * as types from '../../app/actions/types';
-import { baseURL } from '../../config/app';
+import { baseURL, REDIS_PREFIX } from '../../config/app';
 import pageRenderer from './pageRenderer';
 import fetchDataForRoute from '../../app/utils/fetchDataForRoute';
 import fetchDataForApp from '../../app/utils/fetchDataForApp';
+import { redisConfig, createRedisClient } from '../redis';
+import { environment } from '../utility';
 
 // configure baseURL for axios requests (for serverside API calls)
 axios.defaults.baseURL = baseURL;
+
+// you must set the redis prefix if you want to use redis
+if (environment.isRedisEnabled && !REDIS_PREFIX) {
+  throw new Error('REDIS_PREFIX needs to be configured in app.js for redis to work');
+}
+// create redis client
+const redisClient = createRedisClient(REDIS_PREFIX);
 
 /*
  * Export render function to be used in server/config/routes.js
@@ -44,17 +53,19 @@ export default function render(req, res) {
    */
 
   function requestSuccess(props, appData) {
-   store.dispatch({ type: types.CREATE_REQUEST });
-   fetchDataForRoute(props)
-     .then(data => {
-       store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData} });
-       const html = pageRenderer(store, props);
-       res.status(200).send(html);
-     })
-     .catch(err => {
-       console.error(err);
-       res.status(500).json(err);
-     });
+    store.dispatch({ type: types.CREATE_REQUEST });
+    fetchDataForRoute(props)
+      .then(data => {
+        store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData} });
+        const html = pageRenderer(store, props);
+        res.status(200).send(html);
+        // update cache with html after returning it to the client so they don't need to wait
+        redisClient.setex(props.location.pathname, redisConfig.redisLongExpiry, html);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json(err);
+      });
   }
   match({routes, location: req.url}, (err, redirect, props) => {
     if (err) {
@@ -62,16 +73,18 @@ export default function render(req, res) {
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-      // This method waits for all render component
-      // promises to resolve before returning to browser
-      if (props.routes[0].name === 'App') {
-        fetchDataForApp(props)
-        .then(settings => {
-          requestSuccess(props, settings);
-        });
-      } else {
-        requestSuccess(props);
-      }
+      redisClient.get(props.location.pathname, (error, result) => {
+        if (result) {
+          res.status(200).send(result);
+        } else if (props.routes[0].name === 'App') {
+          fetchDataForApp(props)
+            .then(settings => {
+              requestSuccess(props, settings);
+            });
+        } else {
+          requestSuccess(props);
+        }
+      });
     } else {
       res.sendStatus(404);
     }

@@ -15,6 +15,9 @@ export const SEARCH_SLUG = 'search';
 // Starward
 export const baseURL = `http://${HOST}:${PORT}`;
 
+// Redis
+export const REDIS_PREFIX = null; // change me to your project name, for example: 'starward-'
+
 // GraphQL
 export const ROOT_API = `${baseURL}/api`;
 
@@ -22,3 +25,4 @@ export const ROOT_API = `${baseURL}/api`;
 export const isProduction = ENV === 'production';
 export const isDebug = ENV === 'development';
 export const isClient = typeof window !== 'undefined';
+export const serversideStateCharacterBlacklistRegex = /\u2028/g;

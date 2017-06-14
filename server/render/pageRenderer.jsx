@@ -1,8 +1,8 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
 
 const createApp = (store, props) => {
   try {
