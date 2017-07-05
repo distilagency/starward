@@ -32,6 +32,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
   <body>
     <div id="app">${componentHTML}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=default,es6"></script>
     <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
   </body>
 </html>`;
