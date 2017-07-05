@@ -74,7 +74,7 @@ module.exports = {
     // Multiple entry with hot loader
     // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
     entry: {
-      app: ['babel-polyfill', './client', hotMiddlewareScript]
+      app: ['./client', hotMiddlewareScript]
     },
     output: {
       // The output directory as absolute path
