@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import express from 'express';
 import webpack from 'webpack';
 import { isDebug } from '../config/app';

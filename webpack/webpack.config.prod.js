@@ -36,7 +36,7 @@ module.exports = [
     devtool: 'cheap-module-source-map',
     context: path.join(__dirname, '..', 'app'),
     entry: {
-      app: ['babel-polyfill','./client']
+      app: ['./client']
     },
     output: {
       // The output directory as absolute path
