@@ -2,6 +2,7 @@ import express from 'express';
 import webpack from 'webpack';
 import { isDebug } from '../config/app';
 import initExpress from './init/express';
+import initStarwardRoutes from './init/starward';
 import initApiRoutes from './init/api';
 import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
@@ -23,20 +24,26 @@ if (isDebug) {
 /*
  * Bootstrap application settings
  */
+
 initExpress(app);
 
 /*
- * GraphQL Setup
+ * Starward Setup
  */
 
-initApiRoutes(app);
+initStarwardRoutes(app);
 
 /*
- * REMOVE if you do not need any routes
- *
- * Note: Some of these routes have passport and database model dependencies
+ * UNCOMMENT if you add any custom GraphQL endpoints
  */
-initRoutes(app);
+
+// initApiRoutes(app);
+
+/*
+ * UNCOMMENT if you need additional Express routes
+ */
+
+// initRoutes(app);
 
 /*
  * This is where the magic happens. We take the locals data we have already
