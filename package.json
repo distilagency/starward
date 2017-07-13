@@ -10,6 +10,7 @@
     "clean": "rimraf public/assets/app.js && rimraf public/assets/app.js.map && rimraf public/assets/*.ttf && rimraf public/assets/*.svg && rimraf public/assets/*.woff && rimraf compiled",
     "start": "npm run build && cross-env NODE_ENV=production node compiled/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
+    "dev-redis": "cross-env NODE_ENV=development REDIS_ENABLED=force-enable nodemon",
     "build:dev": "cross-env NODE_ENV=development webpack ---debug --colors --display-error-details --config ./webpack/webpack.config.dev-server.js",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.prod.js"
   },
@@ -74,6 +75,7 @@
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.0",
     "react-transform-hmr": "^1.0.4",
+    "redis": "^2.7.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",

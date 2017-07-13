@@ -1,14 +1,21 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
 
-const createApp = (store, props) => renderToString(
-  <Provider store={store}>
-    <RouterContext {...props} />
-  </Provider>
-);
+const createApp = (store, props) => {
+  try {
+    return renderToString(
+      <Provider store={store}>
+        <RouterContext {...props} />
+      </Provider>
+    );
+  } catch (err) {
+    console.error(err);
+    return '';
+  }
+};
 
 const styles = process.env.NODE_ENV === 'production' ? '<link rel="stylesheet" href="/assets/css/styles.css">' : '';
 
@@ -25,6 +32,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
   <body>
     <div id="app">${componentHTML}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=default,es6"></script>
     <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
   </body>
 </html>`;
