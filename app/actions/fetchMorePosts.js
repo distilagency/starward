@@ -7,7 +7,7 @@ import {
   UPDATE_STARWARD_STATE_FAILURE
 } from './types';
 
-export const getMorePosts = (posts) => dispatch => {
+export const fetchMorePosts = (posts) => dispatch => {
   dispatch({type: UPDATE_STARWARD_STATE});
   const { items, totalItems } = posts;
   if (items.length < totalItems) {
