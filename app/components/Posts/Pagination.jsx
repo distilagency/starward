@@ -7,7 +7,8 @@ export const Pagination = props => {
   const { samePage, posts, currentPage, fetchMorePosts, starwardUpdating } = props;
   const { items, totalItems, totalPages } = posts;
 
-  const fetchMoreButtonHandler = () => {
+  const fetchMoreButtonHandler = (event) => {
+    if (event) event.preventDefault();
     if (!starwardUpdating) {
       fetchMorePosts(posts);
     }
@@ -23,11 +24,9 @@ export const Pagination = props => {
       } else {
         return (
           // More posts can be retrieved - show user button to fetch more.
-          <div className="wrap">
-            <div className="fetch-more-button" onClick={() => fetchMoreButtonHandler()}>
-              View more
-            </div>
-          </div>
+          <Link to="#fetch-more" className="fetch-more-button" onClick={(event) => fetchMoreButtonHandler(event)}>
+            View more
+          </Link>
         );
       }
     } else {
