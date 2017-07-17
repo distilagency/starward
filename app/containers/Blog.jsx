@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BLOG_SLUG } from '../../config/app';
 import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
 import { RenderContent } from '../components/Content/RenderContent';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 import { PostList } from '../components/Posts/PostList.jsx';
+import { fetchMorePosts } from '../actions/fetchMorePosts';
 
 class Blog extends Component {
   render() {
-    const { page, blog, settings, loading, params } = this.props;
+    const { page, blog, settings, loading, params, fetchMorePosts, starwardUpdating } = this.props;
     if (loading) return <Loading />;
     if (!page || !blog) return <FourOhFour />;
-    const { items, categories, totalItems, totalPages } = blog;
     return (
       <main className="content" role="main">
         <Head {...page.seo} defaultTitle={`${page.title} - ${settings.name}`} />
         <Title title={page.title} />
         <RenderContent content={page.content} />
         <PostList
-          posts={items}
-          categories={categories}
-          totalItems={totalItems}
-          totalPages={totalPages}
-          urlBase={BLOG_SLUG}
+          posts={blog}
           currentPage={params.page}
+          starwardUpdating={starwardUpdating}
+          fetchMorePosts={fetchMorePosts}
          />
       </main>
     );
@@ -33,13 +30,14 @@ class Blog extends Component {
 }
 
 function mapStateToProps({starward, loading}) {
-  const { page, posts, settings } = starward;
+  const { page, posts, settings, starwardUpdating } = starward;
   return {
     loading,
+    starwardUpdating,
     page,
     settings,
     blog: posts
   };
 }
 
-export default connect(mapStateToProps, { })(Blog);
+export default connect(mapStateToProps, { fetchMorePosts })(Blog);

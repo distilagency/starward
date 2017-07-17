@@ -6,27 +6,28 @@ import { Pagination } from './Pagination';
 export const PostList = props => {
   const {
     posts,
-    categories,
-    totalItems,
-    totalPages,
-    urlBase,
-    currentPage
+    currentPage,
+    fetchMorePosts,
+    starwardUpdating
   } = props;
-  if (!posts || posts.length < 1) {
+  const { items, categories } = posts;
+  if (!items || items.length < 1) {
     return <h3>No Posts Found</h3>;
   }
+  const samePagePagination = true;
   return (
     <section className="posts">
       <Categories categories={categories} />
       <section className="posts_list">
-        {posts.length < 1 ? <h2>No Posts Found</h2> : null}
-        {posts.map((post, index) => <PostListItem key={index} {...post} />)}
+        {items.length < 1 ? <h2>No Posts Found</h2> : null}
+        {items.map((post, index) => <PostListItem key={index} {...post} />)}
       </section>
       <Pagination
-        totalItems={totalItems}
-        totalPages={totalPages}
-        urlBase={urlBase}
+        samePage={samePagePagination}
+        posts={posts}
         currentPage={currentPage}
+        fetchMorePosts={fetchMorePosts}
+        starwardUpdating={starwardUpdating}
       />
     </section>
   );
