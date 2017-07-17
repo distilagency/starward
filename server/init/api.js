@@ -94,8 +94,8 @@ export default(app) => {
   /* Expects query param ?page= */
   app.get('/api/posts', (req, res) => {
     wp(`
-      query get_posts($page: Int) {
-        posts(page: $page) {
+      query get_posts($page: Int, $perPage: Int) {
+        posts(page: $page, perPage: $perPage) {
           items{
             slug,
             title,
@@ -124,7 +124,7 @@ export default(app) => {
           totalItems,
           totalPages
         }
-      }`, {page: req.query.page})
+      }`, {page: req.query.page, perPage: req.query.perPage})
       .then(handleSuccess(res))
       .catch(handleError(res));
   });

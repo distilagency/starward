@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { wpService } from './services';
-import { SITE_NAME, HOME_SLUG, BLOG_SLUG } from '../../config/app';
+import { SITE_NAME, HOME_SLUG, BLOG_SLUG, POSTS_PER_PAGE } from '../../config/app';
 
 // GraphQL WP API Services using axios.get() https://github.com/mzabriskie/axios#example
 const {
@@ -51,9 +51,10 @@ const fetchWPData = (params, routeName, location) => {
     // Blog container data
     case 'Blog': {
       const pageNumber = params.page ? params.page : 1;
+      const perPage = params.perPage ? params.perPage : POSTS_PER_PAGE;
       return axios.all([
         getPage(BLOG_SLUG),
-        getPosts(pageNumber)
+        getPosts(pageNumber, perPage)
       ])
       .then(([
         page,
