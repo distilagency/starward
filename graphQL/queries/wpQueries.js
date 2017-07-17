@@ -158,7 +158,7 @@ const wpQueries = {
     },
     search(query, args) {
       const { type, term, page, perPage } = args;
-      const wpSearchResultsUrl = `${WP_API_ROOT}/${type}?search=${term}&page=${page}&posts_per_page=${perPage}`;
+      const wpSearchResultsUrl = `${WP_API_ROOT}/${type}?search=${term}&page=${page}&per_page=${perPage}`;
       return axios.get(wpSearchResultsUrl)
       .then(res => {
         return {
