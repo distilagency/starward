@@ -118,7 +118,8 @@ const wpQueries = {
     },
     posts(query, args) {
       const pageNumber = args.page ? args.page : 1;
-      const wpActivePostsUrl = `${wpPostsUrl}?page=${pageNumber}&per_page=${POSTS_PER_PAGE}`;
+      const perPage = args.perPage ? args.perPage : POSTS_PER_PAGE;
+      const wpActivePostsUrl = `${wpPostsUrl}?page=${pageNumber}&per_page=${perPage}`;
       return axios.all([
         axios.get(wpActivePostsUrl),
         axios.get(wpCategoriesUrl)
