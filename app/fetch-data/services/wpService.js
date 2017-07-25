@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Global GraphQL root API url
-import { ROOT_API, POSTS_PER_PAGE } from '../../../config/app';
+import { ROOT_API, POSTS_PER_PAGE } from '../../config/app';
 
 // List of GraphQL API endpoints and axios.get() requests - https://github.com/mzabriskie/axios#example
 

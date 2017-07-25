@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ROOT_API, POSTS_PER_PAGE } from '../../config/app';
+import { ROOT_API, POSTS_PER_PAGE } from '../config/app';
 
 import {
   UPDATE_STARWARD_STATE,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { WP_API } from '../../config/app';
+import { WP_API } from '../../app/config/app';
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const wpSettingsURL = `${WP_API}/acf/v2/options/`;

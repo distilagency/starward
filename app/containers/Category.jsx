@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CATEGORY_SLUG } from '../../config/app';
+import { CATEGORY_SLUG } from '../config/app';
 import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
 import { Loading } from '../components/Content/Loading';
