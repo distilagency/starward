@@ -39,7 +39,7 @@ Optional supported plugins
 ## Getting started
 
 ### Configuration
-## Client App Config
+#### Client App Config
 Rename `/app/config/app-template.js` to `/app/config/app.js`
 
 - `SITE_NAME` fallback site name if ACF options page is unavailable
@@ -52,9 +52,9 @@ Rename `/app/config/app-template.js` to `/app/config/app.js`
 - `AUTHOR_SLUG` desired root slug for author pages, default **author**
 - `ROOT_API` GraphQL root URL *(does not require changing from default)*
 
-## Server Config (contains secrets, don't include inside client/front end code)
+#### Server Config (contains secrets, don't include inside client/front end code)
 Rename `/server/config/app-template.js` to `/server/config/app.js`
-- `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms *Don't expose to front end*
+- `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms - **Don't expose to front end**
 - `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development (required in production unless you disable redis via ENV variables)
 
 ### Redis Setup
