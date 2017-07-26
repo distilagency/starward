@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { appSettings, gravityForms, wp } from '../../graphQL';
-import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../../config/app';
+import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../config/app';
 import { createRedisClient } from '../redis';
+import { submitForm } from './gravitySubmit';
 
 /* ----------- App API Helpers ----------- */
 const client = createRedisClient(REDIS_PREFIX);
@@ -317,6 +318,10 @@ export default(app) => {
       }`, {id: req.query.id})
       .then(handleSuccess(res))
       .catch(handleError(res));
+  });
+
+  app.post('/api/gravityforms', (req, res) => {
+    return submitForm(req, res);
   });
   /* ----------- Redis Endpoints ----------- */
   /* Flush Redis */

@@ -4,7 +4,8 @@ import {
   GET_FORM_FAILURE,
   UPDATE_FORM,
   SUBMIT_FORM,
-  SUBMIT_FORM_SUCCESS
+  SUBMIT_FORM_SUCCESS,
+  SUBMIT_FORM_FAILURE
 } from '../actions/types/';
 
 const INITIAL_STATE = {};
@@ -62,7 +63,8 @@ export default function (state = INITIAL_STATE, action) {
         ...state[action.key],
         submitSuccess: false,
         submitting: true,
-        formValues: []
+        formValues: [],
+        hasSubmitted: true
       }
     };
   case SUBMIT_FORM_SUCCESS:
@@ -74,6 +76,15 @@ export default function (state = INITIAL_STATE, action) {
         submitting: false
       }
     };
+    case SUBMIT_FORM_FAILURE:
+      return {
+        ...state,
+        [action.key]: {
+          ...state[action.key],
+          submitSuccess: false,
+          submitting: false
+        }
+      };
   default:
     return state;
   }

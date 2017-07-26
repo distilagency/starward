@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Loading } from '../../components/Content/Loading';
-import { BLOG_SLUG } from '../../../config/app';
+import { BLOG_SLUG } from '../../config/app';
 
 export const Pagination = props => {
   const { samePage, posts, currentPage, fetchMorePosts, starwardUpdating } = props;
