@@ -1,15 +1,15 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var commonConfig = require('./common.config');
+var appConfig = require('./webpack.config.prod-app');
 var commonLoaders = commonConfig.commonLoaders;
 var externals = commonConfig.externals;
-var assetsPath = commonConfig.output.assetsPath;
 var distPath = commonConfig.output.distPath;
 var publicPath = commonConfig.output.publicPath;
 
 module.exports = [
+  appConfig,
   {
     // The configuration for the client
     name: 'browser',

@@ -91,6 +91,10 @@ Make sure that your redis client is running as described above, then:
 
 `yarn && yarn dev-redis`
 
+### Analysing package size
+
+`yarn analyse`
+
 ### Styling
 
 Sass partials are contained within `/public/assets/sass` and are split between four folders:

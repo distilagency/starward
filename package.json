@@ -12,7 +12,8 @@
     "dev": "cross-env NODE_ENV=development nodemon",
     "dev-redis": "cross-env NODE_ENV=development REDIS_ENABLED=force-enable nodemon",
     "build:dev": "cross-env NODE_ENV=development webpack ---debug --colors --display-error-details --config ./webpack/webpack.config.dev-server.js",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.prod.js"
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.prod.js",
+    "analyse": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.analyse.js"
   },
   "author": "Sam Logan",
   "license": "Proprietary",
@@ -27,7 +28,8 @@
     "null-loader": "^0.1.1",
     "react-addons-test-utils": "^15.4.1",
     "react-transform-catch-errors": "^1.0.2",
-    "redux-mock-store": "1.1.2"
+    "redux-mock-store": "1.1.2",
+    "webpack-bundle-analyzer": "^2.8.3"
   },
   "engines": {
     "node": "5.x"
