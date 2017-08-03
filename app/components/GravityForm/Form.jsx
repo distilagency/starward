@@ -51,6 +51,8 @@ class GravityForm extends Component {
     const { title, description, button, fields, confirmation } = activeForm;
     // Submit failed watcher
     const { submitFailed } = this.state;
+    const currentForm = this.props.gravityforms[this.props.formId];
+    const postFailed = currentForm && currentForm.hasSubmitted && !currentForm.submitting && !currentForm.submitSuccess;
     // Handle form with zero fields
     if (!fields) return <span>Form with ID {formId} has no fields</span>;
     return (
@@ -59,7 +61,7 @@ class GravityForm extends Component {
         {showDescription ? <p className="form_description">{description}</p> : null}
         <FormError
           errorMessage="There was a problem with your submission"
-          showError={submitFailed}
+          showError={submitFailed || postFailed}
         />
         <FormConfirmation
           confirmation={confirmation}

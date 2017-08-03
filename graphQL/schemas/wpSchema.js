@@ -80,7 +80,7 @@ const wpSchema = `
 
   type Query {
     page (slug: String): Page
-    posts (page: Int): Posts
+    posts (page: Int, perPage: Int): Posts
     category (slug: String, page: Int): Category
     author (name: String, page: Int): Author
     post (slug: String): Post

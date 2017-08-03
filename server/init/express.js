@@ -1,12 +1,11 @@
 import express from 'express';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import path from 'path';
 import flash from 'express-flash';
 import methodOverride from 'method-override';
 import gzip from 'compression';
 import helmet from 'helmet';
-import { ENV } from '../../config/env';
+import { ENV } from '../../env';
 
 export default (app) => {
   app.set('port', (process.env.PORT || 3000));

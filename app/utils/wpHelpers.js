@@ -1,4 +1,4 @@
-import { WP_URL } from '../../config/app';
+import { WP_URL } from '../config/app';
 
 /* Get slug from Wordpress URL */
 export const getSlug = (url) => {

@@ -1,7 +1,9 @@
 import moment from 'moment';
 import { appSettings, gravityForms, wp } from '../../graphQL';
-import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX, WP_URL, baseURL } from '../../config/app';
+import { WP_URL, baseURL } from '../../app/config/app';
+import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../config/app';
 import { createRedisClient } from '../redis';
+import { submitForm } from './gravitySubmit';
 
 /* ----------- App API Helpers ----------- */
 const client = createRedisClient(REDIS_PREFIX);
@@ -102,8 +104,8 @@ export default(app) => {
   /* Expects query param ?page= */
   app.get('/api/posts', (req, res) => {
     wp(`
-      query get_posts($page: Int) {
-        posts(page: $page) {
+      query get_posts($page: Int, $perPage: Int) {
+        posts(page: $page, perPage: $perPage) {
           items{
             slug,
             title,
@@ -132,7 +134,7 @@ export default(app) => {
           totalItems,
           totalPages
         }
-      }`, {page: req.query.page})
+      }`, {page: req.query.page, perPage: req.query.perPage})
       .then(handleSuccess(res))
       .catch(handleError(res));
   });
@@ -326,6 +328,10 @@ export default(app) => {
       }`, {id: req.query.id})
       .then(handleSuccess(res))
       .catch(handleError(res));
+  });
+
+  app.post('/api/gravityforms', (req, res) => {
+    return submitForm(req, res);
   });
   /* ----------- Redis Endpoints ----------- */
   /* Flush Redis */

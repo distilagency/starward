@@ -59,7 +59,8 @@ public/assets/sass/*/*/.DS_Store
 public/assets/sass/*/*/*/.DS_Store
 public/assets/sass/*/*/*/.DS_Store
 compiled
-config/app.js
+app/config/app.js
+server/config/app.js
 
 # Webstorm
 .idea

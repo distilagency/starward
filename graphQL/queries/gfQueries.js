@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { WP_API, WP_AUTH } from '../../config/app';
+import { WP_API } from '../../app/config/app';
+import { WP_AUTH } from '../../server/config/app';
 
 /* ----------- Basic auth required for Gravity Forms ----------- */
 const auth = { Authorization: `Basic ${WP_AUTH}` };

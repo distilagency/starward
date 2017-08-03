@@ -5,24 +5,11 @@ import {
   GET_FORM_FAILURE,
   UPDATE_FORM,
   SUBMIT_FORM,
-  SUBMIT_FORM_SUCCESS
+  SUBMIT_FORM_SUCCESS,
+  SUBMIT_FORM_FAILURE
 } from './types';
 
-import { WP_API, WP_AUTH, ROOT_API } from '../../config/app';
-
-const auth = { Authorization: `Basic ${WP_AUTH}` };
-
-function formBody(config, field) {
-  const configData = config;
-  if (Array.isArray(field.value)) {
-    return field.value.map(subFields => {
-      const formData = configData[`input_${subFields.id}`] = subFields.value;
-      return formData;
-    });
-  }
-  const formData = configData[`input_${field.id}`] = field.value;
-  return formData;
-}
+import { ROOT_API } from '../config/app';
 
 export function getForm(id) {
   return (dispatch) => {
@@ -43,14 +30,12 @@ export function updateForm(value, id, valid, formId) {
 
 export function submitForm(id, fields) {
   return (dispatch) => {
-    dispatch({ type: SUBMIT_FORM });
-    const wpSubmissionUrl = `${WP_API}/gf/v2/forms/${id}/submissions`;
-    const config = { headers: auth};
-    fields.map(field => formBody(config, field));
-    axios.post(wpSubmissionUrl, config)
+    dispatch({ type: SUBMIT_FORM, key: id });
+    const gravityFormPostUrl = `${ROOT_API}/gravityforms?id=${id}`;
+    axios.post(gravityFormPostUrl, fields)
     .then(({data}) => {
-      if (data.is_valid) dispatch({type: SUBMIT_FORM_SUCCESS, key: id });
+      if (data.success) dispatch({type: SUBMIT_FORM_SUCCESS, key: id });
     })
-    .catch(error => console.error('submitForm Error', error));
+    .catch(() => dispatch({type: SUBMIT_FORM_FAILURE, key: id}));
   };
 }

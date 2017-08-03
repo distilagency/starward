@@ -1,6 +1,6 @@
 import express from 'express';
 import webpack from 'webpack';
-import { isDebug } from '../config/app';
+import { isDebug } from '../app/config/app';
 import initExpress from './init/express';
 import initStarwardRoutes from './init/api';
 import initRoutes from './init/routes';
