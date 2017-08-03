@@ -2,6 +2,7 @@
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'REQUEST_FAILURE';
+export const RESET_404 = 'RESET_404';
 
 // Gravity Forms
 export const GET_FORM = 'GET_FORM';

@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { getSlug } from '../../utils/wpHelpers';
 
 export default class Navigation extends Component {
   getClassNames(item, currentPath) {
-    const isActive = getSlug(item.url) === currentPath;
+    const isActive = item.url === currentPath;
     return isActive ? `active ${item.classes}` : `${item.classes}`;
   }
   getLink(item) {
     // External Link Case
     if (item.classes && item.classes.indexOf('external') !== -1) {
-      return <a href={`${getSlug(item.url)}`} target="_blank" rel="noopener noreferrer">{item.title.replace(/&#038;/g, '&')}</a>;
+      return <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title.replace(/&#038;/g, '&')}</a>;
     }
     // Internal Link Case
-    return <Link to={`${getSlug(item.url)}`}>{item.title.replace(/&#038;/g, '&')}</Link>;
+    return <Link to={item.url}>{item.title.replace(/&#038;/g, '&')}</Link>;
   }
   renderSubNavigation(subItems, currentPath) {
     return (

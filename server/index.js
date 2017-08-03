@@ -2,8 +2,7 @@ import express from 'express';
 import webpack from 'webpack';
 import { isDebug } from '../config/app';
 import initExpress from './init/express';
-import initStarwardRoutes from './init/starward';
-import initApiRoutes from './init/api';
+import initStarwardRoutes from './init/api';
 import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
@@ -32,12 +31,6 @@ initExpress(app);
  */
 
 initStarwardRoutes(app);
-
-/*
- * UNCOMMENT if you add any custom GraphQL endpoints
- */
-
-// initApiRoutes(app);
 
 /*
  * UNCOMMENT if you need additional Express routes

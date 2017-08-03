@@ -6,19 +6,20 @@ import { PageContent } from '../components/Page/PageContent';
 
 class Page extends Component {
   render() {
-    const { page, settings, loading } = this.props;
+    const { page, settings, loading, handle404 } = this.props;
     if (loading) return <Loading />;
-    if (!page) return <FourOhFour />;
+    if (!page || handle404) return <FourOhFour />;
     return <PageContent {...page} siteName={settings.name} />;
   }
 }
 
 function mapStateToProps({starward, loading}) {
-  const { page, settings } = starward;
+  const { page, settings, handle404 } = starward;
   return {
     loading,
     page,
-    settings
+    settings,
+    handle404
   };
 }
 

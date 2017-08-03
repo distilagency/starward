@@ -114,7 +114,9 @@ const wpQueries = {
     page(query, args) {
       const wpPageURL = `${wpPagesUrl}?slug=${args.slug}`;
       return axios.get(wpPageURL)
-      .then(res => res.data[0]);
+      .then(res => {
+        return res.data[0];
+      });
     },
     posts(query, args) {
       const pageNumber = args.page ? args.page : 1;

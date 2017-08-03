@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 import { wpService } from './services';
-import { SITE_NAME, HOME_SLUG, BLOG_SLUG } from '../../config/app';
+import { baseURL, SITE_NAME, HOME_SLUG, BLOG_SLUG } from '../../config/app';
 
 // GraphQL WP API Services using axios.get() https://github.com/mzabriskie/axios#example
 const {
@@ -13,6 +14,8 @@ const {
   getAuthor,
   getSearchResults
 } = wpService;
+
+const handle404 = () => ({handle404: true});
 
 const fetchWPData = (params, routeName, location) => {
   // Switch statement on routeName from routes.jsx
@@ -45,7 +48,14 @@ const fetchWPData = (params, routeName, location) => {
       const pathArray = params.splat.split('/');
       const slug = pathArray[pathArray.length - 1];
       return getPage(slug)
-      .then(({data}) => ({ page: data.data.active_page }))
+      .then(({data}) => {
+        // Check that WP splat and Starward splat match else handle 404
+        const starwardSplat = `/${params.splat}/`;
+        const wpSplat = data.data.active_page ? data.data.active_page.link.split(baseURL)[1] : '/';
+        if (wpSplat !== starwardSplat) return handle404();
+        // Return page data
+        return ({ page: data.data.active_page });
+      })
       .catch(error => console.log('error', error));
     }
     // Blog container data
@@ -100,7 +110,7 @@ const fetchWPData = (params, routeName, location) => {
       });
     }
     default:
-      return null;
+      return ({handleNotFound: '404'});
   }
 };
 
