@@ -50,7 +50,7 @@ const fetchWPData = (params, routeName, location) => {
       .then(({data}) => {
         // Check that WP splat and Starward splat match else handle 404
         const starwardSplat = `/${params.splat}/`;
-        const wpSplat = data.data.active_page ? data.data.active_page.link.split(baseURL)[1] : '/';
+        const wpSplat = data.data.active_page ? data.data.active_page.link : '/';
         if (wpSplat !== starwardSplat) return handle404();
         // Return page data
         return ({ page: data.data.active_page });

@@ -9,10 +9,10 @@ export default class Navigation extends Component {
   getLink(item) {
     // External Link Case
     if (item.classes && item.classes.indexOf('external') !== -1) {
-      return <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title.replace(/&#038;/g, '&')}</a>;
+      return <a href={item.url} target="_blank" rel="noopener noreferrer" dangerouslySetInnerHTML={{__html: item.title}} />;
     }
     // Internal Link Case
-    return <Link to={item.url}>{item.title.replace(/&#038;/g, '&')}</Link>;
+    return <Link to={item.url} dangerouslySetInnerHTML={{__html: item.title}} />;
   }
   renderSubNavigation(subItems, currentPath) {
     return (

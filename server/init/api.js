@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { appSettings, gravityForms, wp } from '../../graphQL';
-import { WP_URL, baseURL } from '../../app/config/app';
+import { WP_URL } from '../../app/config/app';
 import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../config/app';
 import { createRedisClient } from '../redis';
 import { submitForm } from './gravitySubmit';
@@ -14,11 +14,11 @@ const client = createRedisClient(REDIS_PREFIX);
 const sanitizeJSON = (json) => {
   const stringified = JSON.stringify(json);
   const wpUrlRegex = new RegExp(WP_URL, 'g');
-  const baseWpContentUrlRegex = new RegExp(`${baseURL}/wp-content`, 'g');
+  const wpContentUrlRegex = new RegExp('/wp-content', 'g');
   const cleaned = stringified
   .replace(serversideStateCharacterBlacklistRegex, '')
-  .replace(wpUrlRegex, baseURL)
-  .replace(baseWpContentUrlRegex, `${WP_URL}/wp-content`);
+  .replace(wpUrlRegex, '')
+  .replace(wpContentUrlRegex, `${WP_URL}/wp-content`);
   return JSON.parse(cleaned);
 };
 /* Handle success and sanitize JSON response */
