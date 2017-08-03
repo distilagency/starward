@@ -16,7 +16,7 @@
     "analyse": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.analyse.js"
   },
   "author": "Sam Logan",
-  "license": "Proprietary",
+  "license": "MIT License",
   "devDependencies": {
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^10.0.0",

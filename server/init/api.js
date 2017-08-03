@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { appSettings, gravityForms, wp } from '../../graphQL';
+import { WP_URL } from '../../app/config/app';
 import { serversideStateCharacterBlacklistRegex, REDIS_PREFIX } from '../config/app';
 import { createRedisClient } from '../redis';
 import { submitForm } from './gravitySubmit';
@@ -8,9 +9,16 @@ import { submitForm } from './gravitySubmit';
 const client = createRedisClient(REDIS_PREFIX);
 
 /* Removes illegal characters from WP API */
+/* Checks for WP_URL in response and replaces it with the base url */
+/* Reinstates correct wp-content links within response */
 const sanitizeJSON = (json) => {
   const stringified = JSON.stringify(json);
-  const cleaned = stringified.replace(serversideStateCharacterBlacklistRegex, '');
+  const wpUrlRegex = new RegExp(WP_URL, 'g');
+  const wpContentUrlRegex = new RegExp('/wp-content', 'g');
+  const cleaned = stringified
+  .replace(serversideStateCharacterBlacklistRegex, '')
+  .replace(wpUrlRegex, '')
+  .replace(wpContentUrlRegex, `${WP_URL}/wp-content`);
   return JSON.parse(cleaned);
 };
 /* Handle success and sanitize JSON response */
@@ -79,6 +87,7 @@ export default(app) => {
           title,
           content,
           slug,
+          link,
           featuredImage{
             alt,
             url,
@@ -140,6 +149,7 @@ export default(app) => {
           content,
           date,
           acf,
+          link,
           pagination{
             next{
               slug,

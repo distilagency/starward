@@ -40,6 +40,7 @@ function onUpdate() {
   // Reset scroll position
   window.scrollTo(0, 0);
   // Handle data fetcher Redux actions
+  store.dispatch({ type: types.RESET_404 });
   store.dispatch({ type: types.CREATE_REQUEST });
   if (this.state.routes[0].name === 'App') {
     fetchDataForApp(this.state)

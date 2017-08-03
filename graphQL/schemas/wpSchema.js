@@ -4,6 +4,8 @@ const wpSchema = `
     title: String,
     content: String,
     slug: String,
+    type: String,
+    link: String,
     yoast: JSON,
     acf: JSON,
     featuredImage: FeaturedImage
@@ -36,6 +38,7 @@ const wpSchema = `
     content: String,
     excerpt: String,
     date: String,
+    link: String,
     featuredImage: FeaturedImage,
     categories: [Taxonomy],
     author: User,
