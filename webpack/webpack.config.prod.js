@@ -14,7 +14,7 @@ module.exports = [
     name: 'server-side rendering',
     context: path.join(__dirname, '..', 'app'),
     entry: {
-      server: '../server/index'
+      server: ['babel-polyfill', '../server/index']
     },
     target: 'node',
     node: {
