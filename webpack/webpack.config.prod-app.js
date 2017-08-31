@@ -59,6 +59,7 @@ module.exports = {
   plugins: [
     // extract inline css from modules into separate files
     new ExtractTextPlugin('/css/styles.css', { allChunks: true }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false

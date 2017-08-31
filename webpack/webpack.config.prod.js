@@ -47,6 +47,7 @@ module.exports = [
         // and chunks get smaller ids.
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.EnvironmentPlugin(['NODE_ENV']),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.IgnorePlugin(/vertx/),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {
