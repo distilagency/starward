@@ -2,8 +2,6 @@ import { HOST, PORT, ENV } from '../../env';
 
 // Wordpress
 export const SITE_NAME = 'Starward';
-export const WP_URL = 'http://localhost/starward_wp'; // put on server side once apollo done
-export const WP_API = `${WP_URL}/wp-json`; // put on server side once apollo done
 export const POSTS_PER_PAGE = 10;
 export const HOME_SLUG = 'home';
 export const BLOG_SLUG = 'blog';
