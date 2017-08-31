@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { WP_API, POSTS_PER_PAGE } from '../../app/config/app';
+import { POSTS_PER_PAGE } from '../../app/config/app';
+import { WP_API } from '../../server/config/app';
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const WP_API_ROOT = `${WP_API}/wp/v2`;
