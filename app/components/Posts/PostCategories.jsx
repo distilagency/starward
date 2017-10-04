@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 export const PostCategories = props => {
   const { categories } = props;
+  if (!categories) return null;
   const getPostCategories = (cats) => (
     cats.map(cat => (
       <Link key={cat.slug} to={`/category/${cat.slug}`}>{cat.name}</Link>

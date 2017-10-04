@@ -61,8 +61,10 @@ export default function render(req, res) {
         store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData} });
         const html = pageRenderer(store, props);
         res.status(status).send(html);
+        const redisKey = props.location.pathname;
+        const isPreview = props.location.query.preview;
         // update cache with html after returning it to the client so they don't need to wait
-        redisClient.setex(props.location.pathname, redisConfig.redisLongExpiry, html);
+        if (!isPreview) redisClient.setex(redisKey, redisConfig.redisLongExpiry, html);
       })
       .catch(err => {
         console.error(err);

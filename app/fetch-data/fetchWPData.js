@@ -38,7 +38,7 @@ const fetchWPData = (params, routeName, location) => {
     }
     // Home container data
     case 'Home': {
-      return getPage(HOME_SLUG)
+      return getPage(HOME_SLUG, location.query)
       .then(({data}) => ({ page: data.data.active_page }))
       .catch(error => console.log('error', error));
     }
@@ -46,7 +46,7 @@ const fetchWPData = (params, routeName, location) => {
     case 'Page': {
       const pathArray = params.splat.split('/');
       const slug = pathArray[pathArray.length - 1];
-      return getPage(slug)
+      return getPage(slug, location.query)
       .then(({data}) => {
         // Check that WP splat and Starward splat match else handle 404
         const starwardSplat = `/${params.splat}/`;
@@ -62,7 +62,7 @@ const fetchWPData = (params, routeName, location) => {
       const pageNumber = params.page ? params.page : 1;
       const perPage = params.perPage ? params.perPage : POSTS_PER_PAGE;
       return axios.all([
-        getPage(BLOG_SLUG),
+        getPage(BLOG_SLUG, location.query),
         getPosts(pageNumber, perPage)
       ])
       .then(([
@@ -76,7 +76,7 @@ const fetchWPData = (params, routeName, location) => {
     }
     // BlogPost container data
     case 'BlogPost': {
-      return getPost(params.post)
+      return getPost(params.post, location.query)
       .then(({data}) => {
         return { activePost: data.data.activePost };
       })

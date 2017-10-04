@@ -79,11 +79,11 @@ const wpSchema = `
   }
 
   type Query {
-    page (slug: String): Page
+    page (slug: String, preview: Int): Page
     posts (page: Int, perPage: Int): Posts
     category (slug: String, page: Int): Category
     author (name: String, page: Int): Author
-    post (slug: String): Post
+    post (slug: String, preview: Int): Post
     search (type: String, term: String, page: Int, perPage: Int): Posts
   }
 `;
