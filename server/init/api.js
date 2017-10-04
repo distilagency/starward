@@ -81,8 +81,8 @@ export default(app) => {
   /* Expects query param ?slug= */
   app.get('/api/page', (req, res) => {
     wp(`
-      query get_page($slug: String) {
-        active_page: page(slug: $slug) {
+      query get_page($slug: String, $preview: Int) {
+        active_page: page(slug: $slug, preview: $preview) {
           title,
           content,
           slug,
@@ -95,7 +95,7 @@ export default(app) => {
           acf,
           seo: yoast
         }
-      }`, {slug: req.query.slug})
+      }`, {slug: req.query.slug, preview: req.query.preview})
       .then(handleSuccess(res))
       .catch(handleError(res));
   });
@@ -141,8 +141,8 @@ export default(app) => {
   /* Expects query param ?slug= */
   app.get('/api/post', (req, res) => {
     wp(`
-      query get_post($slug: String) {
-        activePost: post(slug: $slug){
+      query get_post($slug: String, $preview: Int) {
+        activePost: post(slug: $slug, preview: $preview){
           slug,
           title,
           content,
@@ -186,7 +186,7 @@ export default(app) => {
             avatar
           }
         }
-      }`, {slug: req.query.slug})
+      }`, {slug: req.query.slug, preview: req.query.preview})
       .then(handleSuccess(res))
       .catch(handleError(res));
   });
