@@ -33,8 +33,8 @@ module.exports = {
     devtool: 'cheap-module-source-map',
   context: path.join(__dirname, '..', 'app'),
   entry: {
-  app: './client'
-},
+    app: ['babel-polyfill', './client']
+  },
   output: {
     // The output directory as absolute path
     path: assetsPath,
@@ -59,6 +59,7 @@ module.exports = {
   plugins: [
     // extract inline css from modules into separate files
     new ExtractTextPlugin('/css/styles.css', { allChunks: true }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false

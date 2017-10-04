@@ -52,9 +52,9 @@ Rename `/app/config/app-template.js` to `/app/config/app.js`
 
 #### Server Config (contains secrets, don't include inside client/front end code)
 Rename `/server/config/app-template.js` to `/server/config/app.js`
-- `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms - **Don't expose to front end**
 - `WP_URL` root URL of Wordpress installation
 - `WP_API` root of WP API *(does not require changing from default)*
+- `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms - **Don't expose to front end**
 - `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development (required in production unless you disable redis via ENV variables)
 
 ### Redis Setup

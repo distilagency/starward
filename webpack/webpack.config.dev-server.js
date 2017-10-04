@@ -12,7 +12,7 @@ module.exports = {
     name: 'server-side rendering',
     context: path.join(__dirname, '..', 'app'),
     entry: {
-      server: '../server/index'
+      server: ['babel-polyfill', '../server/index']
     },
     target: 'node',
     node: {
@@ -45,6 +45,7 @@ module.exports = {
     plugins: [
         new webpack.EnvironmentPlugin(['NODE_ENV']),
         new webpack.IgnorePlugin(/vertx/),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new webpack.BannerPlugin(
           'require("source-map-support").install();',
           { raw: true, entryOnly: false }
