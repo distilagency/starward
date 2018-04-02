@@ -15,7 +15,7 @@ $default-feature:     max-width;
 $large-desktop-breakpoint:  1600px;
 $desktop-breakpoint:        1300px;
 $tablet-breakpoint:         1080px;
-$mobile-breakpoint:         80px;
+$mobile-breakpoint:         800px;
 
 $large-desktop-down:        new-breakpoint(max-width ($large-desktop-breakpoint) 12);
 $desktop-down:              new-breakpoint(max-width ($desktop-breakpoint) 12);
