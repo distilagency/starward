@@ -46,12 +46,13 @@ export default function (state = INITIAL_STATE, action) {
     };
   case UPDATE_FORM: {
     const items = state[action.key] ? state[action.key].formValues : [];
-    items[action.payload.id] = action.payload;
+    const formValues = items.slice();
+    formValues[action.payload.id] = action.payload;
     return {
       ...state,
       [action.key]: {
         ...state[action.key],
-        formValues: items,
+        formValues,
         isValid: isValid(items)
       }
     };
