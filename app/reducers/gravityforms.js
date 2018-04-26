@@ -53,7 +53,7 @@ export default function (state = INITIAL_STATE, action) {
       [action.key]: {
         ...state[action.key],
         formValues,
-        isValid: isValid(items)
+        isValid: isValid(formValues)
       }
     };
   }
