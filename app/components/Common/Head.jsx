@@ -21,9 +21,15 @@ export const Head = (props) => {
     {property: 'og:title', content: !ogTitle ? title : ogTitle},
     {property: 'og:description', content: !ogDescription ? metadesc : ogDescription},
     {property: 'og:image', content: ogImage},
-    {property: 'robots', content: noindex},
-    {property: 'robots', content: nofollow}
   ];
+  
+  if (noindex && nofollow) {
+    meta.push({name: 'robots', content: 'noindex,nofollow'});
+  } else if (noindex) {
+    meta.push({name: 'robots', content: 'noindex'});
+  } else if (nofollow) {
+    meta.push({name: 'robots', content: 'nofollow'});
+  }
 
   const links = [
     {rel: 'canonical', href: canonical },
