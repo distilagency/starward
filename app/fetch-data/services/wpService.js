@@ -21,7 +21,7 @@ const postApi = (slug, queries) => {
 };
 const categoryApi = (slug, page) => axios.get(`${ROOT_API}/category?slug=${slug}&page=${page}`);
 const authorApi = (name, page) => axios.get(`${ROOT_API}/author?name=${name}&page=${page}`);
-const searchApi = (term, type, page, perPage) => axios.get(`${ROOT_API}/search?term=${term}&type=${!type ? 'posts' : type}&page=${!page ? 1 : page}&pageNumber=${!perPage ? POSTS_PER_PAGE : perPage}`);
+const searchApi = (term, type, page, perPage) => axios.get(`${ROOT_API}/search?term=${term}&type=${!type ? 'posts' : type}&page=${!page ? 1 : page}&perPage=${!perPage ? POSTS_PER_PAGE : perPage}`);
 
 // wpService object containing above API requests which gets imported in fetchWPData
 
