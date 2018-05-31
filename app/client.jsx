@@ -47,10 +47,6 @@ function onUpdate() {
   store.dispatch({ type: types.CREATE_REQUEST });
   const routeDataPromise = fetchDataForRoute(this.state);
   if (this.state.routes[0].name === 'App') {
-    // fetchDataForApp(this.state)
-    // .then(settings => {
-    //   requestSuccess(this.state, settings);
-    // });
     const appDataPromise = fetchDataForApp(this.state);
     allRequestsComplete(appDataPromise, routeDataPromise);
   } else {
