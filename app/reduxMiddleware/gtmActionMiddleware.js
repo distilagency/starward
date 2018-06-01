@@ -16,10 +16,6 @@ const trackPageChange = () => {
   if (!dataLayer) {
     logger('gtm couldn\'t track page change, cannot find gtm datalayer');
   } else {
-    // the page variable with path and title isn't required
-    // to properly track the page change, however I leave them
-    // in to track down potential race condition bugs that
-    // might end up having google submitting the wrong information.
     const event = {
       event: 'starward.pageview',
     };
