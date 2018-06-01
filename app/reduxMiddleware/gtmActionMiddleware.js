@@ -11,15 +11,10 @@ const logger = (...args) => {
  * fires a datalayer push to GTM to allow custom SPA based page navigations
  * inside of analytics
  */
-const trackPageChange = (store) => {
-  const { starward } = store.getState() || {};
-  const { page } = starward || {};
-  const { link: path, title } = page || {};
+const trackPageChange = () => {
   const dataLayer = window.dataLayer;
   if (!dataLayer) {
     logger('gtm couldn\'t track page change, cannot find gtm datalayer');
-  } else if (!path) {
-    logger('gtm couldn\'t track page change, no path detected in state');
   } else {
     // the page variable with path and title isn't required
     // to properly track the page change, however I leave them
@@ -27,10 +22,6 @@ const trackPageChange = (store) => {
     // might end up having google submitting the wrong information.
     const event = {
       event: 'starward.pageview',
-      page: {
-        path,
-        title,
-      }
     };
     logger('pushing event to gtm datalayer: ', event);
     dataLayer.push(event);
@@ -57,7 +48,7 @@ export const gtmActionMiddleware = store => next => action => {
   // run after next
   switch (gtm) {
     case GTM_TRACK_PAGE_CHANGE: {
-      trackPageChange(store);
+      trackPageChange();
       break;
     }
     default:
