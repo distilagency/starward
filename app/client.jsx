@@ -20,7 +20,7 @@ const routes = createRoutes(store);
 
 function requestSuccess(state, appData) {
   fetchDataForRoute(state)
-  .then(data => store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData} }));
+  .then(data => store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData}, gtm: types.GTM_TRACK_PAGE_CHANGE }));
 }
 
 /**
