@@ -15,15 +15,21 @@ export const Head = (props) => {
   const ogTitle = props['opengraph-title'];
 
   const meta = [
-    {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
+    {name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'},
     {name: 'description', content: metadesc },
     {property: 'og:type', content: 'website'},
     {property: 'og:title', content: !ogTitle ? title : ogTitle},
     {property: 'og:description', content: !ogDescription ? metadesc : ogDescription},
     {property: 'og:image', content: ogImage},
-    {property: 'robots', content: noindex},
-    {property: 'robots', content: nofollow}
   ];
+  
+  if (noindex && nofollow) {
+    meta.push({name: 'robots', content: 'noindex,nofollow'});
+  } else if (noindex) {
+    meta.push({name: 'robots', content: 'noindex'});
+  } else if (nofollow) {
+    meta.push({name: 'robots', content: 'nofollow'});
+  }
 
   const links = [
     {rel: 'canonical', href: canonical },
