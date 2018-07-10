@@ -18,10 +18,15 @@ const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 const routes = createRoutes(store);
 
-function requestSuccess(state, appData) {
-  fetchDataForRoute(state)
-  .then(data => store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...data, ...appData}, gtm: types.GTM_TRACK_PAGE_CHANGE }));
-}
+const requestSuccess = async (appDataPromise, routeDataPromise) => {
+  const results = await Promise.all([appDataPromise, routeDataPromise]);
+  const [appData, routeData] = results;
+  store.dispatch({
+    type: types.REQUEST_SUCCESS,
+    payload: { ...routeData, ...appData },
+    gtm: types.GTM_TRACK_PAGE_CHANGE
+  });
+};
 
 /**
  * Callback function handling frontend route changes.
@@ -42,13 +47,13 @@ function onUpdate() {
   // Handle data fetcher Redux actions
   store.dispatch({ type: types.RESET_404 });
   store.dispatch({ type: types.CREATE_REQUEST });
+  const routeDataPromise = fetchDataForRoute(this.state);
   if (this.state.routes[0].name === 'App') {
-    fetchDataForApp(this.state)
-    .then(settings => {
-      requestSuccess(this.state, settings);
-    });
+    const appDataPromise = fetchDataForApp(this.state);
+    requestSuccess(appDataPromise, routeDataPromise);
   } else {
-    requestSuccess(this.state);
+    const defaultFetchData = () => Promise.resolve();
+    requestSuccess(defaultFetchData, routeDataPromise);
   }
 }
 

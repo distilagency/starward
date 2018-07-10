@@ -32,7 +32,7 @@
     "webpack-bundle-analyzer": "^2.8.3"
   },
   "engines": {
-     "node": "4.x || 5.x || 6.x || 7.x || 8.x || 9.x"
+    "node": "4.x || 5.x || 6.x || 7.x || 8.x || 9.x"
   },
   "dependencies": {
     "autoprefixer": "^6.7.0",
