@@ -1,10 +1,10 @@
 import React from 'react';
-import Navigation from './Navigation';
+import { Navigation } from './Navigation';
 import { Logo } from './Logo';
 import SearchForm from '../Search/SearchForm';
 import './Header.scss';
 
-export const Header = props => {
+export const Header = (props) => {
   const {
     siteName,
     navigation,
@@ -15,7 +15,7 @@ export const Header = props => {
     <header id="banner" role="banner">
       <Logo
         siteName={siteName}
-        url={'/'}
+        url="/"
       />
       <SearchForm history={history} />
       <Navigation

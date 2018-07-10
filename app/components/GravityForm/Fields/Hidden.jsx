@@ -28,7 +28,12 @@ export default class Hidden extends Component {
   }
   render() {
     const { field, value } = this.props;
-    const { id, type, required, maxLength } = field;
+    const {
+      id,
+      type,
+      required,
+      maxLength
+    } = field;
     return (
       <input
         name={id}
@@ -36,7 +41,7 @@ export default class Hidden extends Component {
         value={value || ''}
         maxLength={maxLength}
         required={required}
-        onChange={(event) => this.updateField(event, field)}
+        onChange={event => this.updateField(event, field)}
       />
     );
   }

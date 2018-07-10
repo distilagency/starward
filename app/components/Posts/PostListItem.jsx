@@ -4,7 +4,7 @@ import { FeaturedImage } from './FeaturedImage';
 import { Title } from '../Content/Title';
 import { RenderContent } from '../Content/RenderContent';
 
-export const PostListItem = props => {
+export const PostListItem = (props) => {
   const {
     title,
     excerpt,

@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { Loading } from '../../components/Content/Loading';
 import { BLOG_SLUG } from '../../config/app';
 
-export const Pagination = props => {
-  const { posts, currentPage, urlBase } = props;
-  const { items, totalItems, totalPages } = posts;
+export const Pagination = (props) => {
+  const {
+    posts,
+    currentPage,
+    urlBase
+  } = props;
+  const { totalPages } = posts;
   const activePage = currentPage ? parseInt(currentPage) : 1;
   const numPages = parseInt(totalPages);
   const pagesArr = numPages > 1 ? Array.apply(null, Array(numPages)).map((x, i) => i + 1) : [];
-  if (pagesArr.length < 1)  return null;
+  if (pagesArr.length < 1) return null;
   return (
     <nav className="page_nav">
       <ul>

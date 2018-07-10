@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const PostItemPagination = props => {
+export const PostItemPagination = (props) => {
   const { previous, next } = props;
   return (
     <nav>
@@ -11,9 +11,4 @@ export const PostItemPagination = props => {
       </ul>
     </nav>
   );
-};
-
-PostItemPagination.propTypes = {
-  previous_post: PropTypes.object,
-  next_post: PropTypes.object,
 };

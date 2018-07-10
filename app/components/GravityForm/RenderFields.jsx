@@ -5,7 +5,7 @@ const formatComponentName = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const RenderFields = props => {
+export const RenderFields = (props) => {
   const {
     fields,
     formValues,
@@ -16,7 +16,7 @@ export const RenderFields = props => {
   } = props;
   return (
     <div className="fields">
-      {fields.map(field => {
+      {fields.map((field) => {
         const FormComponent = FormFields[formatComponentName(field.type)];
         const isValid = formValues[field.id] ? formValues[field.id].valid : false;
         return (

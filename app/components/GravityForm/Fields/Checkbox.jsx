@@ -4,11 +4,15 @@ import { checkboxValidation } from '../Helpers/validation';
 // Check whether selected option is defaultChecked (has additional .value key)
 // or selected by user
 const getSelectedValue = (option) => {
-  if (option.value.value) {
+  if (option.value && option.value.value) {
     return option.value.value;
   }
   return option.value;
-}
+};
+
+const joinString = (string) => {
+  return string.replace(/\s+/g, '-').toLowerCase();
+};
 
 export default class Checkbox extends Component {
   constructor(props) {
@@ -31,13 +35,13 @@ export default class Checkbox extends Component {
     this.setState({ values: defaultValues });
     this.props.updateForm(defaultValues, id, valid);
   }
-  updateField(event, field) {
+  updateField(event, value, field) {
+    event.preventDefault();
     const { id, required } = field;
-    const value = event.target.value;
     const selectedValues = this.state.values;
     const valueIndex = selectedValues.indexOf(value);
     if (valueIndex < 0) {
-      selectedValues.push(event.target.value);
+      selectedValues.push(value);
     } else {
       selectedValues.splice(valueIndex, 1);
     }
@@ -46,23 +50,32 @@ export default class Checkbox extends Component {
     this.props.updateForm(selectedValues, id, valid);
   }
   render() {
-    const { field, value, submitFailed, isValid } = this.props;
-    const { choices, label, classes, required } = field;
+    const {
+      field,
+      value,
+      submitFailed,
+      isValid
+    } = this.props;
+    const {
+      choices,
+      label,
+      classes,
+      required
+    } = field;
     const values = value ? value.map(getSelectedValue) : [];
     return (
       <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="checkboxes">
           <p className="title">{label}{required ? <abbr>*</abbr> : null}</p>
-          {choices.map((choice, index) => (
-            <div className="checkbox" key={index}>
-              <label htmlFor={choice.id}>
+          {choices.map(choice => (
+            <div className="checkbox" key={choice.value}>
+              <label htmlFor={joinString(choice.value)} onClick={event => this.updateField(event, choice.value, field)}>
                 <input
                   type="checkbox"
-                  name={choice.id}
+                  name={joinString(choice.value)}
                   value={choice.value}
                   checked={values.indexOf(choice.value) !== -1}
                   onChange={() => {}}
-                  onClick={event => this.updateField(event, field)}
                 />
                 {choice.text}
               </label>

@@ -6,6 +6,12 @@ import { Button } from './Button';
 import { FormError } from './FormError';
 import { FormConfirmation } from './FormConfirmation';
 
+const getButtonClasses = (isValid, loading) => {
+  if (loading) return 'loading';
+  else if (!isValid) return 'disabled';
+  return 'active';
+};
+
 class GravityForm extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +26,6 @@ class GravityForm extends Component {
     if (this.props.formId !== nextProps.formId) {
       this.props.getForm(nextProps.formId);
     }
-  }
-  getButtonClasses(isValid, loading) {
-    if (loading) return 'loading';
-    else if (!isValid) return 'disabled';
-    return 'active';
   }
   updateFormHandler = (value, field, valid) => {
     this.props.updateForm(value, field, valid, this.props.formId);
@@ -48,13 +49,26 @@ class GravityForm extends Component {
     // Handle no form with formId
     if (!gravityforms[formId]) return <p>No form found with ID {formId}</p>;
     // Pluck values from Gravity Form API response made in componentWillMount
-    const { activeForm, formValues, loading, submitting, submitSuccess, isValid } = gravityforms[formId];
+    const {
+      activeForm,
+      formValues,
+      loading,
+      submitting,
+      submitSuccess,
+      isValid
+    } = gravityforms[formId];
     // Handle form loading
     if (loading) return <p className="loading">Loading</p>;
     // Handle error
     if (!activeForm) return <span>Something went wrong loading form with ID: {formId}</span>;
     // Pluck values from activeForm in the Gravity Forms API response
-    const { title, description, button, fields, confirmation } = activeForm;
+    const {
+      title,
+      description,
+      button,
+      fields,
+      confirmation
+    } = activeForm;
     // Submit failed watcher
     const { submitFailed } = this.state;
     const currentForm = this.props.gravityforms[this.props.formId];
@@ -84,7 +98,7 @@ class GravityForm extends Component {
           />
           <Button
             text={button}
-            className={this.getButtonClasses(isValid, loading)}
+            className={getButtonClasses(isValid, loading)}
             showLoading={submitting}
           />
         </form>

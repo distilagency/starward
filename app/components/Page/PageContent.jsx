@@ -15,7 +15,7 @@ const AcfComponent = ({ item, location }) => {
   );
 };
 
-export const PageContent = props => {
+export const PageContent = (props) => {
   const {
     acf,
     content,

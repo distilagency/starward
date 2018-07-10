@@ -21,10 +21,10 @@ export default class SearchForm extends Component {
   render() {
     return (
       <div className="search-form">
-        <form role="search" method="get" id="searchform" className="searchform" onSubmit={(event) => this.search(event)}>
+        <form role="search" method="get" id="searchform" className="searchform" onSubmit={event => this.search(event)}>
           <div>
             <label htmlFor="search">Search</label>
-            <input type="text" placeholder="Search" onChange={(event) => this.searchInputHandler(event)} name="search" id="search" />
+            <input type="text" placeholder="Search" onChange={event => this.searchInputHandler(event)} name="search" id="search" />
           </div>
         </form>
       </div>

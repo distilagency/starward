@@ -1,7 +1,7 @@
 import React from 'react';
 import GravityForm from '../../GravityForm/Form';
 
-export const FormSection = props => {
+export const FormSection = (props) => {
   const {
     formId,
     showTitle,

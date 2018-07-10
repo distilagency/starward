@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const NavigationLink = ({ item }) => {
@@ -22,34 +22,32 @@ const NavigationLink = ({ item }) => {
       dangerouslySetInnerHTML={{__html: item.title}}
     />
   );
-}
+};
 
-const SubNavigation = ({ children }) => {
+const SubNavigation = ({ items }) => {
   return (
     <ul>
-      {children.map(child => (
+      {items.map(child => (
         <li key={child.order} className={`${child.classes}`}>
           <NavigationLink item={child} />
         </li>
       ))}
     </ul>
   );
-}
+};
 
-export default class Navigation extends Component {
-  render() {
-    const { items } = this.props;
-    return (
-      <nav className="nav_banner" role="navigation">
-        <ul>
-          {items.map(item => (
-            <li key={item.order} className={`${item.classes}`}>
-              <NavigationLink item={item} />
-              {item.children && item.children.length > 0 && <SubNavigation children={item.children} />}
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  }
-}
+export const Navigation = (props) => {
+  const { items } = props;
+  return (
+    <nav className="nav_banner" role="navigation">
+      <ul>
+        {items.map(item => (
+          <li key={item.order} className={`${item.classes}`}>
+            <NavigationLink item={item} />
+            {item.children && item.children.length > 0 && <SubNavigation items={item.children} />}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
