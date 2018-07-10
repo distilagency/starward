@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FeaturedImage } from './FeaturedImage';
 import { Title } from '../Content/Title';
 import { RenderContent } from '../Content/RenderContent';

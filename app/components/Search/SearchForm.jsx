@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 
 export default class SearchForm extends Component {
   constructor(props) {
@@ -17,7 +16,7 @@ export default class SearchForm extends Component {
   }
   search(event) {
     event.preventDefault();
-    browserHistory.push(`/search?term=${this.state.search}`);
+    this.props.history.replace(`/search?term=${this.state.search}`);
   }
   render() {
     return (

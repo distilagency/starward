@@ -1,10 +1,16 @@
-const defaultFetchData = () => Promise.resolve();
-
-function fetchDataForRoute({ routes, params, location }) {
-  const matchedRoute = routes[routes.length - 1];
-  const routeName = matchedRoute.name;
-  const fetchDataHandler = matchedRoute.fetchData || defaultFetchData;
-  return fetchDataHandler(params, routeName, location);
+function fetchDataForRoute(routes, queries) {
+  let params = {};
+  let fetchData;
+  let name;
+  routes.forEach((route) => {
+    params = {
+      ...params,
+      ...route.match.params,
+    };
+    fetchData = route.route.fetchData;
+    name = route.route.name;
+  });
+  return fetchData ? fetchData(params, name, queries) : Promise.resolve();
 }
 
 export default fetchDataForRoute;

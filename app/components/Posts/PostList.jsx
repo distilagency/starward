@@ -7,8 +7,7 @@ export const PostList = props => {
   const {
     posts,
     currentPage,
-    fetchMorePosts,
-    starwardUpdating
+    urlBase
   } = props;
   const { items, categories } = posts;
   if (!items || items.length < 1) {
@@ -23,11 +22,9 @@ export const PostList = props => {
         {items.map((post, index) => <PostListItem key={index} {...post} />)}
       </section>
       <Pagination
-        samePage={samePagePagination}
         posts={posts}
         currentPage={currentPage}
-        fetchMorePosts={fetchMorePosts}
-        starwardUpdating={starwardUpdating}
+        urlBase={urlBase}
       />
     </section>
   );

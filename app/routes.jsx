@@ -1,35 +1,89 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-// Global URLs determined in app.js configuration
-import { BLOG_SLUG, CATEGORY_SLUG, AUTHOR_SLUG, SEARCH_SLUG } from './config/app';
-// Import containers used for below routes
-import App from './containers/App';
-import Page from './containers/Page';
-import Blog from './containers/Blog';
-import BlogPost from './containers/BlogPost';
-import Category from './containers/Category';
-import Author from './containers/Author';
-import Search from './containers/Search';
-// fetchWPData contains switch statement based on route name.
-// It determines which data to load for route on the server
+import {
+  BLOG_SLUG,
+  CATEGORY_SLUG,
+  AUTHOR_SLUG,
+  SEARCH_SLUG
+} from './config/app';
 import { fetchWPData } from './fetch-data';
-// Map paths to components
-// Dynamic params declared using :
-// Use name={} for switch statement in fetchData function
-// Declare function to retreive data on the server using fetchData
-export default () => {
-  return (
-    <Route path="/" component={App} name="App" fetchData={fetchWPData}>
-      <IndexRoute component={Page} name="Home" fetchData={fetchWPData} />
-      <Route path={`/${BLOG_SLUG}`} component={Blog} name="Blog" fetchData={fetchWPData} />
-      <Route path={`/${BLOG_SLUG}/page/:page`} component={Blog} name="Blog" fetchData={fetchWPData} />
-      <Route path={`/${BLOG_SLUG}/:post`} component={BlogPost} name="BlogPost" fetchData={fetchWPData} />
-      <Route path={`/${CATEGORY_SLUG}/:slug`} component={Category} name="Category" fetchData={fetchWPData} />
-      <Route path={`/${CATEGORY_SLUG}/:slug/page/:page`} component={Category} name="Category" fetchData={fetchWPData} />
-      <Route path={`/${AUTHOR_SLUG}/:name`} component={Author} name="Author" fetchData={fetchWPData} />
-      <Route path={`/${AUTHOR_SLUG}/:name/page/:page`} component={Author} name="Author" fetchData={fetchWPData} />
-      <Route path={`/${SEARCH_SLUG}`} component={Search} name="Search" fetchData={fetchWPData} />
-      <Route path="*" component={Page} name="Page" fetchData={fetchWPData} />
-    </Route>
-  );
-};
+import App from './containers/App';
+
+function asyncComponent(getComponent) {
+  return class AsyncComponent extends React.Component {
+    static Component = null;
+    state = { Component: AsyncComponent.Component };
+
+    componentWillMount() {
+      if (!this.state.Component) {
+        getComponent().then(({ default: Component }) => {
+          AsyncComponent.Component = Component;
+          this.setState({ Component });
+        }).catch(err => console.error(err));
+      }
+    }
+
+    render() {
+      const { Component } = this.state;
+      if (Component) {
+        return <Component {...this.props} />;
+      }
+      return null;
+    }
+  };
+}
+
+export default [{
+  component: App,
+  routes: [{
+    path: '/',
+    name: 'Home',
+    exact: true,
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Page" */ './containers/Page')),
+  }, {
+    path: `/${BLOG_SLUG}/page/:page`,
+    name: 'Blog',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Blog" */ './containers/Blog')),
+  }, {
+    path: `/${BLOG_SLUG}/:post`,
+    name: 'BlogPost',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "BlogPost" */ './containers/BlogPost')),
+  }, {
+    path: `/${BLOG_SLUG}`,
+    name: 'Blog',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Blog" */ './containers/Blog')),
+  }, {
+    path: `/${CATEGORY_SLUG}/:slug/page/:page`,
+    name: 'Category',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Category" */ './containers/Category')),
+  }, {
+    path: `/${CATEGORY_SLUG}/:slug`,
+    name: 'Category',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Category" */ './containers/Category')),
+  }, {
+    path: `/${AUTHOR_SLUG}/:name/page/:page`,
+    name: 'Author',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Author" */ './containers/Author')),
+  }, {
+    path: `/${AUTHOR_SLUG}/:name`,
+    name: 'Author',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Author" */ './containers/Author')),
+  }, {
+    path: `/${SEARCH_SLUG}`,
+    name: 'Search',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Search" */ './containers/Search')),
+  }, {
+    path: '*',
+    name: 'Page',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Page" */ './containers/Page')),
+  }]
+}];

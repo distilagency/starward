@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 import { PageContent } from '../components/Page/PageContent';
+import './Page.scss';
 
 class Page extends Component {
   render() {

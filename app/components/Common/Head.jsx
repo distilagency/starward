@@ -22,7 +22,7 @@ export const Head = (props) => {
     {property: 'og:description', content: !ogDescription ? metadesc : ogDescription},
     {property: 'og:image', content: ogImage},
   ];
-  
+
   if (noindex && nofollow) {
     meta.push({name: 'robots', content: 'noindex,nofollow'});
   } else if (noindex) {
@@ -32,8 +32,7 @@ export const Head = (props) => {
   }
 
   const links = [
-    {rel: 'canonical', href: canonical },
-    {rel: 'shortcut icon', href: '/assets/images/favicon.ico' }
+    {rel: 'canonical', href: canonical }
   ];
 
   return (

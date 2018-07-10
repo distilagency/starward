@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import './Footer.scss';
 
 export const Footer = props => {
   const { siteName } = props;

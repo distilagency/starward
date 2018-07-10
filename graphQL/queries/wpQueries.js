@@ -6,6 +6,7 @@ const auth = { Authorization: `Basic ${WP_AUTH}` };
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const WP_API_ROOT = `${WP_API}/wp/v2`;
+const wpSearchByPath = `${WP_API}/searchbypath/path/`;
 const wpPagesUrl = `${WP_API_ROOT}/pages`;
 const wpPostsUrl = `${WP_API_ROOT}/posts`;
 const wpCategoriesUrl = `${WP_API_ROOT}/categories`;
@@ -115,15 +116,15 @@ const wpQueries = {
   },
   Query: {
     page(query, args) {
-      const wpPageURL = `${wpPagesUrl}?slug=${args.slug}`;
       if (args.preview) {
         const config = { headers: auth};
         return axios.get(`${wpPagesUrl}/${args.preview}/revisions`, config)
         .then(res => res.data[0]);
       }
+      const wpPageURL = `${wpSearchByPath}${args.slug}`;
       return axios.get(wpPageURL)
       .then(res => {
-        return res.data[0];
+        return res.data;
       });
     },
     posts(query, args) {
@@ -174,6 +175,7 @@ const wpQueries = {
     search(query, args) {
       const { type, term, page, perPage } = args;
       const wpSearchResultsUrl = `${WP_API_ROOT}/${type}?search=${term}&page=${page}&per_page=${perPage}`;
+      console.log('wpSearchResultsUrl', wpSearchResultsUrl);
       return axios.get(wpSearchResultsUrl)
       .then(res => {
         return {

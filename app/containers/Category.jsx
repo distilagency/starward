@@ -9,19 +9,22 @@ import { PostList } from '../components/Posts/PostList.jsx';
 
 class Category extends Component {
   render() {
-    const { category, loading, settings, params } = this.props;
+    const {
+      category,
+      loading,
+      settings,
+      match
+    } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
     const { details, posts } = category;
-    const { items, totalItems, totalPages } = posts;
     return (
       <main className="content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
         <Title title={details.name} />
         <PostList
-          posts={items}
-          totalItems={totalItems}
-          totalPages={totalPages}
+          posts={posts}
           urlBase={`${CATEGORY_SLUG}/${params.slug}`}
           currentPage={params.page}
          />

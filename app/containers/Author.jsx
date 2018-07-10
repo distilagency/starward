@@ -9,19 +9,18 @@ import { PostList } from '../components/Posts/PostList.jsx';
 
 class Category extends Component {
   render() {
-    const { author, settings, loading, params } = this.props;
+    const { author, settings, loading, match } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!author) return <FourOhFour />;
     const { details, posts } = author;
-    const { items, totalItems, totalPages } = posts;
+    const { totalItems, totalPages } = posts;
     return (
       <main className="content" role="main">
         <Head deafultTitle={`Posts by ${details.name} - ${settings.name}`} />
-        <Title title={details.name} />
+        <Title title={`Posts by ${details.name}`} />
         <PostList
-          posts={items}
-          totalItems={totalItems}
-          totalPages={totalPages}
+          posts={posts}
           urlBase={`${AUTHOR_SLUG}/${params.name}`}
           currentPage={params.page}
          />

@@ -10,7 +10,16 @@ import { fetchMorePosts } from '../actions/fetchMorePosts';
 
 class Blog extends Component {
   render() {
-    const { page, blog, settings, loading, params, fetchMorePosts, starwardUpdating } = this.props;
+    const {
+      page,
+      blog,
+      settings,
+      loading,
+      match,
+      fetchMorePosts,
+      starwardUpdating
+    } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!page || !blog) return <FourOhFour />;
     return (
@@ -20,7 +29,7 @@ class Blog extends Component {
         <RenderContent content={page.content} />
         <PostList
           posts={blog}
-          currentPage={params.page}
+          currentPage={params ? params.page : 1}
           starwardUpdating={starwardUpdating}
           fetchMorePosts={fetchMorePosts}
          />

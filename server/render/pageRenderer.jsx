@@ -1,23 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { renderToString } from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { RouterContext } from 'react-router';
-
-const createApp = (store, props) => {
-  try {
-    return renderToString(
-      <Provider store={store}>
-        <RouterContext {...props} />
-      </Provider>
-    );
-  } catch (err) {
-    console.error(err);
-    return '';
-  }
-};
-
-const styles = process.env.NODE_ENV === 'production' ? '<link rel="stylesheet" href="/assets/css/styles.css">' : '';
+import staticAssets from './static-assets/index';
 
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
   return `
@@ -27,20 +9,17 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
     ${headAssets.title.toString()}
     ${headAssets.meta.toString()}
     ${headAssets.link.toString()}
-    ${styles}
+    ${staticAssets.createStylesheets()}
+    ${staticAssets.createTrackingScript()}
   </head>
   <body>
     <div id="app">${componentHTML}</div>
     <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,es6" defer></script>
-    <script type="text/javascript" charset="utf-8" src="/assets/app.js" defer></script>
+    ${staticAssets.createAppScript()}
   </body>
 </html>`;
 };
 
-export default (store, props) => {
-  const initialState = store.getState();
-  const componentHTML = createApp(store, props);
-  const headAssets = Helmet.rewind();
+export default ({ componentHTML, initialState, headAssets }) => {
   return buildPage({ componentHTML, initialState, headAssets });
 };
