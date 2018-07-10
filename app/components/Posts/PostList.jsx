@@ -1,4 +1,5 @@
 import React from 'react';
+import { BLOG_SLUG } from '../../config/app';
 import { Categories } from './Categories';
 import { PostListItem } from './PostListItem';
 import { Pagination } from './Pagination';
@@ -7,7 +8,7 @@ export const PostList = props => {
   const {
     posts,
     currentPage,
-    urlBase
+    urlBase = BLOG_SLUG
   } = props;
   const { items, categories } = posts;
   if (!items || items.length < 1) {

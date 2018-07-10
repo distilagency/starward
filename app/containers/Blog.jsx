@@ -6,7 +6,6 @@ import { RenderContent } from '../components/Content/RenderContent';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 import { PostList } from '../components/Posts/PostList.jsx';
-import { fetchMorePosts } from '../actions/fetchMorePosts';
 
 class Blog extends Component {
   render() {
@@ -15,9 +14,7 @@ class Blog extends Component {
       blog,
       settings,
       loading,
-      match,
-      fetchMorePosts,
-      starwardUpdating
+      match
     } = this.props;
     const { params } = match;
     if (loading) return <Loading />;
@@ -30,8 +27,6 @@ class Blog extends Component {
         <PostList
           posts={blog}
           currentPage={params ? params.page : 1}
-          starwardUpdating={starwardUpdating}
-          fetchMorePosts={fetchMorePosts}
          />
       </main>
     );
@@ -39,14 +34,13 @@ class Blog extends Component {
 }
 
 function mapStateToProps({starward, loading}) {
-  const { page, posts, settings, starwardUpdating } = starward;
+  const { page, posts, settings } = starward;
   return {
     loading,
-    starwardUpdating,
     page,
     settings,
     blog: posts
   };
 }
 
-export default connect(mapStateToProps, { fetchMorePosts })(Blog);
+export default connect(mapStateToProps, {})(Blog);
