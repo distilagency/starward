@@ -18,13 +18,15 @@ const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 const routes = createRoutes(store);
 
-function allRequestsComplete(appDataPromise, routeDataPromise) {
-  Promise.all([appDataPromise, routeDataPromise])
-    .then(results => {
-      const [appData, routeData] = results;
-      store.dispatch({ type: types.REQUEST_SUCCESS, payload: {...routeData, ...appData} });
-    });
-}
+const requestSuccess = async (appDataPromise, routeDataPromise) => {
+  const results = await Promise.all([appDataPromise, routeDataPromise]);
+  const [appData, routeData] = results;
+  store.dispatch({
+    type: types.REQUEST_SUCCESS,
+    payload: { ...routeData, ...appData },
+    gtm: types.GTM_TRACK_PAGE_CHANGE
+  });
+};
 
 /**
  * Callback function handling frontend route changes.
@@ -48,10 +50,10 @@ function onUpdate() {
   const routeDataPromise = fetchDataForRoute(this.state);
   if (this.state.routes[0].name === 'App') {
     const appDataPromise = fetchDataForApp(this.state);
-    allRequestsComplete(appDataPromise, routeDataPromise);
+    requestSuccess(appDataPromise, routeDataPromise);
   } else {
     const defaultFetchData = () => Promise.resolve();
-    allRequestsComplete(defaultFetchData, routeDataPromise);
+    requestSuccess(defaultFetchData, routeDataPromise);
   }
 }
 
