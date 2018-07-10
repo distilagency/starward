@@ -33,16 +33,13 @@ const getAppData = () => {
 
 const getRouteData = (params, routeName, queries) => {
   switch (routeName) {
-    // Home container data
-    case 'Home': {
-      return getPage(HOME_SLUG, queries)
-      .then(({data}) => ({ page: data.data.active_page }))
-      .catch(error => console.log('error', error));
-    }
     // Page container data
     case 'Page': {
-      const path = params[0];
-      return getPage(path, queries)
+      const path = params[0]
+      const pathWithoutQueries = path && path.split('?')[0];
+      // If path is empty or equals '/' fetch data for homepage
+      const pathName = !pathWithoutQueries || pathWithoutQueries === '/' ? HOME_SLUG : pathWithoutQueries;
+      return getPage(pathName, queries)
       .then(({ data }) => {
         const page = data.data.active_page;
         if (!page) return ({ handleNotFound: '404' });

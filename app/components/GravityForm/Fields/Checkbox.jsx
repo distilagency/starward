@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { checkboxValidation } from '../Helpers/validation';
 
+// Check whether selected option is defaultChecked (has additional .value key)
+// or selected by user
+const getSelectedValue = (option) => {
+  if (option.value.value) {
+    return option.value.value;
+  }
+  return option.value;
+}
+
 export default class Checkbox extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +25,10 @@ export default class Checkbox extends Component {
   }
   initField(event, field) {
     const { id, choices, required } = field;
-    const defaultValues = choices.filter(choice => choice.isSelected);
+    const defaultChecked = choices.filter(choice => choice.isSelected);
+    const defaultValues = defaultChecked ? defaultChecked.map(option => option.value) : [];
     const valid = checkboxValidation(required, defaultValues);
-    this.setState({values: defaultValues});
+    this.setState({ values: defaultValues });
     this.props.updateForm(defaultValues, id, valid);
   }
   updateField(event, field) {
@@ -32,13 +42,13 @@ export default class Checkbox extends Component {
       selectedValues.splice(valueIndex, 1);
     }
     const valid = checkboxValidation(required, selectedValues);
-    this.setState({values: selectedValues});
+    this.setState({ values: selectedValues });
     this.props.updateForm(selectedValues, id, valid);
   }
   render() {
     const { field, value, submitFailed, isValid } = this.props;
     const { choices, label, classes, required } = field;
-    const values = value ? value.map(val => val.value) : [];
+    const values = value ? value.map(getSelectedValue) : [];
     return (
       <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="checkboxes">
@@ -51,7 +61,8 @@ export default class Checkbox extends Component {
                   name={choice.id}
                   value={choice.value}
                   checked={values.indexOf(choice.value) !== -1}
-                  onClick={(event) => this.updateField(event, field)}
+                  onChange={() => {}}
+                  onClick={event => this.updateField(event, field)}
                 />
                 {choice.text}
               </label>

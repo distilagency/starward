@@ -37,7 +37,7 @@ export default class Select extends Component {
         <div className="select">
           <label htmlFor={id}>
             {label}{required ? <abbr>*</abbr> : null}
-            <select name={id} required={required} value={value} onChange={(event) => this.updateField(event, field)}>
+            <select name={id} required={required} value={value || ''} onChange={(event) => this.updateField(event, field)}>
               {placeholder ? <option disabled>{placeholder}</option> : null}
               {choices.map((choice, index) => <option key={index} value={choice.value}>{choice.text}</option>)}
             </select>

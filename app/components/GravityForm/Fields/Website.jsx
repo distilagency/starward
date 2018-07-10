@@ -26,7 +26,7 @@ export default class Website extends Component {
             {label}{required ? <abbr>*</abbr> : null}
             <input
               type={type}
-              value={value}
+              value={value || ''}
               id={id}
               placeholder={placeholder}
               maxLength={maxLength}

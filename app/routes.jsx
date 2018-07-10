@@ -35,12 +35,6 @@ function asyncComponent(getComponent) {
 export default [{
   component: App,
   routes: [{
-    path: '/',
-    name: 'Home',
-    exact: true,
-    fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Page" */ './containers/Page')),
-  }, {
     path: `/${BLOG_SLUG}/page/:page`,
     name: 'Blog',
     fetchData: fetchWPData,

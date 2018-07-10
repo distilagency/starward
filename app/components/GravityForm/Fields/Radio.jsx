@@ -36,7 +36,6 @@ export default class Radio extends Component {
                   type="radio"
                   name={choice.id}
                   value={choice.value}
-                  defaultChecked={choice.isSelected}
                   checked={value === choice.value}
                   onChange={(event) => this.updateField(event, field)}
                 />

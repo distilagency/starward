@@ -6,7 +6,14 @@ const formatComponentName = (string) => {
 };
 
 export const RenderFields = props => {
-  const { fields, formValues, updateForm, submitFailed, submitSuccess } = props;
+  const {
+    fields,
+    formValues,
+    updateForm,
+    submitFailed,
+    submitSuccess,
+    location
+  } = props;
   return (
     <div className="fields">
       {fields.map(field => {
@@ -21,6 +28,7 @@ export const RenderFields = props => {
             isValid={isValid}
             submitFailed={submitFailed}
             submitSuccess={submitSuccess}
+            location={location}
           />
         );
       })}

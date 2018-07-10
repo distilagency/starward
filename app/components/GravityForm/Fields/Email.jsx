@@ -27,7 +27,7 @@ export default class Email extends Component {
             <input
               name={id}
               type={type}
-              value={value}
+              value={value || ''}
               placeholder={placeholder}
               maxLength={maxLength}
               required={required}

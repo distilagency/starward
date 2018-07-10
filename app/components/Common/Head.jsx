@@ -52,7 +52,3 @@ export const Head = (props) => {
     />
   );
 };
-
-Head.contextTypes = {
-  location: React.PropTypes.object
-};
