@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 import { isClient, isDebug } from '../config/app';
+import { gtmActionMiddleware } from '../reduxMiddleware/gtmActionMiddleware';
 
 /*
  * @param {Object} initial state to bootstrap our stores with for server-side rendering
@@ -13,7 +14,7 @@ import { isClient, isDebug } from '../config/app';
  */
 export default function configureStore(initialState, history) {
   // Installs hooks that always keep react-router and redux store in sync
-  const middleware = [thunk, routerMiddleware(history)];
+  const middleware = [thunk, routerMiddleware(history), gtmActionMiddleware];
   let store;
 
   if (isClient && isDebug) {
