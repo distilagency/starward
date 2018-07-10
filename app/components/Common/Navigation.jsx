@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 export default class Navigation extends Component {
   getLink(item) {
@@ -8,7 +8,7 @@ export default class Navigation extends Component {
       return <a href={item.url} target="_blank" rel="noopener noreferrer" dangerouslySetInnerHTML={{__html: item.title}} />;
     }
     // Internal Link Case
-    return <Link to={item.url} activeClassName="active" dangerouslySetInnerHTML={{__html: item.title}} />;
+    return <NavLink to={item.url} activeClassName="active" dangerouslySetInnerHTML={{__html: item.title}} />;
   }
   renderSubNavigation(subItems) {
     return (
