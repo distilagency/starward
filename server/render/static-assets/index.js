@@ -1,3 +1,5 @@
-const createStaticAssets = __PRODUCTION__ ? require('./prod') : require('./dev');
+import { isProduction } from '../../../app/config/app';
+
+const createStaticAssets = isProduction ? require('./prod') : require('./dev');
 
 export default createStaticAssets;

@@ -34,7 +34,7 @@ const wpQueries = {
       const pageNumber = args.page ? args.page : 1;
       const wpCategoryPostsURL = `${wpPostsUrl}?categories=${category.details.id}&page=${pageNumber}&per_page=${POSTS_PER_PAGE}`;
       return axios.get(wpCategoryPostsURL)
-      .then(res => {
+      .then((res) => {
         return {
           items: res.data,
           totalItems: res.headers['x-wp-total'],
@@ -50,7 +50,7 @@ const wpQueries = {
       const pageNumber = args.page ? args.page : 1;
       const wpAuthorPostsURL = `${wpPostsUrl}?author=${author.details.id}&page=${pageNumber}&per_page=${POSTS_PER_PAGE}`;
       return axios.get(wpAuthorPostsURL)
-      .then(res => {
+      .then((res) => {
         return {
           items: res.data,
           totalItems: res.headers['x-wp-total'],
@@ -75,7 +75,7 @@ const wpQueries = {
       return post.better_featured_image;
     },
     categories(post) {
-      return axios.all(post.categories.map(id => {
+      return axios.all(post.categories.map((id) => {
         return axios.get(`${wpCategoriesUrl}/${id}`)
         .then(res => res.data);
       }));
@@ -86,7 +86,7 @@ const wpQueries = {
     },
     pagination(post) {
       return axios.get(wpPostsUrl)
-      .then(res => {
+      .then((res) => {
         const activePost = res.data.find(item => item.slug === post.slug);
         const previousPostIndex = res.data.indexOf(activePost) + 1;
         const nextPostIndex = previousPostIndex - 2;
@@ -123,7 +123,7 @@ const wpQueries = {
       }
       const wpPageURL = `${wpSearchByPath}${args.slug}`;
       return axios.get(wpPageURL)
-      .then(res => {
+      .then((res) => {
         return res.data;
       });
     },
@@ -150,7 +150,7 @@ const wpQueries = {
     category(query, args) {
       const wpCategoryURL = `${wpCategoriesUrl}?slug=${args.slug}`;
       return axios.get(wpCategoryURL)
-      .then(res => {
+      .then((res) => {
         return { details: res.data[0] };
       })
       .catch(error => console.log('error', error));
@@ -158,7 +158,7 @@ const wpQueries = {
     author(query, args) {
       const wpAuthorURL = `${wpUsersUrl}?slug=${args.name}`;
       return axios.get(wpAuthorURL)
-      .then(res => {
+      .then((res) => {
         return { details: res.data[0] };
       })
       .catch(error => console.log('error', error));
@@ -173,11 +173,15 @@ const wpQueries = {
       .then(res => res.data[0]);
     },
     search(query, args) {
-      const { type, term, page, perPage } = args;
+      const {
+        type,
+        term,
+        page,
+        perPage
+      } = args;
       const wpSearchResultsUrl = `${WP_API_ROOT}/${type}?search=${term}&page=${page}&per_page=${perPage}`;
-      console.log('wpSearchResultsUrl', wpSearchResultsUrl);
       return axios.get(wpSearchResultsUrl)
-      .then(res => {
+      .then((res) => {
         return {
           items: res.data,
           totalItems: res.headers['x-wp-total'],

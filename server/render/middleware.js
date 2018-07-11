@@ -12,7 +12,6 @@ import { baseURL } from '../../app/config/app';
 import { REDIS_PREFIX } from '../config/app';
 import pageRenderer from './pageRenderer';
 import fetchDataForRoute from '../../app/utils/fetchDataForRoute';
-import fetchDataForApp from '../../app/utils/fetchDataForApp';
 import { redisConfig, createRedisClient } from '../redis';
 import { environment } from '../utility';
 import routes from '../../app/routes';

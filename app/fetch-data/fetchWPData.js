@@ -14,8 +14,6 @@ const {
   getSearchResults
 } = wpService;
 
-const handle404 = () => ({ handle404: true });
-
 const getAppData = () => {
   return axios.all([
     getSettings(),
@@ -29,13 +27,13 @@ const getAppData = () => {
     headerMenu: headerMenu.data.data.menu
   }))
   .catch(error => console.log('error', error));
-}
+};
 
 const getRouteData = (params, routeName, queries) => {
   switch (routeName) {
     // Page container data
     case 'Page': {
-      const path = params[0]
+      const path = params[0];
       const pathWithoutQueries = path && path.split('?')[0];
       // If path is empty or equals '/' fetch data for homepage
       const pathName = !pathWithoutQueries || pathWithoutQueries === '/' ? HOME_SLUG : pathWithoutQueries;
@@ -76,24 +74,20 @@ const getRouteData = (params, routeName, queries) => {
     case 'Category': {
       const pageNumber = params.page ? params.page : 1;
       return getCategory(params.slug, pageNumber)
-      .then(res => {
-        return res.data.data;
-      })
+      .then(res => res.data.data)
       .catch(error => console.log('error', error));
     }
     // Author container data
     case 'Author': {
       const pageNumber = params.page ? params.page : 1;
       return getAuthor(params.name, pageNumber)
-      .then(res => {
-        return res.data.data;
-      })
+      .then(res => res.data.data)
       .catch(error => console.log('error', error));
     }
     // Search container data
     case 'Search': {
       return getSearchResults(queries.term, queries.type, queries.page, queries.perPage)
-      .then(res => {
+      .then((res) => {
         return {
           search: res.data.data.search
         };
@@ -102,7 +96,7 @@ const getRouteData = (params, routeName, queries) => {
     default:
       return ({ handleNotFound: '404' });
   }
-}
+};
 
 const fetchWPData = async (params, routeName, queries) => {
   // Switch statement on routeName from routes.jsx

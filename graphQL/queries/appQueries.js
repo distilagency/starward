@@ -10,7 +10,7 @@ const appQueries = {
   Query: {
     settings() {
       return axios.get(wpSettingsURL)
-      .then(res => {
+      .then((res) => {
         return res.data.acf;
       });
     },

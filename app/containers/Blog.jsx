@@ -5,8 +5,9 @@ import { Title } from '../components/Content/Title';
 import { RenderContent } from '../components/Content/RenderContent';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import { PostList } from '../components/Posts/PostList.jsx';
+import { PostList } from '../components/Posts/PostList';
 
+// eslint-disable-next-line
 class Blog extends Component {
   render() {
     const {

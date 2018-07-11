@@ -5,6 +5,7 @@ import { FourOhFour } from '../components/Content/FourOhFour';
 import { PageContent } from '../components/Page/PageContent';
 import './Page.scss';
 
+// eslint-disable-next-line
 class Page extends Component {
   render() {
     const {

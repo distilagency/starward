@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import { isDebug } from '../app/config/app';
 import initExpress from './init/express';
 import initStarwardRoutes from './init/api';
-import initRoutes from './init/routes';
+// import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
 const app = express();

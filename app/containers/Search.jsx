@@ -6,9 +6,10 @@ import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import { PostList } from '../components/Posts/PostList.jsx';
+import { PostList } from '../components/Posts/PostList';
 import SearchForm from '../components/Search/SearchForm';
 
+// eslint-disable-next-line
 class Search extends Component {
   render() {
     const {

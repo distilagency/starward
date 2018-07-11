@@ -7,8 +7,7 @@ function fetchDataForRoute(routes, queries) {
       ...params,
       ...route.match.params,
     };
-    fetchData = route.route.fetchData;
-    name = route.route.name;
+    ({ fetchData, name } = route.route);
   });
   return fetchData ? fetchData(params, name, queries) : Promise.resolve();
 }

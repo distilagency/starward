@@ -6,9 +6,15 @@ import { Footer } from '../components/Common/Footer';
 import { TrackingScript } from '../components/Common/TrackingScript';
 import './App.scss';
 
+// eslint-disable-next-line
 class App extends Component {
   render() {
-    const { route, starward, location, history } = this.props;
+    const {
+      route,
+      starward,
+      location,
+      history
+    } = this.props;
     const { settings, headerMenu } = starward;
     return (
       <div className={location.pathname === '/' ? 'home' : location.pathname.replace(/\//g, '')}>

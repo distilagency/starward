@@ -5,8 +5,9 @@ import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import { PostList } from '../components/Posts/PostList.jsx';
+import { PostList } from '../components/Posts/PostList';
 
+// eslint-disable-next-line
 class Category extends Component {
   render() {
     const {
