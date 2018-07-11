@@ -26,7 +26,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
     "import-glob-loader": "^1.1.0",
-    "nodemon": "^1.10.2",
+    "nodemon": "1.17.5",
     "null-loader": "^0.1.1",
     "react-transform-catch-errors": "^1.0.2",
     "webpack-bundle-analyzer": "^2.8.3",
@@ -90,6 +90,6 @@
     "webpack": "^4.1.0",
     "webpack-dev-middleware": "^3.0.0",
     "webpack-hot-middleware": "^2.21.2",
-    "webpack-manifest-plugin": "^2.0.0-rc.2"
+    "webpack-manifest-plugin": "^2.0.3"
   }
 }
