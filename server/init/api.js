@@ -22,11 +22,11 @@ const sanitizeJSON = (json) => {
 };
 /* Handle success and sanitize JSON response */
 const handleSuccess = (res) => {
-  return (data) => res.json(sanitizeJSON(data));
+  return data => res.json(sanitizeJSON(data));
 };
 /* Handle error */
 const handleError = (res) => {
-  return (error) => res.json(error);
+  return error => res.json(error);
 };
 
 /* ----------- Express ----------- */
@@ -297,7 +297,12 @@ export default(app) => {
           totalItems,
           totalPages
         }
-      }`, {term: req.query.term, type: req.query.type, page: req.query.page, perPage: req.query.perPage})
+      }`, {
+        term: req.query.term,
+        type: req.query.type,
+        page: req.query.page,
+        perPage: req.query.$perPage
+      })
       .then(handleSuccess(res))
       .catch(handleError(res));
   });
@@ -336,7 +341,7 @@ export default(app) => {
   /* Flush Redis */
   app.get('/api/flushredis', (req, res) => {
     console.log(`${moment().format()} flushing Redis cache`);
-    client.flushdb(err => {
+    client.flushdb((err) => {
       if (err) return res.json({error: err});
       return res.json({success: true});
     });

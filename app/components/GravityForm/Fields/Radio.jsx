@@ -18,27 +18,36 @@ export default class Radio extends Component {
   }
   updateField(event, field) {
     const { id, required } = field;
-    const value = event.target.value;
+    const { value } = event.target;
     const valid = radioValidation(required, value);
     this.props.updateForm(value, id, valid);
   }
   render() {
-    const { field, value, submitFailed, isValid } = this.props;
-    const { choices, label, classes, required } = field;
+    const {
+      field,
+      value,
+      submitFailed,
+      isValid
+    } = this.props;
+    const {
+      choices,
+      label,
+      classes,
+      required
+    } = field;
     return (
       <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="radios">
           <p className="title">{label}{required ? <abbr>*</abbr> : null}</p>
-          {choices.map((choice, index) => (
-            <div className="radio" key={index}>
+          {choices.map(choice => (
+            <div className="radio" key={choice.value}>
               <label htmlFor={choice.id}>
                 <input
                   type="radio"
                   name={choice.id}
                   value={choice.value}
-                  defaultChecked={choice.isSelected}
                   checked={value === choice.value}
-                  onChange={(event) => this.updateField(event, field)}
+                  onChange={event => this.updateField(event, field)}
                 />
                 {choice.text}
               </label>

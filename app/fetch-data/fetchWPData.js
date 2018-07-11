@@ -14,45 +14,33 @@ const {
   getSearchResults
 } = wpService;
 
-const handle404 = () => ({handle404: true});
+const getAppData = () => {
+  return axios.all([
+    getSettings(),
+    getMenu('primary_navigation')
+  ])
+  .then(([
+    settings,
+    headerMenu
+  ]) => ({
+    settings: !settings.data.data.settings ? { name: SITE_NAME } : settings.data.data.settings,
+    headerMenu: headerMenu.data.data.menu
+  }))
+  .catch(error => console.log('error', error));
+};
 
-const fetchWPData = (params, routeName, location) => {
-  // Switch statement on routeName from routes.jsx
+const getRouteData = (params, routeName, queries) => {
   switch (routeName) {
-    // App component data using axios.all() https://github.com/mzabriskie/axios#example
-    // -- Fetching basic WP settings
-    // -- Fetching menu for header component
-    case 'App': {
-      return axios.all([
-        getSettings(),
-        getMenu('primary_navigation')
-      ])
-      .then(([
-        settings,
-        headerMenu
-      ]) => ({
-        settings: !settings.data.data.settings ? { name: SITE_NAME } : settings.data.data.settings,
-        headerMenu: headerMenu.data.data.menu
-      }))
-      .catch(error => console.log('error', error));
-    }
-    // Home container data
-    case 'Home': {
-      return getPage(HOME_SLUG, location.query)
-      .then(({data}) => ({ page: data.data.active_page }))
-      .catch(error => console.log('error', error));
-    }
     // Page container data
     case 'Page': {
-      const pathArray = params.splat.split('/');
-      const slug = pathArray[pathArray.length - 1];
-      return getPage(slug, location.query)
-      .then(({data}) => {
-        // Check that WP splat and Starward splat match else handle 404
-        const starwardSplat = `/${params.splat}/`;
-        const wpSplat = data.data.active_page ? data.data.active_page.link : '/';
-        if (wpSplat !== starwardSplat) return handle404();
-        // Return page data
+      const path = params[0];
+      const pathWithoutQueries = path && path.split('?')[0];
+      // If path is empty or equals '/' fetch data for homepage
+      const pathName = !pathWithoutQueries || pathWithoutQueries === '/' ? HOME_SLUG : pathWithoutQueries;
+      return getPage(pathName, queries)
+      .then(({ data }) => {
+        const page = data.data.active_page;
+        if (!page) return ({ handleNotFound: '404' });
         return ({ page: data.data.active_page });
       })
       .catch(error => console.log('error', error));
@@ -62,7 +50,7 @@ const fetchWPData = (params, routeName, location) => {
       const pageNumber = params.page ? params.page : 1;
       const perPage = params.perPage ? params.perPage : POSTS_PER_PAGE;
       return axios.all([
-        getPage(BLOG_SLUG, location.query),
+        getPage(BLOG_SLUG, queries),
         getPosts(pageNumber, perPage)
       ])
       .then(([
@@ -76,7 +64,7 @@ const fetchWPData = (params, routeName, location) => {
     }
     // BlogPost container data
     case 'BlogPost': {
-      return getPost(params.post, location.query)
+      return getPost(params.post, queries)
       .then(({data}) => {
         return { activePost: data.data.activePost };
       })
@@ -86,32 +74,35 @@ const fetchWPData = (params, routeName, location) => {
     case 'Category': {
       const pageNumber = params.page ? params.page : 1;
       return getCategory(params.slug, pageNumber)
-      .then(res => {
-        return res.data.data;
-      })
+      .then(res => res.data.data)
       .catch(error => console.log('error', error));
     }
     // Author container data
     case 'Author': {
       const pageNumber = params.page ? params.page : 1;
       return getAuthor(params.name, pageNumber)
-      .then(res => {
-        return res.data.data;
-      })
+      .then(res => res.data.data)
       .catch(error => console.log('error', error));
     }
     // Search container data
     case 'Search': {
-      return getSearchResults(location.query.term, location.query.type, location.query.page, location.query.perPage)
-      .then(res => {
+      return getSearchResults(queries.term, queries.type, queries.page, queries.perPage)
+      .then((res) => {
         return {
           search: res.data.data.search
         };
       });
     }
     default:
-      return ({handleNotFound: '404'});
+      return ({ handleNotFound: '404' });
   }
+};
+
+const fetchWPData = async (params, routeName, queries) => {
+  // Switch statement on routeName from routes.jsx
+  const appData = await getAppData();
+  const routeData = await getRouteData(params, routeName, queries);
+  return ({ ...appData, ...routeData });
 };
 
 export default fetchWPData;

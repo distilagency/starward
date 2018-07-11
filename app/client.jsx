@@ -1,67 +1,43 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import createRoutes from './routes';
-import * as types from './actions/types';
+import { ConnectedRouter } from 'react-router-redux';
+import { renderRoutes } from 'react-router-config';
+import { AppContainer } from 'react-hot-loader';
+import createBrowserHistory from 'history/createBrowserHistory';
+import routes from './routes';
 import configureStore from './utils/configureStore';
-import fetchDataForRoute from './utils/fetchDataForRoute';
-import fetchDataForApp from './utils/fetchDataForApp';
-import styles from '../public/assets/sass/styles.scss';
+import ClientDataFetcher from './ClientDataFetcher';
 
 // Grab the state from a global injected into
 // server-generated HTML
 const initialState = window.__INITIAL_STATE__;
-
-const store = configureStore(initialState, browserHistory);
-const history = syncHistoryWithStore(browserHistory, store);
-const routes = createRoutes(store);
-
-const requestSuccess = async (appDataPromise, routeDataPromise) => {
-  const results = await Promise.all([appDataPromise, routeDataPromise]);
-  const [appData, routeData] = results;
-  store.dispatch({
-    type: types.REQUEST_SUCCESS,
-    payload: { ...routeData, ...appData },
-    gtm: types.GTM_TRACK_PAGE_CHANGE
-  });
-};
-
-/**
- * Callback function handling frontend route changes.
- */
-function onUpdate() {
-  // Prevent duplicate fetches when first loaded.
-  // Explanation: On server-side render, we already have __INITIAL_STATE__
-  // So when the client side onUpdate kicks in, we do not need to fetch twice.
-  // We set it to null so that every subsequent client-side navigation will
-  // still trigger a fetch data.
-  // Read more: https://github.com/choonkending/react-webpack-node/pull/203#discussion_r60839356
-  if (window.__INITIAL_STATE__ !== null) {
-    window.__INITIAL_STATE__ = null;
-    return;
-  }
-  // Reset scroll position
-  window.scrollTo(0, 0);
-  // Handle data fetcher Redux actions
-  store.dispatch({ type: types.RESET_404 });
-  store.dispatch({ type: types.CREATE_REQUEST });
-  const routeDataPromise = fetchDataForRoute(this.state);
-  if (this.state.routes[0].name === 'App') {
-    const appDataPromise = fetchDataForApp(this.state);
-    requestSuccess(appDataPromise, routeDataPromise);
-  } else {
-    const defaultFetchData = () => Promise.resolve();
-    requestSuccess(defaultFetchData, routeDataPromise);
-  }
-}
-
+const history = createBrowserHistory();
+const store = configureStore(initialState, history);
+delete window.__INITIAL_STATE__;
 // Router converts <Route> element hierarchy to a route config:
 // Read more https://github.com/rackt/react-router/blob/latest/docs/Glossary.md#routeconfig
-render(
-  <Provider store={store}>
-    <Router history={history} onUpdate={onUpdate}>
-      {routes}
-    </Router>
-  </Provider>, document.getElementById('app'));
+
+const renderDOM = (r) => {
+  render(
+    <AppContainer>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <ClientDataFetcher routes={r} store={store}>
+            {renderRoutes(r)}
+          </ClientDataFetcher>
+        </ConnectedRouter>
+      </Provider>
+    </AppContainer>,
+    document.getElementById('app'),
+  );
+};
+
+renderDOM(routes);
+
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const newRoutes = require('./routes').default;
+    renderDOM(newRoutes);
+  });
+}

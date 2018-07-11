@@ -3,21 +3,21 @@ import webpack from 'webpack';
 import { isDebug } from '../app/config/app';
 import initExpress from './init/express';
 import initStarwardRoutes from './init/api';
-import initRoutes from './init/routes';
+// import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
 const app = express();
 
 if (isDebug) {
-  const webpackDevConfig = require('../webpack/webpack.config.dev-client');
+  // enable webpack hot module replacement
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackConfig = require('../webpack/webpack.config');
 
-  const compiler = webpack(webpackDevConfig);
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackDevConfig.output.publicPath
-  }));
-
-  app.use(require('webpack-hot-middleware')(compiler));
+  const devBrowserConfig = webpackConfig({ browser: true });
+  const compiler = webpack(devBrowserConfig);
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: devBrowserConfig.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
 }
 
 /*

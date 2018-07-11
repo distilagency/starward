@@ -5,12 +5,19 @@ import { Title } from '../components/Content/Title';
 import { RenderContent } from '../components/Content/RenderContent';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import { PostList } from '../components/Posts/PostList.jsx';
-import { fetchMorePosts } from '../actions/fetchMorePosts';
+import { PostList } from '../components/Posts/PostList';
 
+// eslint-disable-next-line
 class Blog extends Component {
   render() {
-    const { page, blog, settings, loading, params, fetchMorePosts, starwardUpdating } = this.props;
+    const {
+      page,
+      blog,
+      settings,
+      loading,
+      match
+    } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!page || !blog) return <FourOhFour />;
     return (
@@ -20,9 +27,7 @@ class Blog extends Component {
         <RenderContent content={page.content} />
         <PostList
           posts={blog}
-          currentPage={params.page}
-          starwardUpdating={starwardUpdating}
-          fetchMorePosts={fetchMorePosts}
+          currentPage={params ? params.page : 1}
          />
       </main>
     );
@@ -30,14 +35,13 @@ class Blog extends Component {
 }
 
 function mapStateToProps({starward, loading}) {
-  const { page, posts, settings, starwardUpdating } = starward;
+  const { page, posts, settings } = starward;
   return {
     loading,
-    starwardUpdating,
     page,
     settings,
     blog: posts
   };
 }
 
-export default connect(mapStateToProps, { fetchMorePosts })(Blog);
+export default connect(mapStateToProps, {})(Blog);
