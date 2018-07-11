@@ -5,22 +5,25 @@
 :construction: Still in construction, be delicate.
 
 ## Features:
-- [**ReactJS**](https://facebook.github.io/react/)
+- [**React 16**](https://facebook.github.io/react/)
+- [**React Router 4**](https://github.com/reactjs/react-router)
+- [**Webpack 4**](https://github.com/webpack/webpack)
+- [**ECMAScript 2017 (ES7)**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
 - [**Universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) rendering :earth_asia:
 - [**GraphQL**](http://graphql.org/learn/)
 - [**Redis**](https://redis.io/) page caching
-- [**WP REST API v2**](http://v2.wp-api.org/)
 - [**Redux**](https://github.com/reactjs/redux)
-- [**React Router**](https://github.com/reactjs/react-router)
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux)
-- [**react-transform-hmr**](https://github.com/gaearon/react-transform-hmr) hot reloading
+- [**React Hot Loader**](https://github.com/gaearon/react-hot-loader)
 - [**Redux-Devtools Chrome Extension**](https://github.com/zalmoxisus/redux-devtools-extension)
-- [**Webpack**](https://github.com/webpack/webpack)
+- [**CSS Module w/ SASS support**](https://github.com/css-modules/css-modules)
+- [**Code Splitting**](https://webpack.js.org/guides/code-splitting/)
 - [**Express 4.x**](https://expressjs.com/en/api.html) server
 
 ## Wordpress Dependencies
 Requires a Wordpress setup using the following plugins:
 - [**WP Rest API**](https://en-au.wordpress.org/plugins/rest-api/)
+- [**WP Rest API - Search by Path**](https://github.com/samlogan/wp-rest-api-search-by-path)
 - [**WP API Basic Auth**](https://github.com/WP-API/Basic-Auth)
 - [**WP API Menus**](https://en-au.wordpress.org/plugins/wp-api-menus/)
 - [**Better REST API Featured Images**](https://en-au.wordpress.org/plugins/better-rest-api-featured-images/)
@@ -78,6 +81,10 @@ Two ready to import [JSON field groups](https://support.advancedcustomfields.com
 - `page_flexible_content.json` - Component based (`/app/components/ACF/layout`) field group using the native ACF PRO flexible content field
 - `settings_option_page.json` - Generic setting fields designed for a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) within Wordpress and accessible from the GraphQL endpoint `/api/settings`
 
+### Getting Started
+
+⛔️ 📛 🚫 **IMPORTANT** run `yarn build` or `npm run build` at the start of each project
+
 ### Running Server
 `yarn && yarn dev`
 
@@ -91,13 +98,18 @@ Make sure that your redis client is running as described above, then:
 
 `yarn && yarn dev-redis`
 
-### Analysing package size
+### SCSS
 
-`yarn analyse`
+Component and container level based styles exist in `/app/components/*/*.scss` & `app/containers/*/*.scss` and are imported at the top of each JSX file (beneath absolute and relative module/component imports) like:
 
-### Styling
+```
+// Header.jsx
+import React from 'react';
+import { Logo } from './Logo';
+import './Header.scss';
+```
 
-Sass partials are contained within `/public/assets/sass` and are split between four folders:
+Global SASS partials (variables, typography, grid settings etc) are contained within `/app/sass/` and are split between two folders:
 
 #### /base
 
@@ -106,18 +118,6 @@ Boilerplate partials including a reset, default typography rules, grid, print an
 #### /helpers
 
 For storing mixins, functions and other Sass tools used across the project
-
-#### /components
-
-Adheres to the same name spacing as the app/components folder, each partial contains styling for the equivalent React component
-
-#### /containers
-
-Adheres to the same name spacing as the core app/containers folders, each partial contain the styling for the React Redux container that does not fit within an individual component partial. App.scss will contain app specific reusable and global styles.
-
-#### /vendor
-
-Contains Bourbon and Bourbon Neat and any other vendor specific styling
 
 ### GraphQL
 

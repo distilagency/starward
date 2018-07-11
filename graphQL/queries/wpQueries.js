@@ -6,7 +6,7 @@ const auth = { Authorization: `Basic ${WP_AUTH}` };
 
 /* ----------- WP REST API v2 endpoints ----------- */
 const WP_API_ROOT = `${WP_API}/wp/v2`;
-const wpSearchByPath = `${WP_API}/searchbypath/path/`;
+const wpSearchByPath = `${WP_API}/path/pages/`;
 const wpPagesUrl = `${WP_API_ROOT}/pages`;
 const wpPostsUrl = `${WP_API_ROOT}/posts`;
 const wpCategoriesUrl = `${WP_API_ROOT}/categories`;
