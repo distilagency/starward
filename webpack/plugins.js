@@ -34,7 +34,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
       new webpack.EnvironmentPlugin(['NODE_ENV']),
       new webpack.DefinePlugin(compileTimeConstantForMinification),
       new ExtractTextPlugin({
-        filename: '[contenthash].css',
+        filename: '[md5:contenthash:hex:20].css',
         allChunks: true
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
