@@ -6,13 +6,23 @@ import methodOverride from 'method-override';
 import gzip from 'compression';
 import helmet from 'helmet';
 import { ENV } from '../../env';
+import { REDIS_PREFIX } from '../config/app';
+import { redisConfig, createRedisClient } from '../redis';
+import { environment } from '../utility';
+
+// create redis client
+const redisClient = createRedisClient(REDIS_PREFIX);
+
+// you must set the redis prefix if you want to use redis
+if (environment.isRedisEnabled && !REDIS_PREFIX) {
+  throw new Error('REDIS_PREFIX needs to be configured in app.js for redis to work');
+}
 
 export default (app) => {
   app.set('port', (process.env.PORT || 3000));
 
   if (ENV === 'production') {
     app.use(gzip());
-    // Secure your Express apps by setting various HTTP headers. Documentation: https://github.com/helmetjs/helmet
     app.use(helmet());
   }
 
@@ -22,33 +32,44 @@ export default (app) => {
 
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
+  // Strip forward slash
+  app.use((req, res, next) => {
+    if (req.path.length > 1 && /\/$/.test(req.path)) {
+      const query = req.url.slice(req.path.length);
+      res.redirect(301, req.path.slice(0, -1) + query);
+    } else {
+      next();
+    }
+  });
 
-  // Create a session middleware with the given options
-
-  // const sess = {
-  //   resave: false,
-  //   saveUninitialized: false,
-  //   secret: 'sessionSecret',
-  //   proxy: true, // The "X-Forwarded-Proto" header will be used.
-  //   name: 'sessionId',
-  //   // Add HTTPOnly, Secure attributes on Session Cookie
-  //   // If secure is set, and you access your site over HTTP, the cookie will not be set
-  //   cookie: {
-  //     httpOnly: true,
-  //     secure: false,
-  //   },
-  // };
+  // Redis API Middleware
+  app.use((req, res, next) => {
+    const queryRedis = req.path.indexOf('/api/') !== -1 && req.path.indexOf('flushredis') === -1 && req.method === 'GET';
+    if (queryRedis) {
+      const redisKey = req.url;
+      redisClient.get(redisKey, (error, result) => {
+        if (result) {
+          res.send(JSON.parse(result));
+        } else {
+          res.sendResponse = res.send;
+          res.send = (body) => {
+            redisClient.setex(redisKey, redisConfig.redisLongExpiry, JSON.stringify(body));
+            res.sendResponse(body);
+          };
+        }
+        next();
+      });
+    } else {
+      next();
+    }
+  });
 
   console.log('--------------------------');
-  console.log('[1/3] 😊 Starting Server . . .');
-  console.log(`[2/3] 🌵 Environment: ${ENV}`);
-  console.log(`[3/3] 🚀 Listening on port: ${app.get('port')}`);
-  if (ENV === 'production') {
-    // sess.cookie.secure = true; // Serve secure cookies
-  }
+  console.log('[1/4] 😊 Starting Server . . .');
+  console.log(`[2/4] 🌵 Environment: ${ENV}`);
+  console.log(`[3/4] 🐆 Redis: ${environment.isRedisEnabled ? 'Enabled 🏎🏎🏎' : 'Disabled'}`);
+  console.log(`[4/4] 🚀 Listening on port: ${app.get('port')}`);
   console.log('--------------------------');
-
-  // app.use(session(sess));
 
   app.use(flash());
 };
