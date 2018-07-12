@@ -30,6 +30,7 @@ module.exports = () => {
             redisClient.setex(redisKey, redisConfig.redisLongExpiry, JSON.stringify(body));
             res.sendResponse(body);
           };
+          next();
         }
       });
     } else {
