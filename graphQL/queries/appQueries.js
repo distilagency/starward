@@ -9,8 +9,10 @@ const appQueries = {
   /* ----------- Fetch data for Schema ----------- */
   Query: {
     settings() {
+      console.log('wpSettingsURL', wpSettingsURL);
       return axios.get(wpSettingsURL)
       .then((res) => {
+        console.log('res.data', res.data);
         return res.data.acf;
       });
     },
