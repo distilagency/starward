@@ -11,7 +11,7 @@ module.exports = () => {
     if (environment.isRedisEnabled && !REDIS_PREFIX) {
       throw new Error('REDIS_PREFIX needs to be configured in app.js for redis to work');
     }
-    const queryRedis = req.path.indexOf('/api/') !== -1 && req.path.indexOf('flushredis') === -1 && req.method === 'GET';
+    const queryRedis = environment.isRedisEnabled && req.path.indexOf('/api/') !== -1 && req.path.indexOf('flushredis') === -1 && req.method === 'GET';
     if (queryRedis) {
       let redisKey = req.url;
       // Check and strip trailing / from redisKey

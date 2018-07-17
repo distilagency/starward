@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import { isDebug } from '../app/config/app';
 import initExpress from './init/express';
 import initStarwardRoutes from './init/api';
+import initWooCommerceRoutes from './init/woocommerceApi';
 // import initRoutes from './init/routes';
 import renderMiddleware from './render/middleware';
 
@@ -31,6 +32,12 @@ initExpress(app);
  */
 
 initStarwardRoutes(app);
+
+/*
+ * WooCommerce Setup
+ */
+
+initWooCommerceRoutes(app);
 
 /*
  * UNCOMMENT if you need additional Express routes
