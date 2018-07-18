@@ -10,7 +10,7 @@ import {
 const INITIAL_STATE = {
   loading: false,
   items: [],
-  addClientError: ''
+  error: ''
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -29,15 +29,15 @@ export default function (state = INITIAL_STATE, action) {
       };
     case ADD_TO_CART:
       return {
-        ...INITIAL_STATE, addingClient: true, addClientSuccess: null
+        ...state
       };
     case ADD_TO_CART_SUCCESS:
       return {
-        ...state, addedClient: action.payload, addingClient: false, addClientSuccess: true
+        ...state
       };
     case ADD_TO_CART_FAILURE:
       return {
-        ...state, addingClient: false, addClientSuccess: false, addClientError: action.payload
+        ...state, error: action.payload
       };
     default:
       return state;
