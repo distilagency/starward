@@ -11,6 +11,7 @@ export const Header = (props) => {
     navigation,
     currentPath
   } = props;
+  console.log({currentPath});
   return (
     <header id="banner" role="banner">
       <Logo
@@ -18,7 +19,7 @@ export const Header = (props) => {
         url="/"
       />
       <div className="header-group">
-        { (currentPath !== CART_SLUG) &&
+        { (currentPath !== `/${CART_SLUG}`) &&
           <MiniCart />
         }
         <Navigation
