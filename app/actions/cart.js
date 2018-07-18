@@ -8,7 +8,10 @@ import {
   GET_CART_FAILURE,
   ADD_TO_CART,
   ADD_TO_CART_SUCCESS,
-  ADD_TO_CART_FAILURE
+  ADD_TO_CART_FAILURE,
+  REMOVE_FROM_CART,
+  REMOVE_FROM_CART_SUCCESS,
+  REMOVE_FROM_CART_FAILURE
 } from './types';
 
 export const getSessionData = () => {
@@ -58,6 +61,7 @@ const addToCartFailure = error => async (dispatch) => {
 
 const addToSuccess = payload => async (dispatch) => {
   console.log('addToCart success', payload);
+  dispatch(fetchCart());
   dispatch({type: ADD_TO_CART_SUCCESS, payload});
 };
 
@@ -74,5 +78,32 @@ export const addToCart = (productId, quantity) => async (dispatch) => {
     dispatch(addToSuccess(payload));
   } catch (error) {
     dispatch(addToCartFailure(error));
+  }
+};
+
+const removeFromCartFailure = error => async (dispatch) => {
+  console.error('Error @ addToCart', error);
+  dispatch({type: REMOVE_FROM_CART_FAILURE, payload: error});
+};
+
+const removeFromCartSuccess = payload => async (dispatch) => {
+  console.log('addToCart success', payload);
+  dispatch(fetchCart());
+  dispatch({type: REMOVE_FROM_CART_SUCCESS, payload});
+};
+
+export const removeFromCart = itemKey => async (dispatch) => {
+  dispatch({type: REMOVE_FROM_CART});
+  const sessionData = getSessionData();
+  const config = {};
+  if (sessionData) config['session-data'] = sessionData;
+  try {
+    const payload = await axios.get(`${ROOT_API}/removefromcart?itemKey=${itemKey}`, {
+      withCredentials: true,
+      headers: config
+    });
+    dispatch(removeFromCartSuccess(payload));
+  } catch (error) {
+    dispatch(removeFromCartFailure(error));
   }
 };

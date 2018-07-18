@@ -3,7 +3,8 @@ import {
   BLOG_SLUG,
   CATEGORY_SLUG,
   AUTHOR_SLUG,
-  SEARCH_SLUG
+  SEARCH_SLUG,
+  CART_SLUG
 } from './config/app';
 import { fetchWPData } from './fetch-data';
 import App from './containers/App';
@@ -74,6 +75,11 @@ export default [{
     name: 'Search',
     fetchData: fetchWPData,
     component: asyncComponent(() => import(/* webpackChunkName: "Search" */ './containers/Search')),
+  }, {
+    path: `/${CART_SLUG}`,
+    name: 'Cart',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Cart" */ './containers/Cart')),
   }, {
     path: '*',
     name: 'Page',

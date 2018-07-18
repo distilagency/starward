@@ -2,6 +2,7 @@
   position: relative;
 
   .mini-cart-button {
+    display: block;
     width: 40px;
     height: 35px;
     background-image: url('../../images/minicart.svg');
@@ -33,6 +34,10 @@
     }
   }
   .cart-dropdown {
+    display: none;
+    &.active {
+      display: block
+    }
     position: absolute;
     top: calc(100% + 15px);
     right: 15px;
@@ -78,6 +83,16 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
+
+            .remove-button {
+              color: $primary;
+              font-size: 12px;
+              text-decoration: underline;
+
+              &:hover {
+                text-decoration: none;
+              }
+            }
           }
         }
       }
@@ -106,12 +121,20 @@
       .cart-action {
         flex: 1;
         padding: 20px 10px;
+        color: black;
         background-color: $secondary;
         text-align: center;
+        border-top: 1px solid rgba($black, 0.2);
         border-right: 1px solid rgba($black, 0.2);
+        transition: background-color 0.3s ease;
 
         &:last-child {
           border-right: none;
+        }
+
+        &:hover {
+          text-decoration: none;
+          background-color: $secondary-darker;
         }
       }
     }

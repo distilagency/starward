@@ -4,7 +4,10 @@ import {
   GET_CART_FAILURE,
   ADD_TO_CART,
   ADD_TO_CART_SUCCESS,
-  ADD_TO_CART_FAILURE
+  ADD_TO_CART_FAILURE,
+  REMOVE_FROM_CART,
+  REMOVE_FROM_CART_SUCCESS,
+  REMOVE_FROM_CART_FAILURE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -36,6 +39,18 @@ export default function (state = INITIAL_STATE, action) {
         ...state
       };
     case ADD_TO_CART_FAILURE:
+      return {
+        ...state, error: action.payload
+      };
+    case REMOVE_FROM_CART:
+      return {
+        ...state
+      };
+    case REMOVE_FROM_CART_SUCCESS:
+      return {
+        ...state
+      };
+    case REMOVE_FROM_CART_FAILURE:
       return {
         ...state, error: action.payload
       };
