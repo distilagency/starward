@@ -35,11 +35,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({starward, loading}) {
+function mapStateToProps({loading, starward, cart}) {
   return {
     loading,
-    starward
+    starward,
+    cart
   };
 }
 
-export default connect(mapStateToProps, { })(App);
+export default connect(mapStateToProps, {})(App);
