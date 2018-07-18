@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './CartItems.scss';
 
 export const CartItems = (props) => {
   const { items, removeFromCartHandler } = props;

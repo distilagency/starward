@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import { NavLink } from 'react-router-dom';
 import { fetchCart, removeFromCart } from '../actions/cart';
 import { Loading } from '../components/Content/Loading';
+import { CartTable } from '../components/Woocommerce/CartTable';
 import './Cart.scss';
 
 class Cart extends Component {
@@ -22,6 +23,10 @@ class Cart extends Component {
     return (
       <div className="cart">
         <h1>Your Cart</h1>
+        <CartTable
+          items={items}
+          removeFromCartHandler={this.removeFromCartHandler}
+        />
       </div>
     );
   }
