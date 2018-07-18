@@ -34,7 +34,6 @@ class MiniCart extends Component {
           </div>
         </div>
         <div className="cart-dropdown">
-          <h2>Your Cart:</h2>
           <ul className="cart-items">
             {items.map(item => (
               <li className="cart-item" key={item.key}>
