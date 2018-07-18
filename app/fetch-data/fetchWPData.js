@@ -93,6 +93,9 @@ const getRouteData = (params, routeName, queries) => {
         };
       });
     }
+    case 'Cart': {
+      return {};
+    }
     default:
       return ({ handleNotFound: '404' });
   }

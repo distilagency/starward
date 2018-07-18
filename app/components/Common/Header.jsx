@@ -2,6 +2,7 @@ import React from 'react';
 import MiniCart from '../Woocommerce/MiniCart';
 import { Navigation } from './Navigation';
 import { Logo } from './Logo';
+import { CART_SLUG } from '../../config/app';
 import './Header.scss';
 
 export const Header = (props) => {
@@ -12,10 +13,17 @@ export const Header = (props) => {
   } = props;
   return (
     <header id="banner" role="banner">
-      <div className="wrap">
-        <Logo
-          siteName={siteName}
-          url="/"
+      <Logo
+        siteName={siteName}
+        url="/"
+      />
+      <div className="header-group">
+        { (currentPath !== CART_SLUG) &&
+          <MiniCart />
+        }
+        <Navigation
+          items={navigation}
+          currentPath={currentPath}
         />
         <div className="header-group">
           <MiniCart />
