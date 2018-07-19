@@ -59,6 +59,23 @@ export default(app) => {
       return res.json(error);
     }
   });
+  app.get('/api/updatequantity', async (req, res) => {
+    try {
+      const { itemKey } = req.query;
+      const newQty = parseInt(req.query.newQty);
+      const sessionData = req.headers['session-data'];
+      const headers = {};
+      if (sessionData) headers.Cookie = sessionData;
+      const response = await axios.post(`${WP_API}/wc/v2/cart/cart-item`, {
+        cart_item_key: itemKey,
+        quantity: newQty
+      }, { headers });
+      return res.json(response.data);
+    } catch (error) {
+      // Handle error
+      return res.json(error);
+    }
+  });
   app.get('/api/removefromcart', async (req, res) => {
     try {
       const { itemKey } = req.query;

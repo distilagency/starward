@@ -81,9 +81,9 @@ export const fetchCartTotals = () => async (dispatch) => {
       headers: config
     });
     const cartItems = Object.keys(payload.data).map(key => payload.data[key]);
-    dispatch(fetchCartSuccess(cartItems));
+    dispatch(fetchCartTotalsSuccess(cartItems));
   } catch (error) {
-    dispatch(fetchCartFailure(error));
+    dispatch(fetchCartTotalsFailure(error));
   }
 };
 
@@ -152,13 +152,13 @@ const updateItemQuantitySuccess = response => async (dispatch) => {
   dispatch({type: UPDATE_CART_QTY_SUCCESS});
 };
 
-export const updateItemQuantity = (itemKey, oldQty, newQty) => async (dispatch) => {
+export const updateItemQuantity = (itemKey, newQty) => async (dispatch) => {
   dispatch({type: UPDATE_CART_QTY});
   const sessionData = getSessionData();
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const response = await axios.get(`${ROOT_API}/updatequantity?itemKey=${itemKey}&oldQty=${oldQty}&newQty=${newQty}`, {
+    const response = await axios.get(`${ROOT_API}/updatequantity?itemKey=${itemKey}&newQty=${newQty}`, {
       withCredentials: true,
       headers: config
     });

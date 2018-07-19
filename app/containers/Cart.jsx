@@ -16,15 +16,11 @@ class Cart extends Component {
     const { removeFromCart } = this.props;
     removeFromCart(itemKey);
   }
-  increaseQuantityHandler = (event, itemKey, currentQty) => {
+  updateQuantityHandler = (event, itemKey, newQty) => {
     event.preventDefault();
     const { updateItemQuantity } = this.props;
-    updateItemQuantity(itemKey, currentQty, (currentQty + 1));
-  }
-  decreaseQuantityHandler = (event, itemKey, currentQty) => {
-    event.preventDefault();
-    const { updateItemQuantity } = this.props;
-    updateItemQuantity(itemKey, currentQty, (currentQty - 1));
+    if (newQty <= 0) removeFromCart(itemKey);
+    updateItemQuantity(itemKey, newQty);
   }
   render() {
     const { cart } = this.props;
@@ -38,8 +34,7 @@ class Cart extends Component {
           <CartTable
             items={items}
             removeFromCartHandler={this.removeFromCartHandler}
-            increaseQuantityHandler={this.increaseQuantityHandler}
-            decreaseQuantityHandler={this.decreaseQuantityHandler}
+            updateQuantityHandler={this.updateQuantityHandler}
           />
         </div>
       </div>
