@@ -6,12 +6,18 @@ import {
   GET_CART,
   GET_CART_SUCCESS,
   GET_CART_FAILURE,
+  GET_CART_TOTALS,
+  GET_CART_TOTALS_SUCCESS,
+  GET_CART_TOTALS_FAILURE,
   ADD_TO_CART,
   ADD_TO_CART_SUCCESS,
   ADD_TO_CART_FAILURE,
   REMOVE_FROM_CART,
   REMOVE_FROM_CART_SUCCESS,
-  REMOVE_FROM_CART_FAILURE
+  REMOVE_FROM_CART_FAILURE,
+  UPDATE_CART_QTY,
+  UPDATE_CART_QTY_SUCCESS,
+  UPDATE_CART_QTY_FAILURE
 } from './types';
 
 export const getSessionData = () => {
@@ -44,6 +50,33 @@ export const fetchCart = () => async (dispatch) => {
   if (sessionData) config['session-data'] = sessionData;
   try {
     const payload = await axios.get(`${ROOT_API}/getcart`, {
+      withCredentials: true,
+      headers: config
+    });
+    const cartItems = Object.keys(payload.data).map(key => payload.data[key]);
+    dispatch(fetchCartSuccess(cartItems));
+  } catch (error) {
+    dispatch(fetchCartFailure(error));
+  }
+};
+
+const fetchCartTotalsFailure = error => async (dispatch) => {
+  console.error('Error @ fetchCartTotals', error);
+  dispatch({type: GET_CART_TOTALS_FAILURE, payload: error});
+};
+
+const fetchCartTotalsSuccess = payload => async (dispatch) => {
+  console.log('fetchCartTotals success', payload);
+  dispatch({type: GET_CART_TOTALS_SUCCESS, payload});
+};
+
+export const fetchCartTotals = () => async (dispatch) => {
+  dispatch({type: GET_CART_TOTALS});
+  const sessionData = getSessionData();
+  const config = {};
+  if (sessionData) config['session-data'] = sessionData;
+  try {
+    const payload = await axios.get(`${ROOT_API}/getcarttotals`, {
       withCredentials: true,
       headers: config
     });
@@ -105,5 +138,32 @@ export const removeFromCart = itemKey => async (dispatch) => {
     dispatch(removeFromCartSuccess(payload));
   } catch (error) {
     dispatch(removeFromCartFailure(error));
+  }
+};
+
+const updateItemQuantityFailure = error => async (dispatch) => {
+  console.error('Error @ updateItemQuantity', error);
+  dispatch({type: UPDATE_CART_QTY_FAILURE, payload: error});
+};
+
+const updateItemQuantitySuccess = response => async (dispatch) => {
+  console.log('updateItemQuantity success', response);
+  dispatch(fetchCart());
+  dispatch({type: UPDATE_CART_QTY_SUCCESS});
+};
+
+export const updateItemQuantity = (itemKey, oldQty, newQty) => async (dispatch) => {
+  dispatch({type: UPDATE_CART_QTY});
+  const sessionData = getSessionData();
+  const config = {};
+  if (sessionData) config['session-data'] = sessionData;
+  try {
+    const response = await axios.get(`${ROOT_API}/updatequantity?itemKey=${itemKey}&oldQty=${oldQty}&newQty=${newQty}`, {
+      withCredentials: true,
+      headers: config
+    });
+    dispatch(updateItemQuantitySuccess(response));
+  } catch (error) {
+    dispatch(updateItemQuantityFailure(error));
   }
 };

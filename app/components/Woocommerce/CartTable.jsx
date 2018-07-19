@@ -9,17 +9,14 @@ export const CartTable = (props) => {
     increaseQuantityHandler,
     decreaseQuantityHandler
   } = props;
-  console.log({items});
   return (
     <div className="cart-table">
       <div className="table-header">
         <div className="image-header" />
         <div className="info-header" />
-        <div className="price-header" />
-        <div className="quantity-header">
-          QTY
-        </div>
-        <div className="total-price-header" />
+        <div className="price-header">Price</div>
+        <div className="quantity-header">Qty</div>
+        <div className="total-price-header">Total</div>
         <div className="remove-header" />
       </div>
       <ul className="table-rows">
@@ -33,15 +30,15 @@ export const CartTable = (props) => {
               {`$${item.line_subtotal / item.quantity}`}
             </div>
             <div className="quantity">
-              <NavLink to="#" className="increase-qty-button" onClick={event => increaseQuantityHandler(event, item.key)}>+</NavLink>
+              <NavLink to="#increase-qty" className="increase-qty-button" onClick={event => increaseQuantityHandler(event, item.key)}>+</NavLink>
               <span className="quantity-value">{`${item.quantity}`}</span>
-              <NavLink to="#" className="decrease-qty-button" onClick={event => decreaseQuantityHandler(event, item.key)}>-</NavLink>
+              <NavLink to="#decrease-qty" className="decrease-qty-button" onClick={event => decreaseQuantityHandler(event, item.key)}>-</NavLink>
             </div>
             <div className="total-price">
               {`$${item.line_subtotal}`}
             </div>
             <div className="remove">
-              <NavLink to="#" onClick={event => removeFromCartHandler(event, item.key)}>x</NavLink>
+              <NavLink to="#remote-item" onClick={event => removeFromCartHandler(event, item.key)}>x</NavLink>
             </div>
           </li>
         ))}
