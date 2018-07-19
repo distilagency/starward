@@ -20,6 +20,7 @@
         "comma-dangle": 0,
         "indent": 0,
         "new-cap": 0,
+        "no-restricted-syntax": 0,
         "react/prop-types": 0,
         "react/jsx-indent-props": 0,
         "linebreak-style": 0,
