@@ -32,7 +32,7 @@ class MiniCart extends Component {
     const {
       active
     } = this.state;
-    const { items, loading, error } = cart;
+    const { items } = cart;
     let cartSubtotal = 0;
     for (let i = 0; i < cart.items.length; i += 1) {
       cartSubtotal += cart.items[i].line_subtotal;

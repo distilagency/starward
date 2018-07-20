@@ -15,12 +15,23 @@ export default(app) => {
       return res.json(error);
     }
   });
+  app.get('/api/calculatecarttotals', async (req, res) => {
+    try {
+      const sessionData = req.headers['session-data'];
+      const headers = {};
+      if (sessionData) headers.Cookie = sessionData;
+      const response = await axios.post(`${WP_API}/wc/v2/cart/calculate`, {}, { headers });
+      return res.json(response.data);
+    } catch (error) {
+      return res.json(error);
+    }
+  });
   app.get('/api/getcarttotals', async (req, res) => {
     try {
       const sessionData = req.headers['session-data'];
       const headers = {};
       if (sessionData) headers.Cookie = sessionData;
-      const response = await axios.get(`${WP_API}/wc/v2/calculate`, { headers });
+      const response = await axios.get(`${WP_API}/wc/v2/cart/totals`, { headers });
       return res.json(response.data);
     } catch (error) {
       return res.json(error);

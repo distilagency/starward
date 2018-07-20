@@ -17,7 +17,8 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  loading: false,
+  loadingItems: false,
+  loadingTotals: false,
   items: [],
   totals: [],
   error: ''
@@ -27,15 +28,15 @@ export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_CART:
       return {
-        ...INITIAL_STATE, loading: true
+        ...INITIAL_STATE, loadingItems: true
       };
     case GET_CART_SUCCESS:
       return {
-        ...state, items: action.payload, loading: false
+        ...state, items: action.payload, loadingItems: false
       };
     case GET_CART_FAILURE:
       return {
-        ...state, items: [], loading: false, error: action.payload
+        ...state, items: [], loadingItems: false, error: action.payload
       };
     case GET_CART_TOTALS:
       return {
@@ -43,11 +44,11 @@ export default function (state = INITIAL_STATE, action) {
       };
     case GET_CART_TOTALS_SUCCESS:
       return {
-        ...state, totals: action.payload
+        ...state, totals: action.payload, loadingTotals: false
       };
     case GET_CART_TOTALS_FAILURE:
       return {
-        ...state, totals: [], error: action.payload
+        ...state, totals: [], loadingTotals: [], error: action.payload
       };
     case ADD_TO_CART:
       return {

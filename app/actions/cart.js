@@ -53,7 +53,8 @@ export const fetchCart = () => async (dispatch) => {
       withCredentials: true,
       headers: config
     });
-    const cartItems = Object.keys(payload.data).map(key => payload.data[key]);
+    const cartItems = (payload.data === 'Cart is empty!') ? []
+      : Object.keys(payload.data).map(key => payload.data[key]);
     dispatch(fetchCartSuccess(cartItems));
   } catch (error) {
     dispatch(fetchCartFailure(error));
@@ -76,12 +77,16 @@ export const fetchCartTotals = () => async (dispatch) => {
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
+    const resp = await axios.get(`${ROOT_API}/calculatecarttotals`, {
+      withCredentials: true,
+      headers: config
+    });
+    console.log('resp @ calculatecarttotals', resp);
     const payload = await axios.get(`${ROOT_API}/getcarttotals`, {
       withCredentials: true,
       headers: config
     });
-    const cartItems = Object.keys(payload.data).map(key => payload.data[key]);
-    dispatch(fetchCartTotalsSuccess(cartItems));
+    dispatch(fetchCartTotalsSuccess(payload.data));
   } catch (error) {
     dispatch(fetchCartTotalsFailure(error));
   }

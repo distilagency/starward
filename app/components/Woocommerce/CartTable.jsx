@@ -5,9 +5,18 @@ import './CartTable.scss';
 export const CartTable = (props) => {
   const {
     items,
+    totals,
     removeFromCartHandler,
     updateQuantityHandler
   } = props;
+
+  if (!items || items.length <= 0) {
+    return (
+      <div className="empty-cart">
+        Your Cart is empty
+      </div>
+    );
+  }
   return (
     <div className="cart-table">
       <div className="table-header">
@@ -43,7 +52,24 @@ export const CartTable = (props) => {
         ))}
       </ul>
       <div className="table-footer">
-        Footer
+        <ul className="totals">
+          <li className="row subtotal">
+            <span className="label">Subtotal: </span>
+            <span className="value">{totals.cart_contents_total}</span>
+          </li>
+          <li className="row tax">
+            <span className="label">Tax: </span>
+            <span className="value">{totals.total_tax}</span>
+          </li>
+          <li className="row shipping">
+            <span className="label">Shipping: </span>
+            <span className="value">{totals.shipping_total}</span>
+          </li>
+          <li className="row total">
+            <span className="label">Total: </span>
+            <span className="value">{totals.total}</span>
+          </li>
+        </ul>
       </div>
     </div>
   );
