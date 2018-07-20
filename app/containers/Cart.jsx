@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
-import { fetchCart, removeFromCart, updateItemQuantity } from '../actions/cart';
+import { NavLink } from 'react-router-dom';
+import { fetchCart, fetchCartTotals, removeFromCart, updateItemQuantity } from '../actions/cart';
 import { Loading } from '../components/Content/Loading';
 import { CartTable } from '../components/Woocommerce/CartTable';
 import './Cart.scss';
 
 class Cart extends Component {
   componentDidMount() {
-    const { fetchCart } = this.props;
+    const { fetchCart, fetchCartTotals } = this.props;
     fetchCart();
+    fetchCartTotals();
   }
   removeFromCartHandler = (event, itemKey) => {
     event.preventDefault();
@@ -24,18 +25,27 @@ class Cart extends Component {
   }
   render() {
     const { cart } = this.props;
-    const { items, loading, error } = cart;
-    if (loading) return <Loading />;
-    console.log('Items @ Cart', items);
+    const {
+      items,
+      totals,
+      loadingItems,
+      loadingTotals
+    } = cart;
+    if (loadingItems || loadingTotals) return <Loading />;
+    console.log(totals);
     return (
       <div className="cart">
         <div className="wrap">
           <h1>Your Cart</h1>
           <CartTable
             items={items}
+            totals={totals}
             removeFromCartHandler={this.removeFromCartHandler}
             updateQuantityHandler={this.updateQuantityHandler}
           />
+          <div className="cart-actions">
+            <NavLink to="/checkout" className="checkout-button">Checkout</NavLink>
+          </div>
         </div>
       </div>
     );
@@ -50,6 +60,7 @@ function mapStateToProps({ cart }) {
 
 export default connect(mapStateToProps, {
   fetchCart,
+  fetchCartTotals,
   removeFromCart,
   updateItemQuantity
 })(Cart);
