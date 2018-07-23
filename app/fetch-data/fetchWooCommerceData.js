@@ -1,12 +1,34 @@
+import axios from 'axios';
 import { wooCommerceService } from './services';
+import { wpService } from './services';
+import { SITE_NAME } from '../config/app';
 
 const {
   getCategory,
   getProduct
 } = wooCommerceService;
 
-const fetchWooCommerceData = (params, routeName, location) => {
-  // Switch statement on routeName from routes.jsx
+const {
+  getSettings,
+  getMenu
+} = wpService;
+
+const getAppData = () => {
+  return axios.all([
+    getSettings(),
+    getMenu('primary_navigation')
+  ])
+  .then(([
+    settings,
+    headerMenu
+  ]) => ({
+    settings: !settings.data.data.settings ? { name: SITE_NAME } : settings.data.data.settings,
+    headerMenu: headerMenu.data.data.menu
+  }))
+  .catch(error => console.log('error', error));
+};
+
+const getRouteData = (params, routeName, location) => {
   switch (routeName) {
     // Product Category Data
     case 'ProductCategory': {
@@ -31,6 +53,12 @@ const fetchWooCommerceData = (params, routeName, location) => {
     default:
       return ({handleNotFound: '404'});
   }
+};
+
+const fetchWooCommerceData = async (params, routeName, location) => {
+  const appData = await getAppData();
+  const routeData = await getRouteData(params, routeName, location);
+  return ({ ...appData, ...routeData });
 };
 
 export default fetchWooCommerceData;

@@ -8,13 +8,13 @@ export function SubCategoriesFilter({subcategories, urlBase, location}) {
       <section className="filter-block">
         <h3>Sub Categories</h3>
         <ul>
-          { subcategories.map((subcategory, index) => {
+          { subcategories.map((subcategory) => {
             // Clone location query object so that we use the original location.query
             // for each attribute option
             const queryObj = location && Object.assign({}, location.query);
             const queryString = getQueryString(queryObj, 'category', subcategory.term_id);
             return (
-              <li key={index}>
+              <li key={subcategory.name}>
                 <NavLink to={`/${urlBase}${queryString}`}>{subcategory.name}</NavLink>
               </li>
             );

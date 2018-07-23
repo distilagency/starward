@@ -72,6 +72,8 @@
     "method-override": "^2.3.9",
     "moment": "^2.17.1",
     "query-string": "^6.1.0",
+    "rc-slider": "^8.6.1",
+    "rc-tooltip": "^3.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.1.3",

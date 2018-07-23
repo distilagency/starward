@@ -7,8 +7,7 @@ export const ProductList = (props) => {
   const {
     products,
     urlBase,
-    currentPage,
-    starwardUpdating
+    currentPage
   } = props;
   const { items, totalProducts } = products;
   if (!products || products.length < 1) {
@@ -31,7 +30,6 @@ export const ProductList = (props) => {
         urlBase={urlBase}
         products={products}
         currentPage={currentPage}
-        starwardUpdating={starwardUpdating}
       />
     </section>
   );
