@@ -36,9 +36,9 @@ class ProductCategory extends Component {
       location
     } = this.props;
     const { params } = match;
+    const { details, filters } = category;
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
-    const { details, filters } = category;
     return (
       <main className="content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />

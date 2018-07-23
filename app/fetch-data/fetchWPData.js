@@ -2,7 +2,6 @@ import axios from 'axios';
 import { wpService } from './services';
 import { SITE_NAME, HOME_SLUG, BLOG_SLUG, POSTS_PER_PAGE } from '../config/app';
 
-// GraphQL WP API Services using axios.get() https://github.com/mzabriskie/axios#example
 const {
   getSettings,
   getMenu,
