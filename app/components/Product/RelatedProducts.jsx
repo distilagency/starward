@@ -8,7 +8,7 @@ export function RelatedProducts({ relatedProducts }) {
     return (
       <div className="related-products">
         <h2>Related Products</h2>
-        { relatedProducts.map(relatedProduct => {
+        { relatedProducts.map((relatedProduct) => {
             const {
               images,
               id,
@@ -21,7 +21,7 @@ export function RelatedProducts({ relatedProducts }) {
             const relatedProductBaseImage = (images && images.length > 0) ? images[0] : null;
             return (
               <NavLink to={`/${STORE_PRODUCTS_SLUG}/${slug}`} className="related-product" key={id}>
-                { relatedProductBaseImage && <img src={`${WP_URL}${relatedProductBaseImage.src}`} alt={relatedProductBaseImage.alt} />}
+                { relatedProductBaseImage && <img src={`${relatedProductBaseImage.src}`} alt={relatedProductBaseImage.alt} />}
                 <h3 key={id}>{name}</h3>
                 <div className="price">{price}</div>
               </NavLink>

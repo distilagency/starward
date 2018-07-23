@@ -22,7 +22,7 @@ function renderAttributeFilters(filters, filterType, urlBase, location) {
 
 const RenderFilterBlocks = (props) => {
   const { filters, urlBase, location } = props;
-  // Map over parent filter types i.e. Price, Attributes, Sub Categories
+  // Map over parent filter types index.e. Price, Attributes, Sub Categories
   if (!filters && filters.length < 1) return null;
   return (
     <div>

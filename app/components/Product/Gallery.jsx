@@ -1,7 +1,12 @@
 import React from 'react';
 
-export function Gallery({baseImage, images, variations, selectedOptions}) {
-  console.log(selectedOptions);
+export function Gallery(props) {
+  const {
+    baseImage,
+    images,
+    variations,
+    selectedOptions
+  } = props;
   // If our selectedOptions matches a variation's attributes,
   // then display the matched variation's image
   const filteredVariations = variations.filter((variation) => {

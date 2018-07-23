@@ -1,5 +1,5 @@
 import React from 'react';
-import MiniCart from '../Woocommerce/MiniCart';
+import MiniCart from '../Cart/MiniCart';
 import { Navigation } from './Navigation';
 import { Logo } from './Logo';
 import { CART_SLUG } from '../../config/app';

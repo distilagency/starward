@@ -39,7 +39,7 @@ const SamePagePagination = (props) => {
 // Regular pagination method
 const MultiPagePagination = (props) => {
   const { activePage, urlBase, numPages } = props;
-  const pagesArr = numPages > 1 ? Array.apply(null, Array(numPages)).map((x, i) => i + 1) : [];
+  const pagesArr = numPages > 1 ? Array.apply(null, Array(numPages)).map((x, index) => index + 1) : [];
   if (pagesArr.length < 1) {
     return <span />;
   }
@@ -122,7 +122,7 @@ export const Pagination = props => {
 //   // };
 //
 //   const multiPagePagination = (activePage, numPages) => {
-//     const pagesArr = numPages > 1 ? Array.apply(null, Array(numPages)).map((x, i) => i + 1) : [];
+//     const pagesArr = numPages > 1 ? Array.apply(null, Array(numPages)).map((x, index) => index + 1) : [];
 //     // console.log(pagesArr);
 //     if (pagesArr.length < 1) {
 //       return <span />;

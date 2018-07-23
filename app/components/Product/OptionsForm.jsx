@@ -1,10 +1,16 @@
 import React from 'react';
 
-export function OptionsForm({ attributes, variationAttributes, productType, callback }) {
+export function OptionsForm(props) {
+  const {
+    attributes,
+    variationAttributes,
+    productType,
+    callback
+  } = props;
   if (productType === 'variable') {
     return (
       <form method="GET">
-        { attributes.map(attribute => {
+        { attributes.map((attribute) => {
           // Check if this attribute is a variation attribute
           if (attribute.taxonomy in variationAttributes) {
             // Check if the attribute has COLOR SWATCHES
@@ -15,17 +21,17 @@ export function OptionsForm({ attributes, variationAttributes, productType, call
                 <ul className="attribute-options" key={attribute.name}>
                   <h3>{attribute.name}</h3>
                   <div className="swatch-options">
-                    { attribute.options.map((option, i) => {
+                    { attribute.options.map((option, index) => {
                       // Check if the current option is one of the variation options
                       if (variationAttributes[attribute.taxonomy].indexOf(option.slug) !== -1) {
                         return (
                           <label
                             className="swatch-option-container"
-                            htmlFor={`radio-${i}`}
-                            key={i}>
+                            htmlFor={`radio-${index}`}
+                            key={index}>
                             <input
                               type="radio"
-                              id={`radio-${i}`}
+                              id={`radio-${index}`}
                               name={option.taxonomy}
                               value={option.slug}
                               style={{
@@ -59,14 +65,14 @@ export function OptionsForm({ attributes, variationAttributes, productType, call
                   name={attribute.taxonomy}
                   onChange={callback}>
                   <option value="">Select a {attribute.slug}</option>
-                  { attribute.options.map((option, i) => {
+                  { attribute.options.map((option, index) => {
                     // Check if the current option is one of the variation options
                     if (variationAttributes[attribute.taxonomy].indexOf(option.slug) !== -1) {
                       return (
                         <option
                           name={option.taxonomy}
                           value={option.slug}
-                          key={i}>
+                          key={index}>
                           {option.name}
                         </option>
                       );

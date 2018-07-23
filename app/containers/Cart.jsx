@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { fetchCart, fetchCartTotals, removeFromCart, updateItemQuantity } from '../actions/cart';
 import { Loading } from '../components/Content/Loading';
-import { CartTable } from '../components/Woocommerce/CartTable';
+import { CartTable } from '../components/Cart/CartTable';
 import './Cart.scss';
 
 class Cart extends Component {
