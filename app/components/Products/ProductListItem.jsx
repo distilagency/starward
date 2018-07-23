@@ -1,37 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { ProductImage } from './ProductImage.jsx';
-// import { baseUrl, STORE_PRODUCTS_SLUG } from '../../config/app';
+import { NavLink } from 'react-router-dom';
+import { ProductImage } from './ProductImage';
 
-export const ProductListItem = props => {
+export const ProductListItem = (props) => {
   const {
     slug,
     name,
-    description,
-    id,
-    regular_price,
-    sale_price,
-    price_html,
     images,
-    attributes
+    attributes,
+    price_html,
+    // description,
+    // id,
+    // regular_price,
+    // sale_price,
   } = props;
   return (
     <div className="product">
-      <Link to={`/products/${slug}`}>
+      <NavLink to={`/products/${slug}`}>
         { images.length > 0 &&
           <ProductImage baseImage={images[0]} />
         }
         <h3>{name}</h3>
         <div dangerouslySetInnerHTML={{ __html: price_html }} />
-        { attributes.map(attribute => {
+        { attributes.map((attribute) => {
           // Check if the attribute has swatches
           if (attribute.swatches) {
             return (
               <ul className="attribute-options" key={attribute.name}>
-                { attribute.options.map((option, i) => {
+                { attribute.options.map((option, index) => {
                   return (
                     <li
-                      key={i}
+                      key={index}
                       style={{
                         backgroundColor: attribute.swatches[option.name],
                         width: '20px',
@@ -47,13 +46,13 @@ export const ProductListItem = props => {
           // Default
           return (
             <ul className="attribute-options" key={attribute.name}>
-              { attribute.options.map((option, i) => {
-                return <li key={i}>{option.name}</li>;
+              { attribute.options.map((option, index) => {
+                return <li key={index}>{option.name}</li>;
               })}
             </ul>
           );
         })}
-      </Link>
+      </NavLink>
     </div>
   );
 };

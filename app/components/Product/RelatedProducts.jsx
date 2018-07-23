@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { STORE_PRODUCTS_SLUG } from '../../config/app';
 import { WP_URL } from '../../../server/config/app';
 
@@ -20,11 +20,11 @@ export function RelatedProducts({ relatedProducts }) {
             } = relatedProduct;
             const relatedProductBaseImage = (images && images.length > 0) ? images[0] : null;
             return (
-              <Link to={`/${STORE_PRODUCTS_SLUG}/${slug}`} className="related-product" key={id}>
+              <NavLink to={`/${STORE_PRODUCTS_SLUG}/${slug}`} className="related-product" key={id}>
                 { relatedProductBaseImage && <img src={`${WP_URL}${relatedProductBaseImage.src}`} alt={relatedProductBaseImage.alt} />}
                 <h3 key={id}>{name}</h3>
                 <div className="price">{price}</div>
-              </Link>
+              </NavLink>
             );
           })
         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import PriceSlider from './PriceSlider';
 import { AttributeFilter } from './AttributeFilter';
 import { SubCategoriesFilter } from './SubCategoriesFilter';
@@ -20,13 +20,14 @@ function renderAttributeFilters(filters, filterType, urlBase, location) {
   });
 }
 
-const RenderFilterBlocks = ({filters, urlBase, location}) => {
+const RenderFilterBlocks = (props) => {
+  const { filters, urlBase, location } = props;
   // Map over parent filter types i.e. Price, Attributes, Sub Categories
   if (!filters && filters.length < 1) return null;
   return (
     <div>
-      <Link to={`/${urlBase}`}>Clear filters</Link>
-      {Object.keys(filters).map(filterType => {
+      <NavLink to={`/${urlBase}`}>Clear filters</NavLink>
+      {Object.keys(filters).map((filterType) => {
         if (filterType === 'price') {
           return (
             <PriceSlider
@@ -49,16 +50,16 @@ const RenderFilterBlocks = ({filters, urlBase, location}) => {
             />
           );
         }
-        return null;
+        return <span />;
       })}
     </div>
   );
 };
 
-export const LayeredNavigation = props => {
+export const LayeredNavigation = (props) => {
   const { filters, urlBase, location } = props;
   const { attributes, subcategories, price } = filters;
-  const hasAttributeFilters = attributes.some(attribute => {
+  const hasAttributeFilters = attributes.some((attribute) => {
     return attribute.options != null;
   });
   const hasSubCategories = typeof subcategories !== 'undefined' && subcategories.length > 0;

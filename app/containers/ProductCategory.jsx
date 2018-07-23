@@ -32,9 +32,10 @@ class ProductCategory extends Component {
       category,
       loading,
       settings,
-      params,
+      match,
       location
     } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
     const { details, filters } = category;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { WP_URL } from '../../../server/config/app';
 
 export function Gallery({baseImage, images, variations, selectedOptions}) {
   console.log(selectedOptions);
@@ -12,7 +11,7 @@ export function Gallery({baseImage, images, variations, selectedOptions}) {
     // check if same number of keys in variation attributes as there are
     // in the selection
     if (variationAttributeTaxonomies.length === selectionOptionsTaxonomies.length) {
-      return selectionOptionsTaxonomies.every(taxonomy => {
+      return selectionOptionsTaxonomies.every((taxonomy) => {
         return selectedOptions[taxonomy] === variation.attributes[taxonomy];
       });
     }
@@ -26,19 +25,19 @@ export function Gallery({baseImage, images, variations, selectedOptions}) {
   if (filteredVariationsImageUrls.length > 0) {
     return (
       <div className="gallery">
-        { filteredVariationsImageUrls.map(url => {
-          return <img src={`${WP_URL}${url}`} role="presentation" key={url} />;
+        { filteredVariationsImageUrls.map((src) => {
+          return <img src={src} alt="" key={src} />;
         })}
       </div>
     );
   }
   return (
     <div className="gallery">
-      { baseImage && <img src={`${WP_URL}${baseImage.src}`} alt={baseImage.src} /> }
+      { baseImage && <img src={`${baseImage.src}`} alt={baseImage.src} /> }
       { images.length > 1 &&
-        images.map(image => {
+        images.map((image) => {
           return (
-            <img src={`${WP_URL}${image.src}`} alt={image.alt} key={image.position} />
+            <img src={image.src} alt={image.alt} key={image.position} />
           );
         })}
     </div>

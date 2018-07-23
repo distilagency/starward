@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { WP_URL } from '../../server/config/app';
-import { STORE_PRODUCTS_SLUG } from '../config/app';
+// import { NavLink } from 'react-router-dom';
+// import { WP_URL } from '../../server/config/app';
+// import { STORE_PRODUCTS_SLUG } from '../config/app';
 
 import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
@@ -35,30 +35,36 @@ class Product extends Component {
   }
 
   render() {
-    const { product, loading, settings, params, location } = this.props;
+    const {
+      product,
+      loading,
+      settings,
+      match
+    } = this.props;
+    const { params } = match;
     if (loading) return <Loading />;
     if (!product) return <FourOhFour />;
     // Extract data from product details response
     const {
       sku,
-      id,
       name,
-      slug,
       description,
       short_description: shortDescription,
       images,
       price,
       regular_price: regularPrice,
       sale_price: salePrice,
-      // price_html: priceHtml,
       attributes,
-      in_stock: inStock,
-      stock_quantity: stockQuantity,
       type,
-      // catalog_visibility: catalogVisibility,
       relatedProducts,
       variations,
       variation_attributes: variationAttributes
+      // id,
+      // slug,
+      // price_html: priceHtml,
+      // in_stock: inStock,
+      // stock_quantity: stockQuantity,
+      // catalog_visibility: catalogVisibility,
     } = product;
     const baseImage = images.length > 0 ? images[0] : null;
 
