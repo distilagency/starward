@@ -4,9 +4,11 @@ import {
   CATEGORY_SLUG,
   AUTHOR_SLUG,
   SEARCH_SLUG,
-  CART_SLUG
+  CART_SLUG,
+  STORE_SLUG,
+  STORE_PRODUCTS_SLUG
 } from './config/app';
-import { fetchWPData } from './fetch-data';
+import { fetchWPData, fetchWooCommerceData } from './fetch-data';
 import App from './containers/App';
 
 function asyncComponent(getComponent) {
@@ -75,6 +77,21 @@ export default [{
     name: 'Search',
     fetchData: fetchWPData,
     component: asyncComponent(() => import(/* webpackChunkName: "Search" */ './containers/Search')),
+  }, {
+    path: `/${STORE_SLUG}/:category`,
+    name: 'ProductCategory',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
+  }, {
+    path: `/${STORE_SLUG}/:category/page/:page`,
+    name: 'ProductCategory',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
+  }, {
+    path: `/${STORE_PRODUCTS_SLUG}/:product`,
+    name: 'Product',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Product" */ './containers/Product')),
   }, {
     path: `/${CART_SLUG}`,
     name: 'Cart',
