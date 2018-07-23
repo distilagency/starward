@@ -1,0 +1,34 @@
+.product-category-page {
+  .wrap {
+
+    .products {
+
+
+      .products-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 0px;
+
+        .product {
+          width: calc(33.3% - 15px);
+
+          @include media($tablet-down) {
+            width: calc(50% - 15px);
+          }
+          @include media($mobile-down) {
+            width: calc(100%);
+          }
+
+          &:first-child {
+
+          }
+
+          &:last-child {
+
+          }
+        }
+      }
+    }
+  }
+}

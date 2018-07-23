@@ -40,19 +40,21 @@ class ProductCategory extends Component {
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
     return (
-      <main className="content" role="main">
+      <main className="product-category-page content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
         <Title title={details.name} />
-        <LayeredNavigation
-          location={location}
-          filters={filters}
-          urlBase={`${STORE_SLUG}/${params.category}`}
+        <div className="wrap">
+          <LayeredNavigation
+            location={location}
+            filters={filters}
+            urlBase={`${STORE_SLUG}/${params.category}`}
           />
-        <ProductList
-          products={this.state.products}
-          urlBase={`${STORE_SLUG}/${params.category}`}
-          currentPage={params.page}
+          <ProductList
+            products={this.state.products}
+            urlBase={`${STORE_SLUG}/${params.category}`}
+            currentPage={params.page}
           />
+        </div>
       </main>
     );
   }

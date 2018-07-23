@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Header } from '../components/Common/Header';
 import { Footer } from '../components/Common/Footer';
@@ -34,17 +33,6 @@ class App extends Component {
           history={history}
         />
         {renderRoutes(route.routes)}
-        <div className="test-buttons">
-          <NavLink className="test-button" to="#" onClick={event => this.addToCartHandler(event, 44, 1)}>
-            Buy me a beanie
-          </NavLink>
-          <NavLink className="test-button" to="#" onClick={event => this.addToCartHandler(event, 50, 1)}>
-            Buy me some sunglasses
-          </NavLink>
-          <NavLink className="test-button" to="#" onClick={event => this.addToCartHandler(event, 52, 1)}>
-            Buy me a hoodie
-          </NavLink>
-        </div>
         <Footer siteName={settings.name} />
         <TrackingScript
           type={!settings.trackingType ? 'none' : settings.trackingType}
@@ -63,4 +51,4 @@ function mapStateToProps({loading, starward, cart}) {
   };
 }
 
-export default connect(mapStateToProps, { addToCart })(App);
+export default connect(mapStateToProps, {})(App);

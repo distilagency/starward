@@ -2,10 +2,13 @@ import React from 'react';
 
 export function OptionsForm(props) {
   const {
+    id,
     attributes,
     variationAttributes,
     productType,
-    callback
+    callback,
+    addToCartHandler,
+    inStock
   } = props;
   if (productType === 'variable') {
     return (
@@ -65,14 +68,14 @@ export function OptionsForm(props) {
                   name={attribute.taxonomy}
                   onChange={callback}>
                   <option value="">Select a {attribute.slug}</option>
-                  { attribute.options.map((option, index) => {
+                  { attribute.options.map((option) => {
                     // Check if the current option is one of the variation options
                     if (variationAttributes[attribute.taxonomy].indexOf(option.slug) !== -1) {
                       return (
                         <option
                           name={option.taxonomy}
                           value={option.slug}
-                          key={index}>
+                          key={option.slug}>
                           {option.name}
                         </option>
                       );
@@ -87,14 +90,14 @@ export function OptionsForm(props) {
           // If this attribute IS NOT a variation attribute DO NOT display it
           return null;
         })}
-        <button type="submit" className="add-to-cart">Add to cart</button>
+        <button type="submit" className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
       </form>
     );
   }
   if (productType === 'simple') {
     return (
       <form>
-        <button type="submit" className="add-to-cart">Add to cart</button>
+        <button type="submit" className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
       </form>
     );
   }

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { wooCommerceService } from './services';
-import { wpService } from './services';
+import { wpService, wooCommerceService } from './services';
 import { SITE_NAME } from '../config/app';
 
 const {
@@ -30,9 +29,7 @@ const getAppData = () => {
 
 const getRouteData = (params, routeName, location) => {
   switch (routeName) {
-    // Product Category Data
     case 'ProductCategory': {
-      console.log('Params @ ProductCategory', params);
       const pageNumber = params.page ? params.page : 1;
       const queryString = location.search ? location.search.replace(/[?&]/g, '$') : '';
       return getCategory(params.category, pageNumber, queryString)
@@ -42,7 +39,6 @@ const getRouteData = (params, routeName, location) => {
       .catch(error => console.log('error', error));
     }
     case 'Product': {
-      console.log('Params @ Product', params);
       const productSlug = params.product;
       return getProduct(productSlug)
       .then((res) => {
