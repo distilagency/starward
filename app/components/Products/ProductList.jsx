@@ -20,20 +20,17 @@ export const ProductList = (props) => {
   const firstProductIndex = activePage !== 1 ? ((PRODUCTS_PER_PAGE * (activePage - 1)) + 1) : 1;
   // Get index of last product on page
   const lastProductIndex = (firstProductIndex + (items.length - 1));
+  if (!items || items.length < 1) return <h2>No Products Found</h2>;
   return (
     <section className="products">
-      { items.length > 0 &&
-        <div>Showing {firstProductIndex}-{lastProductIndex} of {totalProducts} results</div>
-      }
+      <span className="results">{`Showing ${firstProductIndex}-${lastProductIndex} of ${totalProducts} results`}</span>
       <section className="products-list">
-        {items.length < 1 ? <h2>No Products Found</h2> : null}
-        {items.map((product, index) => <ProductListItem key={index} {...product} />)}
+        {items.map(product => <ProductListItem key={product.slug} {...product} />)}
       </section>
       <Pagination
         urlBase={urlBase}
         products={products}
         currentPage={currentPage}
-        // fetchMorePosts={fetchMorePosts}
         starwardUpdating={starwardUpdating}
       />
     </section>

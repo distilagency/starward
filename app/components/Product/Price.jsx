@@ -1,6 +1,12 @@
 import React from 'react';
 
-export function Price({price, salePrice, regularPrice, productType}) {
+export function Price(props) {
+  const {
+    price,
+    salePrice,
+    regularPrice,
+    productType
+  } = props;
   switch (productType) {
     // Simple product price
     case 'simple':

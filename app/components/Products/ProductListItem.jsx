@@ -27,10 +27,10 @@ export const ProductListItem = (props) => {
           if (attribute.swatches) {
             return (
               <ul className="attribute-options" key={attribute.name}>
-                { attribute.options.map((option, index) => {
+                { attribute.options.map((option) => {
                   return (
                     <li
-                      key={index}
+                      key={option.name}
                       style={{
                         backgroundColor: attribute.swatches[option.name],
                         width: '20px',
@@ -46,8 +46,8 @@ export const ProductListItem = (props) => {
           // Default
           return (
             <ul className="attribute-options" key={attribute.name}>
-              { attribute.options.map((option, index) => {
-                return <li key={index}>{option.name}</li>;
+              { attribute.options.map((option) => {
+                return <li key={option.name}>{option.name}</li>;
               })}
             </ul>
           );
