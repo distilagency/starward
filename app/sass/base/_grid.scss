@@ -9,6 +9,12 @@ $grid-columns:        12;
 $gap:                 20px;
 $default-feature:     max-width;
 
+.wrap {
+  max-width: $max-width;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
 
 // ----- Define breakpoints ----- //
 

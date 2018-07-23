@@ -23,9 +23,9 @@ export const ProductList = (props) => {
   return (
     <section className="products">
       <span className="results">{`Showing ${firstProductIndex}-${lastProductIndex} of ${totalProducts} results`}</span>
-      <section className="products-list">
+      <ul className="products-list">
         {items.map(product => <ProductListItem key={product.slug} {...product} />)}
-      </section>
+      </ul>
       <Pagination
         urlBase={urlBase}
         products={products}

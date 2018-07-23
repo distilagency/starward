@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { NavLink } from 'react-router-dom';
-// import { WP_URL } from '../../server/config/app';
-// import { STORE_PRODUCTS_SLUG } from '../config/app';
 
 import { Head } from '../components/Common/Head';
 import { Title } from '../components/Content/Title';
@@ -15,6 +12,8 @@ import { Price } from '../components/Product/Price';
 import { OptionsForm } from '../components/Product/OptionsForm';
 import { RelatedProducts } from '../components/Product/RelatedProducts';
 import { Tabs } from '../components/Product/Tabs';
+
+import { addToCart } from '../actions/cart';
 
 import './Product.scss';
 
@@ -32,6 +31,12 @@ class Product extends Component {
     const { selectedOptions } = this.state;
     selectedOptions[optionName] = optionValue;
     this.setState({ selectedOptions });
+  }
+
+  addToCartHandler = (event, productId, quantity) => {
+    event.preventDefault();
+    const { addToCart } = this.props;
+    addToCart(productId, quantity);
   }
 
   render() {
@@ -58,41 +63,47 @@ class Product extends Component {
       type,
       relatedProducts,
       variations,
-      variation_attributes: variationAttributes
-      // id,
+      variation_attributes: variationAttributes,
+      id,
       // slug,
       // price_html: priceHtml,
-      // in_stock: inStock,
+      in_stock: inStock,
       // stock_quantity: stockQuantity,
       // catalog_visibility: catalogVisibility,
     } = product;
     const baseImage = images.length > 0 ? images[0] : null;
 
     return (
-      <main className="content" role="main">
+      <main className="product-page content" role="main">
         <Head defaultTitle={`${name} - ${settings.name}`} />
-        <Gallery
-          baseImage={baseImage}
-          images={images}
-          selectedOptions={this.state.selectedOptions}
-          variations={variations} />
-        <Title title={name} />
-        <p
-          className="sku"
-          dangerouslySetInnerHTML={{__html: sku}} />
-        <ShortDescription text={shortDescription} />
-        <Price
-          price={price}
-          regularPrice={regularPrice}
-          salePrice={salePrice}
-          productType={type} />
-        <OptionsForm
-          attributes={attributes}
-          variationAttributes={variationAttributes}
-          productType={type}
-          callback={this.optionSelectionHandler} />
-        <Tabs description={description} />
-        <RelatedProducts relatedProducts={relatedProducts} />
+        <div className="wrap">
+          <Gallery
+            baseImage={baseImage}
+            images={images}
+            selectedOptions={this.state.selectedOptions}
+            variations={variations} />
+          <Title title={name} />
+          <p
+            className="sku"
+            dangerouslySetInnerHTML={{__html: sku}} />
+          <ShortDescription text={shortDescription} />
+          <Price
+            price={price}
+            regularPrice={regularPrice}
+            salePrice={salePrice}
+            productType={type} />
+          <OptionsForm
+            id={id}
+            attributes={attributes}
+            variationAttributes={variationAttributes}
+            productType={type}
+            callback={this.optionSelectionHandler}
+            addToCartHandler={this.addToCartHandler}
+            inStock={inStock}
+          />
+          <Tabs description={description} />
+          <RelatedProducts relatedProducts={relatedProducts} />
+        </div>
       </main>
     );
   }
@@ -107,4 +118,4 @@ function mapStateToProps({starward, loading}) {
   };
 }
 
-export default connect(mapStateToProps, { })(Product);
+export default connect(mapStateToProps, { addToCart })(Product);

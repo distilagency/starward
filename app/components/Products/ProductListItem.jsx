@@ -15,7 +15,7 @@ export const ProductListItem = (props) => {
     // sale_price,
   } = props;
   return (
-    <div className="product">
+    <li className="product">
       <NavLink to={`/products/${slug}`}>
         { images.length > 0 &&
           <ProductImage baseImage={images[0]} />
@@ -53,6 +53,6 @@ export const ProductListItem = (props) => {
           );
         })}
       </NavLink>
-    </div>
+    </li>
   );
 };
