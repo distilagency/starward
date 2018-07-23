@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { Loading } from '../../components/Content/Loading';
 import { STORE_SLUG } from '../../config/app';
 
@@ -27,9 +27,9 @@ const SamePagePagination = (props) => {
     }
     return (
       // More posts can be retrieved - show user button to fetch more.
-      <Link to="#fetch-more" className="fetch-more-button" onClick={fetchMoreButtonHandler}>
+      <NavLink to="#fetch-more" className="fetch-more-button" onClick={fetchMoreButtonHandler}>
         View more
-      </Link>
+      </NavLink>
     );
   }
   // No more posts to fetch, hide button.
@@ -47,9 +47,9 @@ const MultiPagePagination = (props) => {
     <ul>
       {pagesArr.map(page => (
         <li key={page} className={activePage === page ? 'page active' : 'page'}>
-          <Link to={`/${urlBase}/page/${page}`}>
+          <NavLink to={`/${urlBase}/page/${page}`}>
             {page}
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>
@@ -110,9 +110,9 @@ export const Pagination = props => {
 //   //     } else {
 //   //       return (
 //   //         // More posts can be retrieved - show user button to fetch more.
-//   //         <Link to="#fetch-more" className="fetch-more-button" onClick={(event) => fetchMoreButtonHandler(event)}>
+//   //         <NavLink to="#fetch-more" className="fetch-more-button" onClick={(event) => fetchMoreButtonHandler(event)}>
 //   //           View more
-//   //         </Link>
+//   //         </NavLink>
 //   //       );
 //   //     }
 //   //   } else {
@@ -131,9 +131,9 @@ export const Pagination = props => {
 //       <ul>
 //         {pagesArr.map(page => (
 //           <li key={page} className={activePage === page ? 'page active' : 'page'}>
-//             <Link to={`/${urlBase}/page/${page}`}>
+//             <NavLink to={`/${urlBase}/page/${page}`}>
 //               {page}
-//             </Link>
+//             </NavLink>
 //           </li>
 //         ))}
 //       </ul>

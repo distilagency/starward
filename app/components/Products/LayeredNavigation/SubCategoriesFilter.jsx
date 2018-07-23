@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { getQueryString } from './QueryHelper';
 
 export function SubCategoriesFilter({subcategories, urlBase, location}) {
@@ -15,7 +15,7 @@ export function SubCategoriesFilter({subcategories, urlBase, location}) {
             const queryString = getQueryString(queryObj, 'category', subcategory.term_id);
             return (
               <li key={i}>
-                <Link to={`/${urlBase}${queryString}`}>{subcategory.name}</Link>
+                <NavLink to={`/${urlBase}${queryString}`}>{subcategory.name}</NavLink>
               </li>
             );
           })}

@@ -10,19 +10,20 @@ const fetchWooCommerceData = (params, routeName, location) => {
   switch (routeName) {
     // Product Category Data
     case 'ProductCategory': {
+      console.log('Params @ ProductCategory', params);
       const pageNumber = params.page ? params.page : 1;
-      const queryString = location.search.replace(/[?&]/g, '$');
+      const queryString = location.search ? location.search.replace(/[?&]/g, '$') : '';
       return getCategory(params.category, pageNumber, queryString)
-      .then(res => {
+      .then((res) => {
         return res.data.data;
       })
       .catch(error => console.log('error', error));
     }
     case 'Product': {
+      console.log('Params @ Product', params);
       const productSlug = params.product;
       return getProduct(productSlug)
-      .then(res => {
-        // console.log(res.data.data);
+      .then((res) => {
         return res.data.data;
       })
       .catch(error => console.log('error', error));

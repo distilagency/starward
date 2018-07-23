@@ -12,7 +12,7 @@ const productApi = (slug) => {
 
 const wooCommerceService = {
   getCategory: (slug, page, queryString) => categoryApi(slug, page, queryString),
-  getProduct: (slug) => productApi(slug),
+  getProduct: slug => productApi(slug),
 };
 
 export default wooCommerceService;

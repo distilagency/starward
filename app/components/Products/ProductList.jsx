@@ -1,14 +1,13 @@
 import React from 'react';
-import { ProductListItem } from './ProductListItem.jsx';
+import { ProductListItem } from './ProductListItem';
 import { Pagination } from './Pagination';
 import { PRODUCTS_PER_PAGE } from '../../config/app';
 
-export const ProductList = props => {
+export const ProductList = (props) => {
   const {
     products,
     urlBase,
     currentPage,
-    fetchMorePosts,
     starwardUpdating
   } = props;
   const { items, totalProducts } = products;
