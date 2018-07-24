@@ -7,13 +7,38 @@ export const ProductListItem = (props) => {
     slug,
     name,
     images,
-    attributes,
-    price_html,
+    regular_price: regularPrice,
+    sale_price: salePrice,
+    price_html: priceHtml
+    // attributes,
     // description,
     // id,
-    // regular_price,
-    // sale_price,
   } = props;
+  let price = <div className="price" dangerouslySetInnerHTML={{ __html: priceHtml }} />;
+  if (salePrice || regularPrice) {
+    price = salePrice ? (
+      <div className="price">
+        <del>
+          <span className="woocommerce-Price-amount amount">
+            <span className="woocommerce-Price-currencySymbol">$</span>{`${parseFloat(regularPrice).toFixed(2)}`}
+          </span>
+        </del>
+        <span>{' '}</span>
+        <ins>
+          <span className="woocommerce-Price-amount amount">
+            <span className="woocommerce-Price-currencySymbol">$</span>{`${parseFloat(salePrice).toFixed(2)}`}
+          </span>
+        </ins>
+      </div>
+    ) : (
+      <div className="price">
+        <span className="woocommerce-Price-amount amount">
+          <span className="woocommerce-Price-currencySymbol">$</span>
+          {`${parseFloat(regularPrice).toFixed(2)}`}
+        </span>
+      </div>
+    );
+  }
   return (
     <li className="product">
       <NavLink to={`/products/${slug}`}>
@@ -21,37 +46,7 @@ export const ProductListItem = (props) => {
           <ProductImage baseImage={images[0]} />
         }
         <h3>{name}</h3>
-        <div dangerouslySetInnerHTML={{ __html: price_html }} />
-        { attributes.map((attribute) => {
-          // Check if the attribute has swatches
-          if (attribute.swatches) {
-            return (
-              <ul className="attribute-options" key={attribute.name}>
-                { attribute.options.map((option) => {
-                  return (
-                    <li
-                      key={option.name}
-                      style={{
-                        backgroundColor: attribute.swatches[option.name],
-                        width: '20px',
-                        height: '20px',
-                        display: 'inline-block'
-                      }}
-                    />
-                  );
-                })}
-              </ul>
-            );
-          }
-          // Default
-          return (
-            <ul className="attribute-options" key={attribute.name}>
-              { attribute.options.map((option) => {
-                return <li key={option.name}>{option.name}</li>;
-              })}
-            </ul>
-          );
-        })}
+        {price}
       </NavLink>
     </li>
   );
