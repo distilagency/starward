@@ -10,10 +10,8 @@ export const ProductListItem = (props) => {
     regular_price: regularPrice,
     sale_price: salePrice,
     price_html: priceHtml
-    // attributes,
-    // description,
-    // id,
   } = props;
+  console.log(`props @ ProductListItem ${name}`, props);
   let price = <div className="price" dangerouslySetInnerHTML={{ __html: priceHtml }} />;
   if (salePrice || regularPrice) {
     price = salePrice ? (
