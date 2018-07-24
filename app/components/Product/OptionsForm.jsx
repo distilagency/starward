@@ -12,7 +12,7 @@ export function OptionsForm(props) {
   } = props;
   if (productType === 'variable') {
     return (
-      <form method="GET">
+      <form className="options-form" method="GET">
         { attributes.map((attribute) => {
           // Check if this attribute is a variation attribute
           if (attribute.taxonomy in variationAttributes) {
@@ -37,12 +37,7 @@ export function OptionsForm(props) {
                               id={`radio-${index}`}
                               name={option.taxonomy}
                               value={option.slug}
-                              style={{
-                                position: 'absolute',
-                                opacity: 0,
-                                cursor: 'pointer'
-                              }}
-                              onClick={callback}
+                              onClick={event => callback(event)}
                             />
                             <span
                               className="mark"

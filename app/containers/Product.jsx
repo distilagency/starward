@@ -25,11 +25,11 @@ class Product extends Component {
     };
   }
 
-  optionSelectionHandler = (e) => {
-    const optionName = e.target.name;
-    const optionValue = e.target.value;
+  optionSelectionHandler = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
     const { selectedOptions } = this.state;
-    selectedOptions[optionName] = optionValue;
+    selectedOptions[name] = value;
     this.setState({ selectedOptions });
   }
 
