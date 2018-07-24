@@ -16,8 +16,8 @@ export const FilterBlocks = (props) => {
         if (filterType === 'price') {
           return (
             <PriceSlider
-              filter={filters[filterType]}
               key={filterType}
+              filter={filters[filterType]}
               location={location}
             />
           );
@@ -25,6 +25,7 @@ export const FilterBlocks = (props) => {
         if (filterType === 'attributes') {
           return (
             <AttributeFilters
+              key={filterType}
               filters={filters}
               filterType={filterType}
               urlBase={urlBase}
@@ -35,8 +36,8 @@ export const FilterBlocks = (props) => {
         if (filterType === 'subcategories') {
           return (
             <SubCategoriesFilter
-              subcategories={filters[filterType]}
               key={filterType}
+              subcategories={filters[filterType]}
               urlBase={urlBase}
               location={location}
             />

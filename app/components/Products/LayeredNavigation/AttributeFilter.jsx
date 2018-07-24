@@ -20,7 +20,7 @@ export const AttributeFilter = (props) => {
             //   (queryObj.hasOwnProperty(attribute.slug));
             // console.log(isActive);
             return (
-              <li key={attribute.slug}>
+              <li key={option.name}>
                 <NavLink to={`/${urlBase}${queryString}`}>{option.name}</NavLink>
               </li>
             );
