@@ -35,10 +35,13 @@ class ProductCategory extends Component {
       match,
       location
     } = this.props;
+    const { products } = this.state;
     const { params } = match;
     const { details, filters } = category;
     if (loading) return <Loading />;
     if (!category) return <FourOhFour />;
+    console.log({products});
+    console.log({category});
     return (
       <main className="product-category-page content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
@@ -50,7 +53,7 @@ class ProductCategory extends Component {
             urlBase={`${STORE_SLUG}/${params.category}`}
           />
           <ProductList
-            products={this.state.products}
+            products={products}
             urlBase={`${STORE_SLUG}/${params.category}`}
             currentPage={params.page}
           />

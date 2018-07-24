@@ -31,7 +31,7 @@ export function OptionsForm(props) {
                           <label
                             className="swatch-option-container"
                             htmlFor={`radio-${index}`}
-                            key={index}>
+                            key={option.slug}>
                             <input
                               type="radio"
                               id={`radio-${index}`}
@@ -90,14 +90,14 @@ export function OptionsForm(props) {
           // If this attribute IS NOT a variation attribute DO NOT display it
           return null;
         })}
-        <button type="submit" className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
+        <button type="submit" disabled={!inStock} className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
       </form>
     );
   }
   if (productType === 'simple') {
     return (
       <form>
-        <button type="submit" className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
+        <button type="submit" disabled={!inStock} className="add-to-cart" onClick={event => addToCartHandler(event, id, 1)}>Add to cart</button>
       </form>
     );
   }

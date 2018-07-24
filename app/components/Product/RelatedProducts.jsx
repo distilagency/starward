@@ -1,35 +1,40 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { STORE_PRODUCTS_SLUG } from '../../config/app';
-import { WP_URL } from '../../../server/config/app';
+
+const RelatedProductsList = (props) => {
+  const { relatedProducts } = props;
+  return relatedProducts.map((relatedProduct) => {
+      const {
+        images,
+        id,
+        name,
+        regular_price: regularPrice,
+        sale_price: salePrice,
+        slug,
+      } = relatedProduct;
+      const relatedProductBaseImage = (images && images.length > 0) ? images[0] : null;
+      const price = salePrice ? <span className="price"><s>{`$${regularPrice}`}</s>{` ${salePrice}`}</span> : `$${regularPrice}`;
+      return (
+        <li className="related-product" key={id}>
+          <NavLink to={`/${STORE_PRODUCTS_SLUG}/${slug}`}>
+            { relatedProductBaseImage && <img src={`${relatedProductBaseImage.src}`} alt={relatedProductBaseImage.alt} />}
+            <h3 className="title">{name}</h3>
+            <div className="price">{price}</div>
+          </NavLink>
+        </li>
+      );
+    });
+};
 
 export function RelatedProducts({ relatedProducts }) {
-  if (relatedProducts) {
-    return (
-      <div className="related-products">
-        <h2>Related Products</h2>
-        { relatedProducts.map((relatedProduct) => {
-            const {
-              images,
-              id,
-              name,
-              regular_price: relatedProductRegularPrice,
-              sale_price: relatedProductSalePrice,
-              price,
-              slug,
-            } = relatedProduct;
-            const relatedProductBaseImage = (images && images.length > 0) ? images[0] : null;
-            return (
-              <NavLink to={`/${STORE_PRODUCTS_SLUG}/${slug}`} className="related-product" key={id}>
-                { relatedProductBaseImage && <img src={`${relatedProductBaseImage.src}`} alt={relatedProductBaseImage.alt} />}
-                <h3 key={id}>{name}</h3>
-                <div className="price">{price}</div>
-              </NavLink>
-            );
-          })
-        }
-      </div>
-    );
-  }
-  return null;
+  if (!relatedProducts || relatedProducts.length < 1) return null;
+  return (
+    <section className="related-products">
+      <h2>Related Products</h2>
+      <ul className="related-products-list">
+        <RelatedProductsList relatedProducts={relatedProducts} />
+      </ul>
+    </section>
+  );
 }

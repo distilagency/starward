@@ -10,8 +10,9 @@ export const ProductList = (props) => {
     currentPage
   } = props;
   const { items, totalProducts } = products;
-  if (!products || products.length < 1) {
-    return <h3>No Products Found</h3>;
+  console.log('products @ ProductList', products);
+  if (!products || !items) {
+    return <h2>No Products Found</h2>;
   }
   // If no page parameter, then the page is the first page
   const activePage = !currentPage ? 1 : currentPage;
@@ -19,7 +20,6 @@ export const ProductList = (props) => {
   const firstProductIndex = activePage !== 1 ? ((PRODUCTS_PER_PAGE * (activePage - 1)) + 1) : 1;
   // Get index of last product on page
   const lastProductIndex = (firstProductIndex + (items.length - 1));
-  if (!items || items.length < 1) return <h2>No Products Found</h2>;
   return (
     <section className="products">
       <span className="results">{`Showing ${firstProductIndex}-${lastProductIndex} of ${totalProducts} results`}</span>
