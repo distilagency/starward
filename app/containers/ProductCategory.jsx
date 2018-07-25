@@ -39,8 +39,9 @@ class ProductCategory extends Component {
     const { params } = match;
     const { details, filters } = category;
     if (loading) return <Loading />;
-    if (!category) return <FourOhFour />;
-    console.log({products});
+    if (!category || !details) return <FourOhFour />;
+    console.log({match});
+    console.log({params});
     console.log({category});
     return (
       <main className="product-category-page content" role="main">

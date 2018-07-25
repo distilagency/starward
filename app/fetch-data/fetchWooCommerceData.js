@@ -27,12 +27,13 @@ const getAppData = () => {
   .catch(error => console.log('error', error));
 };
 
-const getRouteData = (params, routeName, location) => {
+const getRouteData = (params, routeName, queries) => {
   switch (routeName) {
     case 'ProductCategory': {
-      const pageNumber = params.page ? params.page : 1;
-      const queryString = location.search ? location.search.replace(/[?&]/g, '$') : '';
-      return getCategory(params.category, pageNumber, queryString)
+      const { category, page } = params;
+      const pageNumber = page || 1;
+      const categoryWithoutQueries = category && category.split('?')[0];
+      return getCategory(categoryWithoutQueries, pageNumber, queries)
       .then((res) => {
         return res.data.data;
       })
@@ -51,9 +52,9 @@ const getRouteData = (params, routeName, location) => {
   }
 };
 
-const fetchWooCommerceData = async (params, routeName, location) => {
+const fetchWooCommerceData = async (params, routeName, queries) => {
   const appData = await getAppData();
-  const routeData = await getRouteData(params, routeName, location);
+  const routeData = await getRouteData(params, routeName, queries);
   return ({ ...appData, ...routeData });
 };
 

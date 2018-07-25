@@ -10,7 +10,6 @@ export const ProductList = (props) => {
     currentPage
   } = props;
   const { items, totalProducts } = products;
-  console.log('products @ ProductList', products);
   if (!products || !items) {
     return <h2>No Products Found</h2>;
   }

@@ -142,10 +142,10 @@ export default(app) => {
   /* ----------- Category Operations ----------- */
 
   /* Get Product Category and Collection of Products */
-  app.get('/api/products/category', (req, res) => {
+  app.post('/api/products/category', (req, res) => {
     woocommerce(`
-      query get_product_category($slug: String, $page: Int, $queryString: String) {
-        category: productcategory(slug: $slug, page: $page, queryString: $queryString) {
+      query get_product_category($slug: String, $page: Int, $filters: JSON) {
+        category: productcategory(slug: $slug, page: $page, filters: $filters) {
           details {
             slug,
             name,
@@ -188,9 +188,9 @@ export default(app) => {
           filters
         }
       }`, {
-        slug: req.query.slug,
-        page: req.query.page,
-        queryString: req.query.queryString
+        slug: req.body.slug,
+        page: req.body.page,
+        filters: req.body.filters
       })
       .then(handleSuccess(res))
       .catch(handleError(res));

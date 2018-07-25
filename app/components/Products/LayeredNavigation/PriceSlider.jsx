@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
+import './PriceSlider.scss';
 
 const { createSliderWithTooltip, Handle } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);

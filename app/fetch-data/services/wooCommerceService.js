@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { ROOT_API } from '../../config/app';
 
-const categoryApi = (slug, page, queryString) => {
-  return axios.get(`${ROOT_API}/products/category?slug=${slug}&page=${page}&queryString=${queryString}`);
+const categoryApi = (slug, page, filters) => {
+  return axios.post(`${ROOT_API}/products/category`, {
+    slug,
+    filters,
+    page
+  });
 };
 const productApi = (slug) => {
   return axios.get(`${ROOT_API}/product?slug=${slug}`);

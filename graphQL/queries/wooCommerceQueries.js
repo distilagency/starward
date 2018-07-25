@@ -1,4 +1,5 @@
 import axios from 'axios';
+import queryString from 'query-string';
 import { WP_API, WP_AUTH } from '../../server/config/app';
 import { ROOT_API, PRODUCTS_PER_PAGE } from '../../app/config/app';
 
@@ -17,8 +18,8 @@ const wooCommerceQueries = {
     products(response) {
       if (!response || !response.data || !response.data[0]) return [];
       const categoryId = response.data[0].id;
-      const queryString = (response.queryString !== null) ? response.queryString.replace(/\$/g, '&') : '';
-      return axios.get(`${wcProductsUrl}?category=${categoryId}&page=${response.page}&per_page=${PRODUCTS_PER_PAGE}${queryString}`, { headers: auth })
+      const query = queryString.stringify(response.filters);
+      return axios.get(`${wcProductsUrl}?category=${categoryId}&page=${response.page}&per_page=${PRODUCTS_PER_PAGE}&${query}`, { headers: auth })
       .then((productsResponse) => {
         return ({
           items: productsResponse.data,
@@ -61,7 +62,7 @@ const wooCommerceQueries = {
         return ({
           data: categoryRes.data,
           page: args.page || 1,
-          queryString: args.queryString || null
+          filters: args.filters || null
         });
       })
       .catch(error => console.log('error', error));
