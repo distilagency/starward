@@ -1,5 +1,6 @@
-import React from 'react';
-import { browserHistory } from 'react-router';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import qs from 'query-string';
 import Tooltip from 'rc-tooltip';
 import Slider from 'rc-slider';
 import './PriceSlider.scss';
@@ -27,33 +28,51 @@ const handle = (props) => {
   );
 };
 
-// handleChange = (value) => {
-//   const { location } = this.props;
-//   const newMinPrice = value[0];
-//   const newMaxPrice = value[1];
-//   browserHistory.push({
-//     ...location,
-//     query: {
-//       ...location.query,
-//       min_price: newMinPrice,
-//       max_price: newMaxPrice
-//     }
-//   });
-// }
+class PriceSlider extends Component {
+  // handleChange = (value) => {
+  //   const { location } = this.props;
+  //   const newMinPrice = value[0];
+  //   const newMaxPrice = value[1];
+  //   browserHistory.push({
+  //     ...location,
+  //     query: {
+  //       ...location.query,
+  //       min_price: newMinPrice,
+  //       max_price: newMaxPrice
+  //     }
+  //   });
+  // }
+  handleChange = (newRange) => {
+    const { history } = this.props;
+    const newMinPrice = newRange[0];
+    const newMaxPrice = newRange[1];
+    history.push({
+      search: qs.stringify({
+        min_price: newMinPrice,
+        max_price: newMaxPrice
+      })
+    });
+  }
 
-export const PriceSlider = (props) => {
-  const { filter, index, location } = props;
-  const { min_price, max_price } = filter;
-  const minPrice = parseInt(min_price);
-  const maxPrice = parseInt(max_price);
-  // const hasPricesInQueryParams = ('min_price' in location.query) || ('max_price' in location.query);
-  // const queryMinPrice = hasPricesInQueryParams ? parseInt(location.query.min_price) : null;
-  // const queryMaxPrice = hasPricesInQueryParams ? parseInt(location.query.max_price) : null;
-  if (!filter || minPrice === maxPrice) return null;
-  return (
-    <section className="filter-block" key={index}>
-      <h3>Price</h3>
-      <Slider min={0} max={20} defaultValue={3} handle={handle} />
-    </section>
-  );
-};
+  render() {
+    const { filter, location } = this.props;
+    const { min_price: minPrice, max_price: maxPrice } = filter;
+    const rangeMin = minPrice ? parseInt(minPrice) : 0;
+    const rangeMax = minPrice ? parseInt(maxPrice) : 0;
+    const queryParams = qs.parse(location.search);
+    const currMinPrice = queryParams.min_price ? parseInt(queryParams.min_price) : rangeMin;
+    const currMaxPrice = queryParams.max_price ? parseInt(queryParams.max_price) : rangeMax;
+    console.log({currMinPrice});
+    console.log({currMaxPrice});
+    console.log({rangeMin});
+    console.log({rangeMax});
+    return (
+      <section className="filter-block">
+        <h3>Price</h3>
+        <Range min={rangeMin} max={rangeMax} defaultValue={[currMinPrice, currMaxPrice]} tipFormatter={value => `$${value}`} onAfterChange={newRange => this.handleChange(newRange)} />
+      </section>
+    );
+  }
+}
+
+export default withRouter(PriceSlider);

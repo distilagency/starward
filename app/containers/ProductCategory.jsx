@@ -43,6 +43,8 @@ class ProductCategory extends Component {
     console.log({match});
     console.log({params});
     console.log({category});
+    console.log({filters});
+    console.log({location});
     return (
       <main className="product-category-page content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
@@ -51,6 +53,7 @@ class ProductCategory extends Component {
           <LayeredNavigation
             location={location}
             filters={filters}
+            params={params}
             urlBase={`${STORE_SLUG}/${params.category}`}
           />
           <ProductList

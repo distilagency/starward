@@ -2,7 +2,12 @@ import React from 'react';
 import { FilterBlocks } from './FilterBlocks';
 
 export const LayeredNavigation = (props) => {
-  const { filters, urlBase, location } = props;
+  const {
+    filters,
+    urlBase,
+    location,
+    params
+  } = props;
   const { attributes, subcategories, price } = filters;
   const hasAttributeFilters = attributes.some((attribute) => {
     return attribute.options != null;
@@ -17,6 +22,7 @@ export const LayeredNavigation = (props) => {
           filters={filters}
           urlBase={urlBase}
           location={location}
+          params={params}
         />
       </div>
     );

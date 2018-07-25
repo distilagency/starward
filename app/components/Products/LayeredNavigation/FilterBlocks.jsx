@@ -1,12 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { PriceSlider } from './PriceSlider';
+import PriceSlider from './PriceSlider';
 import { SubCategoriesFilter } from './SubCategoriesFilter';
 import { AttributeFilters } from './AttributeFilters';
 
 
 export const FilterBlocks = (props) => {
-  const { filters, urlBase, location } = props;
+  const {
+    filters,
+    urlBase,
+    location,
+    params
+  } = props;
   // Map over parent filter types index.e. Price, Attributes, Sub Categories
   if (!filters && filters.length < 1) return null;
   return (
@@ -19,6 +24,7 @@ export const FilterBlocks = (props) => {
               key={filterType}
               filter={filters[filterType]}
               location={location}
+              params={params}
             />
           );
         }
@@ -30,6 +36,7 @@ export const FilterBlocks = (props) => {
               filterType={filterType}
               urlBase={urlBase}
               location={location}
+              params={params}
             />
           );
         }
@@ -40,6 +47,7 @@ export const FilterBlocks = (props) => {
               subcategories={filters[filterType]}
               urlBase={urlBase}
               location={location}
+              params={params}
             />
           );
         }
