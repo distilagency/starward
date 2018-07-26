@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-export const PostCategories = props => {
+export const PostCategories = (props) => {
   const { categories } = props;
   if (!categories) return null;
-  const getPostCategories = (cats) => (
+  const getPostCategories = cats => (
     cats.map(cat => (
       <Link key={cat.slug} to={`/category/${cat.slug}`}>{cat.name}</Link>
     ))
@@ -14,8 +14,4 @@ export const PostCategories = props => {
       <p>Posted in: {getPostCategories(categories)}</p>
     </div>
   );
-};
-
-PostCategories.propTypes = {
-  categories: PropTypes.array,
 };

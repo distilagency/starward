@@ -17,8 +17,21 @@ export default class Number extends Component {
     this.props.updateForm(value, id, valid);
   }
   render() {
-    const { field, value, submitFailed, isValid } = this.props;
-    const { id, type, label, classes, placeholder, required, maxLength } = field;
+    const {
+      field,
+      value,
+      submitFailed,
+      isValid
+    } = this.props;
+    const {
+      id,
+      type,
+      label,
+      classes,
+      placeholder,
+      required,
+      maxLength
+    } = field;
     return (
       <div className={!isValid && submitFailed ? `field error ${classes}` : `field ${classes}`}>
         <div className="text">
@@ -27,11 +40,11 @@ export default class Number extends Component {
             <input
               name={id}
               type={type}
-              value={value}
+              value={value || ''}
               placeholder={placeholder}
               maxLength={maxLength}
               required={required}
-              onChange={(event) => this.updateField(event, field)}
+              onChange={event => this.updateField(event, field)}
             />
           </label>
         </div>

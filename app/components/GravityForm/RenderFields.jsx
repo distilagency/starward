@@ -5,11 +5,18 @@ const formatComponentName = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const RenderFields = props => {
-  const { fields, formValues, updateForm, submitFailed, submitSuccess } = props;
+export const RenderFields = (props) => {
+  const {
+    fields,
+    formValues,
+    updateForm,
+    submitFailed,
+    submitSuccess,
+    location
+  } = props;
   return (
     <div className="fields">
-      {fields.map(field => {
+      {fields.map((field) => {
         const FormComponent = FormFields[formatComponentName(field.type)];
         const isValid = formValues[field.id] ? formValues[field.id].valid : false;
         return (
@@ -21,6 +28,7 @@ export const RenderFields = props => {
             isValid={isValid}
             submitFailed={submitFailed}
             submitSuccess={submitSuccess}
+            location={location}
           />
         );
       })}

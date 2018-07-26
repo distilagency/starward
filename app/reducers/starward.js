@@ -19,7 +19,7 @@ export default function (state = INITIAL_STATE, action) {
   case RESET_404:
     return { ...state, handle404: false };
   case REQUEST_SUCCESS:
-    return { ...state, ...action.payload };
+    return { ...state, ...action.data };
   case UPDATE_STARWARD_STATE:
     return { ...state, starwardUpdating: true };
   case UPDATE_STARWARD_STATE_SUCCESS:

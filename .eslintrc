@@ -33,7 +33,9 @@
         "global-require": 0,
         "no-underscore-dangle": 0,
         "radix": 0,
-        "prefer-spread": 0
+        "prefer-spread": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "jsx-a11y/label-has-for": 0
     },
     "plugins": [
         "react"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const IntroSection = props => {
+export const IntroSection = (props) => {
   const { title, subtitle } = props;
   return (
     <header>

@@ -3,12 +3,6 @@ import { createKeyGenerator, debugLogger } from '../utility';
 const redisDebugLogger = debugLogger('ms', 'redix: ');
 
 export default (client, keyPrefix) => {
-  if (!client) {
-    console.log();
-    console.log('Redis is being bypassed as it is disabled');
-    console.log();
-  }
-
   const keyGenerator = createKeyGenerator(keyPrefix);
 
   const __get = (key, resultCallback) => {
