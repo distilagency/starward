@@ -69,6 +69,7 @@
     "express": "^4.15.4",
     "graphql_json": "^1.0.0",
     "helmet": "^3.8.1",
+    "hoek": "^4.2.1",
     "method-override": "^2.3.9",
     "moment": "^2.17.1",
     "query-string": "^6.1.0",
