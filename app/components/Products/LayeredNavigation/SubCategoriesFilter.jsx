@@ -2,21 +2,23 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 export function SubCategoriesFilter(props) {
-  const changeSubCategory = (event, slug, termId) => {
+  const toggleSubCategory = (event, slug, termId) => {
     event.preventDefault();
-    const { changeQueryHandler } = props;
-    changeQueryHandler({ [slug]: termId });
+    const { toggleQueryHandler } = props;
+    toggleQueryHandler(slug, termId);
   };
   const { subcategories } = props;
   if (subcategories.length <= 0) return null;
   return (
-    <div className="filter-block sub-categories">
-      <span className="title">Sub Categories</span>
-      <ul>
+    <div className="filter-block subcategories">
+      <span className="title">Subcategories</span>
+      <ul className="options">
         { subcategories.map((subcategory) => {
           return (
-            <li className="sub-category" key={subcategory.name}>
-              <NavLink to="#" onClick={event => changeSubCategory(event, 'category', subcategory.term_id)}>{subcategory.name}</NavLink>
+            <li className="option subcategory" key={subcategory.name}>
+              <NavLink to="#" onClick={event => toggleSubCategory(event, 'category', subcategory.term_id)}>
+                <span>{subcategory.name}</span>
+              </NavLink>
             </li>
           );
         })}
