@@ -33,7 +33,10 @@ function asyncComponent(getComponent) {
 }
 
 const getComponent = (name) => {
-  return asyncComponent(() => import(/* webpackChunkName: "[request]" */ `./containers/${name}`));
+  return asyncComponent(() => import(
+    /* webpackChunkName: "[request]" */
+    `./containers/${name}`
+  ));
 };
 
 export default [{
