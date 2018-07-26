@@ -9,7 +9,7 @@
 - [**ECMAScript 2017 (ES7)**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_Next_support_in_Mozilla)
 - [**Universal**](https://medium.com/@ghengeveld/isomorphism-vs-universal-javascript-4b47fb481beb#.4x2t3jlmx) rendering :earth_asia:
 - [**GraphQL**](http://graphql.org/learn/)
-- [**Redis**](https://redis.io/) page caching
+- [**Redis**](https://redis.io/) API caching
 - [**Redux**](https://github.com/reactjs/redux)
 - [**React Router Redux**](https://github.com/reactjs/react-router-redux)
 - [**React Hot Loader**](https://github.com/gaearon/react-hot-loader)
