@@ -38,6 +38,7 @@ export const AttributeFilters = (props) => {
       <AttributeFilter
         attribute={attributeDetails}
         changeQueryHandler={changeQueryHandler}
+        key={attributeDetails.slug}
       />
     );
   });
