@@ -14,7 +14,6 @@
     "build:dev": "cross-env NODE_ENV=development npm run webpack -- --env.server",
     "build": "npm run clean && cross-env NODE_ENV=production npm run webpack -- --env.browser && cross-env NODE_ENV=production npm run webpack -- --env.server",
     "webpack": "webpack --colors --display-error-details --config ./webpack/webpack.config.js",
-    "analyse": "npm run clean && cross-env NODE_ENV=production webpack --colors --display-error-details --config ./webpack/webpack.config.analyse.js"
   },
   "author": "Sam Logan",
   "license": "MIT License",
@@ -53,7 +52,6 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^4.1.0",
-    "webpack-bundle-analyzer": "^2.8.3",
     "webpack-cli": "^2.0.10",
     "webpack-dev-middleware": "^3.0.0",
     "webpack-hot-middleware": "^2.21.2",
