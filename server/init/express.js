@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import flash from 'express-flash';
 import methodOverride from 'method-override';
 import gzip from 'compression';
 import helmet from 'helmet';
@@ -30,6 +29,4 @@ export default (app) => {
   console.log(`[3/4] 🐆 Redis: ${environment.isRedisEnabled ? 'Enabled 🏎🏎🏎' : 'Disabled'}`);
   console.log(`[4/4] 🚀 Listening on port: ${app.get('port')}`);
   console.log('--------------------------');
-
-  app.use(flash());
 };
