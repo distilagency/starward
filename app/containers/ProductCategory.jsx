@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { STORE_SLUG } from '../config/app';
 import { Head } from '../components/Common/Head';
-import { Title } from '../components/Content/Title';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
 
@@ -38,27 +37,22 @@ class ProductCategory extends Component {
     const { products } = this.state;
     const { params } = match;
     const { details, filters } = category;
+    const urlBase = `${STORE_SLUG}/${params.category}`;
     if (loading) return <Loading />;
     if (!category || !details) return <FourOhFour />;
-    console.log({match});
-    console.log({params});
-    console.log({category});
-    console.log({filters});
-    console.log({location});
     return (
       <main className="product-category-page content" role="main">
         <Head defaultTitle={`${details.name} - ${settings.name}`} />
-        <Title title={details.name} />
         <div className="wrap">
           <LayeredNavigation
+            categoryName={details.name}
             location={location}
             filters={filters}
-            params={params}
-            urlBase={`${STORE_SLUG}/${params.category}`}
+            urlBase={urlBase}
           />
           <ProductList
             products={products}
-            urlBase={`${STORE_SLUG}/${params.category}`}
+            urlBase={urlBase}
             currentPage={params.page}
           />
         </div>

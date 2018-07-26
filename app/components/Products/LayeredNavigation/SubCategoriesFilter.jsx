@@ -5,8 +5,8 @@ import { getQueryString } from './QueryHelper';
 export function SubCategoriesFilter({subcategories, urlBase, location}) {
   if (subcategories.length > 0) {
     return (
-      <section className="filter-block">
-        <h3>Sub Categories</h3>
+      <div className="filter-block sub-categories">
+        <span className="title">Sub Categories</span>
         <ul>
           { subcategories.map((subcategory) => {
             // Clone location query object so that we use the original location.query
@@ -20,7 +20,7 @@ export function SubCategoriesFilter({subcategories, urlBase, location}) {
             );
           })}
         </ul>
-      </section>
+      </div>
     );
   }
   return null;
