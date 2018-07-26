@@ -29,25 +29,14 @@ const handle = (props) => {
 };
 
 class PriceSlider extends Component {
-  // handleChange = (value) => {
-  //   const { location } = this.props;
-  //   const newMinPrice = value[0];
-  //   const newMaxPrice = value[1];
-  //   browserHistory.push({
-  //     ...location,
-  //     query: {
-  //       ...location.query,
-  //       min_price: newMinPrice,
-  //       max_price: newMaxPrice
-  //     }
-  //   });
-  // }
   handleChange = (newRange) => {
-    const { history } = this.props;
+    const { history, location } = this.props;
     const newMinPrice = newRange[0];
     const newMaxPrice = newRange[1];
+    const currentParams = qs.parse(location.search);
     history.push({
       search: qs.stringify({
+        ...currentParams,
         min_price: newMinPrice,
         max_price: newMaxPrice
       })
@@ -62,13 +51,9 @@ class PriceSlider extends Component {
     const queryParams = qs.parse(location.search);
     const currMinPrice = queryParams.min_price ? parseInt(queryParams.min_price) : rangeMin;
     const currMaxPrice = queryParams.max_price ? parseInt(queryParams.max_price) : rangeMax;
-    console.log({currMinPrice});
-    console.log({currMaxPrice});
-    console.log({rangeMin});
-    console.log({rangeMax});
     return (
-      <section className="filter-block">
-        <h3>Price</h3>
+      <section className="filter-block price-slider">
+        <span className="title">Price</span>
         <Range min={rangeMin} max={rangeMax} defaultValue={[currMinPrice, currMaxPrice]} tipFormatter={value => `$${value}`} onAfterChange={newRange => this.handleChange(newRange)} />
       </section>
     );
