@@ -1,6 +1,6 @@
 {
   "name": "Starward",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Fully fledged ReactJS frontend for Wordpress. React, Redux, React Router, Universal, GraphQL, Express, Webpack",
   "repository": "https://github.com/samlogan/starward",
   "main": "index.js",
