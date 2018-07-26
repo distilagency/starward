@@ -70,8 +70,7 @@ class LayeredNavigation extends Component {
                 <SubCategoriesFilter
                   key={filterType}
                   subcategories={filters[filterType]}
-                  location={location}
-                  currentParams={currentParams}
+                  changeQueryHandler={this.changeQueries}
                 />
               );
             }
