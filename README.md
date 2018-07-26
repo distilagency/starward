@@ -2,8 +2,6 @@
 
 > Full-stack Wordpress boilerplate web app built using ReactJS and WP REST API v2, built on the awesome reactGo framework  :tada:
 
-:construction: Still in construction, be delicate.
-
 ## Features:
 - [**React 16**](https://facebook.github.io/react/)
 - [**React Router 4**](https://github.com/reactjs/react-router)
