@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-export const Categories = props => {
+export const Categories = (props) => {
   const { categories } = props;
   if (!categories) {
     return <span />;

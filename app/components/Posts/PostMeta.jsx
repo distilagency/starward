@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-export const PostMeta = props => {
+export const PostMeta = (props) => {
   const { date, author } = props;
   return (
     <div className="entry-meta">
@@ -16,9 +16,4 @@ export const PostMeta = props => {
       : <span /> }
     </div>
   );
-};
-
-PostMeta.propTypes = {
-  date: PropTypes.string,
-  author: PropTypes.object,
 };

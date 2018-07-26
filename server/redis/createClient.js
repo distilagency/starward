@@ -3,10 +3,10 @@ import redisProxy from './redisProxy';
 import { isRedisEnabled } from '../utility/environment';
 
 export default (keyPrefix) => {
-  if(isRedisEnabled) {
+  if (isRedisEnabled) {
     const client = redis.createClient();
 
-    client.on('error', err => {
+    client.on('error', (err) => {
       console.log('Error connecting to Redis', err);
     });
 

@@ -8,7 +8,7 @@ const auth = { Authorization: `Basic ${WP_AUTH}` };
 const formBody = (config, field) => {
   const configData = config;
   if (Array.isArray(field.value)) {
-    return field.value.map(subFields => {
+    return field.value.map((subFields) => {
       const formData = configData[`input_${subFields.id}`] = subFields.value;
       return formData;
     });

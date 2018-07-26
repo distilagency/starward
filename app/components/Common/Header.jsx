@@ -1,21 +1,31 @@
 import React from 'react';
-import Navigation from './Navigation';
+import MiniCart from '../Cart/MiniCart';
+import { Navigation } from './Navigation';
 import { Logo } from './Logo';
-import SearchForm from '../Search/SearchForm';
+import { CART_SLUG } from '../../config/app';
+import './Header.scss';
 
-export const Header = props => {
-  const { siteName, navigation, currentPath } = props;
+export const Header = (props) => {
+  const {
+    siteName,
+    navigation,
+    currentPath
+  } = props;
   return (
     <header id="banner" role="banner">
       <Logo
         siteName={siteName}
-        url={'/'}
+        url="/"
       />
-      <SearchForm />
-      <Navigation
-        items={navigation}
-        currentPath={currentPath}
-      />
+      <div className="header-group">
+        { (currentPath !== `/${CART_SLUG}`) &&
+          <MiniCart />
+        }
+        <Navigation
+          items={navigation}
+          currentPath={currentPath}
+        />
+      </div>
     </header>
   );
 };

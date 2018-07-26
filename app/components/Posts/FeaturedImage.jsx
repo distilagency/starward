@@ -1,7 +1,12 @@
 import React from 'react';
 
-export const FeaturedImage = props => {
-  const { size, sizes, alt, url } = props;
+export const FeaturedImage = (props) => {
+  const {
+    size,
+    sizes,
+    alt,
+    url
+  } = props;
   if (!url) {
     return <img src="/assets/images/default-blog-featured-image.jpg" alt="Dummy Thumbnail" />;
   }

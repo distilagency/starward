@@ -1,0 +1,25 @@
+.cart {
+
+  .cart-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px; 
+
+    .checkout-button {
+      color: $black;
+      padding: 15px 30px;
+      border-radius: 5px;
+      background-color: $secondary;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($secondary, 10%);
+        text-decoration: none;
+      }
+    }
+  }
+
+
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import { textValdation } from '../Helpers/validation';
 
 export default class Hidden extends Component {
@@ -11,11 +12,13 @@ export default class Hidden extends Component {
     }
   }
   updateField(event, field) {
+    const { location } = this.props;
     const { id, required } = field;
     let dynamicValue = '';
     let value = '';
     if (field.prePopulated) {
-      dynamicValue = this.context.location.query[field.prePopulatedParam];
+      const queries = queryString.parse(location.search);
+      dynamicValue = queries[field.prePopulatedParam];
       value = dynamicValue;
     } else {
       value = event.target ? event.target.value : '';
@@ -25,20 +28,21 @@ export default class Hidden extends Component {
   }
   render() {
     const { field, value } = this.props;
-    const { id, type, required, maxLength } = field;
+    const {
+      id,
+      type,
+      required,
+      maxLength
+    } = field;
     return (
       <input
         name={id}
         type={type}
-        value={!value ? '' : value}
+        value={value || ''}
         maxLength={maxLength}
         required={required}
-        onChange={(event) => this.updateField(event, field)}
+        onChange={event => this.updateField(event, field)}
       />
     );
   }
 }
-
-Hidden.contextTypes = {
-  location: React.PropTypes.object
-};

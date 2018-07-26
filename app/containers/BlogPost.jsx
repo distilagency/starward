@@ -10,6 +10,7 @@ import { FeaturedImage } from '../components/Posts/FeaturedImage';
 import { PostCategories } from '../components/Posts/PostCategories';
 import { PostItemPagination } from '../components/Posts/PostItemPagination';
 
+// eslint-disable-next-line
 class BlogPost extends Component {
   render() {
     const { post, settings, loading } = this.props;

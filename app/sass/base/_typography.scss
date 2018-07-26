@@ -1,0 +1,109 @@
+/*=============================================>>>>>
+= Default typography styles =
+===============================================>>>>>*/
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-size-adjust: auto;
+  line-height: 1.75em;
+  text-align: left;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-smoothing: antialiased;
+
+  @include media($mobile-down) {
+    font-size: 14px;
+  }
+}
+
+
+// --------------------------------------------------------------------------
+//   Headings
+// --------------------------------------------------------------------------
+
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h5 + h6 {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 32px; }
+h3 { font-size: 24px; }
+h4 { font-size: 16px; }
+h5 { font-size: 16px; }
+h6 { font-size: 14px; }
+
+@include media($mobile-down) {
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 14px; }
+  h5 { font-size: 14px; }
+  h6 { font-size: 14px; }
+
+}
+
+// --------------------------------------------------------------------------
+//   Content Elements
+// --------------------------------------------------------------------------
+
+a {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  display: block;
+  margin: 20px 0;
+  border: 0;
+}
+
+blockquote {
+  margin: 0 0 20px;
+  font-family: cambria, georgia, times, serif;
+  font-style: italic;
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}

@@ -32,7 +32,7 @@ const gfQueries = {
     form(id, args) {
       const formApiURL = `${gravityFormApi}/${args.id}`;
       return axios.get(formApiURL, {headers: auth})
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
       .catch(error => console.log('GF Error', error));

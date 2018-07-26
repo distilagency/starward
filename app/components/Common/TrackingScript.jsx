@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const TrackingScript = props => {
+export const TrackingScript = (props) => {
   const { type, id } = props;
   if (!id) return <span />;
   switch (type) {

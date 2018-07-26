@@ -1,0 +1,140 @@
+@mixin image-col() {
+  width: 100px;
+}
+
+@mixin info-col() {
+  flex: 3
+}
+
+@mixin price-col() {
+  flex: 2
+}
+
+@mixin quantity-col() {
+  flex: 2
+}
+
+@mixin total-price-col() {
+  flex: 2
+}
+
+@mixin remove-col() {
+  flex: 1
+}
+
+.cart-table {
+
+  .table-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+
+    .image-header {
+      @include image-col();
+    }
+
+    .info-header {
+      @include info-col();
+    }
+
+    .price-header {
+      @include price-col();
+    }
+
+    .quantity-header {
+      @include quantity-col();
+    }
+
+    .total-price-header {
+      @include total-price-col();
+    }
+
+    .remove-header {
+      @include remove-col();
+    }
+  }
+
+  .table-rows {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba($black, 0.2);
+
+      &:first-child {
+        border-top: 1px solid rgba($black, 0.2);
+      }
+
+      .image {
+        @include image-col();
+        height: 100px;
+        background-color: $off-white;
+      }
+
+      .info {
+        @include info-col();
+      }
+
+      .price {
+        @include price-col();
+      }
+
+      .quantity {
+        @include quantity-col();
+      }
+
+      .total-price {
+        @include total-price-col();
+      }
+
+      .remove {
+        @include remove-col();
+      }
+    }
+  }
+
+  .table-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+
+    .totals {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 450px;
+
+      .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba($black, 0.3);
+
+
+        span {
+
+          &.label {
+
+          }
+
+          &.value {
+
+          }
+        }
+
+        &.total {
+          .value {
+            font-size: 22px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
