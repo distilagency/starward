@@ -32,52 +32,56 @@ function asyncComponent(getComponent) {
   };
 }
 
+const getComponent = (name) => {
+  return asyncComponent(() => import(/* webpackChunkName: "[request]" */ `./containers/${name}`));
+};
+
 export default [{
   component: App,
   routes: [{
     path: `/${BLOG_SLUG}/page/:page`,
     name: 'Blog',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Blog" */ './containers/Blog')),
+    component: getComponent('Blog'),
   }, {
     path: `/${BLOG_SLUG}/:post`,
     name: 'BlogPost',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "BlogPost" */ './containers/BlogPost')),
+    component: getComponent('BlogPost'),
   }, {
     path: `/${BLOG_SLUG}`,
     name: 'Blog',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Blog" */ './containers/Blog')),
+    component: getComponent('Blog'),
   }, {
     path: `/${CATEGORY_SLUG}/:slug/page/:page`,
     name: 'Category',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Category" */ './containers/Category')),
+    component: getComponent('Category'),
   }, {
     path: `/${CATEGORY_SLUG}/:slug`,
     name: 'Category',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Category" */ './containers/Category')),
+    component: getComponent('Category'),
   }, {
     path: `/${AUTHOR_SLUG}/:name/page/:page`,
     name: 'Author',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Author" */ './containers/Author')),
+    component: getComponent('Author'),
   }, {
     path: `/${AUTHOR_SLUG}/:name`,
     name: 'Author',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Author" */ './containers/Author')),
+    component: getComponent('Author'),
   }, {
     path: `/${SEARCH_SLUG}`,
     name: 'Search',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Search" */ './containers/Search')),
+    component: getComponent('Search'),
   }, {
     path: '*',
     name: 'Page',
     fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Page" */ './containers/Page')),
+    component: getComponent('Page'),
   }]
 }];
