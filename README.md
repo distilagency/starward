@@ -39,8 +39,16 @@ Optional supported plugins
 
 ## Getting started
 
+⛔️ 📛 🚫 **IMPORTANT** run `yarn build` or `npm run build` at the start of each project
+
+### Running Server
+
+`yarn && yarn dev` / `npm install && npm run dev`
+
 ### Configuration
+
 #### Client App Config
+
 Rename `/app/config/app-template.js` to `/app/config/app.js`
 
 - `SITE_NAME` fallback site name if ACF options page is unavailable
@@ -52,15 +60,20 @@ Rename `/app/config/app-template.js` to `/app/config/app.js`
 - `ROOT_API` GraphQL root URL *(does not require changing from default)*
 
 #### Server Config (contains secrets, don't include inside client/front end code)
+
 Rename `/server/config/app-template.js` to `/server/config/app.js`
 - `WP_URL` root URL of Wordpress installation
 - `WP_API` root of WP API *(does not require changing from default)*
 - `WP_AUTH` Basic auth details for API/developer user, used for submissions of Gravity Forms - **Don't expose to front end**
 - `REDIS_PREFIX` Prefix for redis keys to avoid key clashes during development (required in production unless you disable redis via ENV variables)
 
-### Redis Setup
+### Redis Setup (optional)
 
-Install redis (optional):
+- Redis runs by default in production, this can be changed in `/env.js`
+- Redis can be ran whilst in development by running `npm run dev:redis` or `yarn dev:redis`
+- Redis cache can be cleared by hitting `${baseURL}/api/flushredis` in your browser
+
+#### Install Redis (optional):
 
 `brew install redis`
 
@@ -78,23 +91,6 @@ Two ready to import [JSON field groups](https://support.advancedcustomfields.com
 
 - `page_flexible_content.json` - Component based (`/app/components/ACF/layout`) field group using the native ACF PRO flexible content field
 - `settings_option_page.json` - Generic setting fields designed for a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) within Wordpress and accessible from the GraphQL endpoint `/api/settings`
-
-### Getting Started
-
-⛔️ 📛 🚫 **IMPORTANT** run `yarn build` or `npm run build` at the start of each project
-
-### Running Server
-`yarn && yarn dev`
-
-or using NPM
-
-`npm install && npm run dev`
-
-### Run with redis enabled (disabled in development by default)
-
-Make sure that your redis client is running as described above, then:
-
-`yarn && yarn dev-redis`
 
 ### SCSS
 
