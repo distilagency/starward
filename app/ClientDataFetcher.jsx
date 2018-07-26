@@ -14,7 +14,13 @@ class ClientDataFetcher extends Component {
       store.dispatch({ type: types.CREATE_REQUEST });
       fetchDataForRoute(matchRoutes(routes, nextProps.location.pathname), queries)
       .then((data) => {
-        return store.dispatch({ type: types.REQUEST_SUCCESS, data });
+        return (
+          store.dispatch({
+            type: types.REQUEST_SUCCESS,
+            gtm: types.GTM_TRACK_PAGE_CHANGE,
+            data
+          })
+        );
       });
     }
   }
