@@ -7,11 +7,12 @@ const redisClient = createRedisClient(REDIS_PREFIX);
 
 module.exports = () => {
   return (req, res, next) => {
+    const { isRedisEnabled } = environment;
     // you must set the redis prefix if you want to use redis
-    if (environment.isRedisEnabled && !REDIS_PREFIX) {
+    if (isRedisEnabled && !REDIS_PREFIX) {
       throw new Error('REDIS_PREFIX needs to be configured in app.js for redis to work');
     }
-    const queryRedis = environment.isRedisEnabled && req.path.indexOf('/api/') !== -1 && req.path.indexOf('flushredis') === -1 && req.method === 'GET';
+    const queryRedis = isRedisEnabled && req.path.indexOf('/api/') !== -1 && req.path.indexOf('flushredis') === -1 && req.method === 'GET';
     if (queryRedis) {
       let redisKey = req.url;
       // Check and strip trailing / from redisKey
@@ -30,6 +31,7 @@ module.exports = () => {
             redisClient.setex(redisKey, redisConfig.redisLongExpiry, JSON.stringify(body));
             res.sendResponse(body);
           };
+          next();
         }
       });
     } else {

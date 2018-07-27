@@ -1,0 +1,31 @@
+/*=============================================>>>>>
+= Font Helper =
+===============================================>>>>>*/
+
+$font-folder-path: "../../fonts" !default;
+
+// Google Fonts Import
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+
+// Local Font File Import
+@font-face {
+    font-family: 'Open Sans';
+    src: url('#{$font-folder-path}/OpenSans.woff2') format('woff2'),
+        url('#{$font-folder-path}/OpenSans.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* ICONOGRAPHY ==================================== */
+
+// @font-face {
+//   font-family: 'icomoon';
+//   src:  url('#{$font-folder-path}/icomoon.eot') format('embedded-opentype'),
+//     url('#{$font-folder-path}/icomoon.ttf') format('truetype'),
+//     url('#{$font-folder-path}/icomoon.woff') format('woff'),
+//     url('#{$font-folder-path}/icomoon.svg') format('svg');
+//   font-weight: normal;
+//   font-style: normal;
+// }
