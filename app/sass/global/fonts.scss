@@ -2,16 +2,12 @@
 = Font Helper =
 ===============================================>>>>>*/
 
-/*=============================================>>>>>
-= Font Helper =
-===============================================>>>>>*/
-
 $font-folder-path: "../../fonts" !default;
-//
-// // Google Fonts Import
-// @import url('https://fonts.googleapis.com/css?family=Nunito');
-//
-//
+
+// Google Fonts Import
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+
 // Local Font File Import
 @font-face {
     font-family: 'Open Sans';
@@ -21,7 +17,9 @@ $font-folder-path: "../../fonts" !default;
     font-style: normal;
 }
 
-// Icomoon Custom Font Icons
+
+/* ICONOGRAPHY ==================================== */
+
 // @font-face {
 //   font-family: 'icomoon';
 //   src:  url('#{$font-folder-path}/icomoon.eot') format('embedded-opentype'),

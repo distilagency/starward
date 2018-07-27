@@ -22,9 +22,9 @@ $font-weight-extra-bold: 800;
 $font-weight-black: 900;
 
 body {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Sans-serif;
+  @include body-font();
   font-size: 16px;
-  font-weight: normal;
+  font-weight: $font-weight-regular;
   font-size-adjust: auto;
   line-height: 1.75em;
   text-align: left;
@@ -55,7 +55,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  @include headings-font();
+  font-weight: $font-weight-bold;
   line-height: 1.2;
   &:first-child {
     margin-top: 0;

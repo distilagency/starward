@@ -5,6 +5,7 @@ import { Header } from '../components/Common/Header';
 import { Footer } from '../components/Common/Footer';
 import { TrackingScript } from '../components/Common/TrackingScript';
 import './App.scss';
+import '../sass/global/fonts.scss';
 
 // eslint-disable-next-line
 class App extends Component {
