@@ -1,10 +1,30 @@
 /*=============================================>>>>>
 = Default typography styles =
 ===============================================>>>>>*/
+
+@mixin headings-font() {
+  font-family: 'Nunito', Sans-Serif;
+}
+
+@mixin body-font() {
+  font-family: 'Open Sans', Sans-Serif;
+}
+
+// Font weights
+$font-weight-thin: 100;
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 800;
+$font-weight-black: 900;
+
 body {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, Sans-serif;
+  @include body-font();
   font-size: 16px;
-  font-weight: normal;
+  font-weight: $font-weight-regular;
   font-size-adjust: auto;
   line-height: 1.75em;
   text-align: left;
@@ -35,7 +55,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  @include headings-font();
+  font-weight: $font-weight-bold;
   line-height: 1.2;
   &:first-child {
     margin-top: 0;
