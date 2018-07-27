@@ -81,7 +81,6 @@ export const fetchCartTotals = () => async (dispatch) => {
       withCredentials: true,
       headers: config
     });
-    console.log('resp @ calculatecarttotals', resp);
     const payload = await axios.get(`${ROOT_API}/getcarttotals`, {
       withCredentials: true,
       headers: config

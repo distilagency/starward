@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import methodOverride from 'method-override';
 import gzip from 'compression';
@@ -18,6 +19,7 @@ export default (app) => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+  app.use(cookieParser());
   app.use(methodOverride());
   app.use(redisMiddleware());
 

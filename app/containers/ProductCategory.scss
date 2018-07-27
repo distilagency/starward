@@ -13,6 +13,10 @@
       width: calc(75% - 15px);
       margin-left: 15px;
 
+      .loading {
+        padding: 100px 0px;
+      }
+
       .products-list {
         display: flex;
         flex-direction: row;

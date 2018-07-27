@@ -1,13 +1,16 @@
 import React from 'react';
 import { ProductListItem } from './ProductListItem';
 import { Pagination } from './Pagination';
+import { Loading } from '../Content/Loading';
 
 export const ProductList = (props) => {
   const {
     products,
     urlBase,
-    currentPage
+    currentPage,
+    loading
   } = props;
+  if (loading) return <section className="products"><Loading inline /></section>;
   const { items, totalProducts } = products;
   const hasResults = products && items;
   return (
