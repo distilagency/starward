@@ -13,6 +13,8 @@ $default-feature:     max-width;
 // --- Wrapping Element --- //
 
 .wrap {
+  display: block;
+  width: 100%;
   max-width: $max-width;
   padding: 0 $gap;
   margin-left: auto;
