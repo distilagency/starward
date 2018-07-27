@@ -19,13 +19,9 @@ export const Header = (props) => {
           url="/"
         />
         <div className="header-group">
-<<<<<<< HEAD
-          <MiniCart />
-=======
           { (currentPath !== `/${CART_SLUG}`) &&
             <MiniCart />
           }
->>>>>>> Fixed header
           <Navigation
             items={navigation}
             currentPath={currentPath}

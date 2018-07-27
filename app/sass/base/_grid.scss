@@ -9,10 +9,15 @@ $grid-columns:        12;
 $gap:                 20px;
 $default-feature:     max-width;
 
+
+// --- Wrapping Element --- //
+
 .wrap {
+  width: 100%;
   max-width: $max-width;
-  padding: 0 20px;
-  margin: 0 auto;
+  padding: 0 $gap;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
