@@ -1,5 +1,6 @@
 
 .cart-contents {
+
   .cart-items {
     .cart-item {
       height: 100px;
@@ -78,7 +79,8 @@
       flex: 1;
       padding: 20px 10px;
       color: black;
-      background-color: $secondary;
+      color: $white;
+      background-color: $primary;
       text-align: center;
       border-top: 1px solid rgba($black, 0.2);
       border-right: 1px solid rgba($black, 0.2);
@@ -90,7 +92,7 @@
 
       &:hover {
         text-decoration: none;
-        background-color: $secondary-darker;
+        background-color: $primary-darker;
       }
     }
   }

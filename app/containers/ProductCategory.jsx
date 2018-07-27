@@ -37,7 +37,7 @@ class ProductCategory extends Component {
     const { params } = match;
     const { details, filters } = category;
     const urlBase = `${STORE_SLUG}/${params.category}`;
-    if (loading) return <Loading />;
+    if (loading && !products) return <Loading />;
     if (!category || !details) return <FourOhFour />;
     return (
       <main className="product-category-page content" role="main">
@@ -53,6 +53,7 @@ class ProductCategory extends Component {
             products={products}
             urlBase={urlBase}
             currentPage={params.page}
+            loading={loading}
           />
         </div>
       </main>
