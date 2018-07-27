@@ -13,20 +13,19 @@ export const Header = (props) => {
   } = props;
   return (
     <header id="banner" role="banner">
-      <Logo
-        siteName={siteName}
-        url="/"
-      />
-      <div className="header-group">
-        { (currentPath !== `/${CART_SLUG}`) &&
-          <MiniCart />
-        }
-        <Navigation
-          items={navigation}
-          currentPath={currentPath}
+      <div className="wrap">
+        <Logo
+          siteName={siteName}
+          url="/"
         />
         <div className="header-group">
+<<<<<<< HEAD
           <MiniCart />
+=======
+          { (currentPath !== `/${CART_SLUG}`) &&
+            <MiniCart />
+          }
+>>>>>>> Fixed header
           <Navigation
             items={navigation}
             currentPath={currentPath}
