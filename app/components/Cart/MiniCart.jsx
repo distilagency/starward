@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { CartItems } from './CartItems';
+import { MiniCartContent } from './MiniCartContent';
 import { fetchCart, removeFromCart } from '../../actions/cart';
 import './MiniCart.scss';
 
@@ -26,17 +26,9 @@ class MiniCart extends Component {
     });
   }
   render() {
-    const {
-      cart
-    } = this.props;
-    const {
-      active
-    } = this.state;
+    const { cart } = this.props;
+    const { active } = this.state;
     const { items } = cart;
-    let cartSubtotal = 0;
-    for (let i = 0; i < cart.items.length; i += 1) {
-      cartSubtotal += cart.items[i].line_subtotal;
-    }
     return (
       <div className="mini-cart">
         <NavLink to="#" className="mini-cart-button" onClick={event => this.toggleMiniCart(event)}>
@@ -46,21 +38,11 @@ class MiniCart extends Component {
             </div>
           }
         </NavLink>
-        <div className={`cart-dropdown ${(active) ? 'active' : ''}`}>
-          <CartItems
+        <div className={`cart-dropdown ${active && 'active'}`}>
+          <MiniCartContent
             items={items}
             removeFromCartHandler={this.removeFromCartHandler}
           />
-          <div className="cart-totals">
-            <div className="totals-row subtotal">
-              <span className="label">Subtotal:</span>
-              <span className="value">{`$${cartSubtotal}`}</span>
-            </div>
-          </div>
-          <div className="cart-actions">
-            <NavLink to="/cart" className="cart-action">View Cart</NavLink>
-            <NavLink to="/checkout" className="cart-action">Checkout</NavLink>
-          </div>
         </div>
       </div>
     );

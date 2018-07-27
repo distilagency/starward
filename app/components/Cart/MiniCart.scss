@@ -27,7 +27,7 @@
         @include center-align();
         width: 100%;
         padding-bottom: 100%;
-        background-color: $secondary;
+        background-color: $success;
         border-radius: 50%;
         z-index: -1;
       }
@@ -44,46 +44,5 @@
     width: 350px;
     border: 1px solid rgba($black, 0.2);
 
-    .cart-totals {
-      .totals-row {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-        padding: 20px 10px;
-        background-color: $off-white;
-
-        &.subtotal {
-          .value {
-            font-weight: bold;
-            font-size: 18px;
-          }
-        }
-      }
-    }
-    .cart-actions {
-      display: flex;
-      flex-direction: row;
-
-      .cart-action {
-        flex: 1;
-        padding: 20px 10px;
-        color: black;
-        background-color: $secondary;
-        text-align: center;
-        border-top: 1px solid rgba($black, 0.2);
-        border-right: 1px solid rgba($black, 0.2);
-        transition: background-color 0.3s ease;
-
-        &:last-child {
-          border-right: none;
-        }
-
-        &:hover {
-          text-decoration: none;
-          background-color: $secondary-darker;
-        }
-      }
-    }
   }
 }
