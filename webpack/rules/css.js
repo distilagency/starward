@@ -39,8 +39,8 @@ module.exports = ({ production = false, browser = false } = {}) => {
       options: {
         resources: [
           PATHS.app + '/sass/styles.scss',
-          PATHS.app + '/sass/base/**/*.scss',
-          PATHS.app + '/sass/helpers/**/*.scss',
+          PATHS.app + '/sass/base/*.scss',
+          PATHS.app + '/sass/helpers/*.scss',
         ]
       }
     }

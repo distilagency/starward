@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import path from 'path';
-import flash from 'express-flash';
 import methodOverride from 'method-override';
 import gzip from 'compression';
 import helmet from 'helmet';
@@ -19,6 +19,7 @@ export default (app) => {
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+  app.use(cookieParser());
   app.use(methodOverride());
   app.use(redisMiddleware());
 
@@ -30,6 +31,4 @@ export default (app) => {
   console.log(`[3/4] 🐆 Redis: ${environment.isRedisEnabled ? 'Enabled 🏎🏎🏎' : 'Disabled'}`);
   console.log(`[4/4] 🚀 Listening on port: ${app.get('port')}`);
   console.log('--------------------------');
-
-  app.use(flash());
 };

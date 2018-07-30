@@ -29,7 +29,7 @@ const trackPageChange = () => {
  * i.e. On page change, we should fire an event to GTM letting it know the page
  * has changed
  */
-export const gtmActionMiddleware = store => next => (action) => {
+export const gtmMiddleware = store => next => (action) => {
   const { gtm } = action;
 
   // before running next, this will be the state BEFORE the action fired

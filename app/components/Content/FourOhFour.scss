@@ -1,6 +1,17 @@
 /*=============================================>>>>>
 = 404 Component Styles =
 ===============================================>>>>>*/
-.fourohfour {
-  
+.four-oh-four {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $white;
+
+  .message {
+    margin-top: -20vh;
+    font-size: 2.5em;
+    font-weight: 700;
+  }
 }
