@@ -92,9 +92,9 @@ Two ready to import [JSON field groups](https://support.advancedcustomfields.com
 - `page_flexible_content.json` - Component based (`/app/components/ACF/layout`) field group using the native ACF PRO flexible content field
 - `settings_option_page.json` - Generic setting fields designed for a [custom option page](https://www.advancedcustomfields.com/resources/options-page/) within Wordpress and accessible from the GraphQL endpoint `/api/settings`
 
-### SCSS
+### Styling
 
-Component and container level based styles exist in `/app/components/*/*.scss` & `app/containers/*/*.scss` and are imported at the top of each JSX file (beneath absolute and relative module/component imports) like:
+Component and container level based styles exist in `/app/components/*/*.scss` & `app/containers/*/*.scss` and are imported at the top of each JSX file (beneath absolute and relative module/component imports):
 
 ```
 // Header.jsx
@@ -112,6 +112,8 @@ Boilerplate partials including a reset, default typography rules, grid, print an
 #### /helpers
 
 For storing mixins, functions and other Sass tools used across the project
+
+⛔️ 📛 🚫 **IMPORTANT** relative paths will not work within .scss files contained in `base` or `helpers`, instead any global styles that require relative paths (images/fonts) should be imported in the App.jsx container
 
 ### GraphQL
 
