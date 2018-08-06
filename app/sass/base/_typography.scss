@@ -32,7 +32,7 @@ body {
   text-rendering: optimizeLegibility;
   font-smoothing: antialiased;
 
-  @include media($mobile-down) {
+  @include media-down(mobile) {
     font-size: 14px;
   }
 }
@@ -70,7 +70,7 @@ h4 { font-size: 16px; }
 h5 { font-size: 16px; }
 h6 { font-size: 14px; }
 
-@include media($mobile-down) {
+@include media-down(mobile) {
 
   h1 { font-size: 24px; }
   h2 { font-size: 22px; }
