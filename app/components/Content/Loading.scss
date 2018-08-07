@@ -1,6 +1,36 @@
 /*=============================================>>>>>
 = Loading Component Styles =
 ===============================================>>>>>*/
+
 .loading {
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90vh;
+  background: $white;
+
+  .loading-indicator {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 20vh; // Slightly raise loading indicator
+    background-image: url('../../images/loading.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @include media-down(mobile) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  &.inline {
+    height: 100%;
+    background: transparent;
+
+    .loading-indicator {
+      margin-bottom: 0;
+    }
+  }
 }
