@@ -107,13 +107,11 @@ Global SASS partials (variables, typography, grid settings etc) are contained wi
 
 #### /base
 
-Boilerplate partials including a reset, default typography rules, grid, print and reusable, per project mixins like *_omega-reset.scss*
+For storing Sass mixins, variables and functions across the project.
 
-#### /helpers
+#### /global
 
-For storing mixins, functions and other Sass tools used across the project
-
-⛔️ 📛 🚫 **IMPORTANT** relative paths will not work within .scss files contained in `base` or `helpers`, instead any global styles that require relative paths (images/fonts) should be imported in the App.jsx container
+For styles and classes used throughout the project, such as our CSS reset, typography rules, etc. Imported in App container (`/app/containers/App.jsx`) - file imports need be relative to here.
 
 ### GraphQL
 
