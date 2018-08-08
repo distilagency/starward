@@ -38,7 +38,6 @@ module.exports = ({ production = false, browser = false } = {}) => {
       loader: 'sass-resources-loader',
       options: {
         resources: [
-          PATHS.app + '/sass/styles.scss',
           PATHS.app + '/sass/base/*.scss',
           PATHS.app + '/sass/helpers/*.scss',
         ]
