@@ -1,0 +1,66 @@
+/*=============================================>>>>>
+= Modal Helper =
+===============================================>>>>>*/
+
+// Prevent background scroll when modal open
+.modal-open {
+  overflow: hidden;
+}
+// Modal Styling
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  height: 100vh;
+  width: 100%;
+  background: rgba($black, 0.4);
+  padding: 5% 20px;
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-height: 90%;
+    overflow-y: auto;
+    background: $white;
+    border-radius: 8px;
+
+    .close-button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 15px;
+      height: 15px;
+      z-index: 99;
+      &:after {
+        @include center-align();
+        @include icon($icon-close);
+        font-size: 12px;
+        color: $white;
+      }
+    }
+  }
+  .modal-content-title {
+    padding: 0 15px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: $border 1px solid;
+  }
+  .modal-content-body {
+    flex: 1;
+    .fields {
+      .field-heading {
+        &:first-child {
+          border-top: 0;
+        }
+      }
+    }
+  }
+}

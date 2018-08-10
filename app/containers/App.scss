@@ -1,6 +1,17 @@
 /*=============================================>>>>>
 = App Styles =
 ===============================================>>>>>*/
+
+#app {
+  position: relative;
+  // Prevent background scroll when modal is open
+  &.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+}
+
 .wrap {
   display: block;
   width: 100%;
