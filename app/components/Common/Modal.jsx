@@ -13,11 +13,6 @@ export default class Modal extends Component {
       window.addEventListener('beforeunload', this.onUnload);
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.active && !nextProps.active) {
-      this.onUnload();
-    }
-  }
   componentWillUnmount() {
     if (isClient) {
       document.removeEventListener('keydown', this.handleEscKey, false);
@@ -25,9 +20,9 @@ export default class Modal extends Component {
     }
   }
   onUnload = (event) => {
-    const promptConfirm = document.querySelector('.loading') || this.props.warnBeforeClose;
+    const { warnBeforeClose } = this.props;
     // eslint-disable-next-line
-    if (promptConfirm && event) event.returnValue = 'Are you sure?';
+    if (warnBeforeClose && event) event.returnValue = 'Are you sure?';
   }
   handleEscKey = (event) => {
     if (event.keyCode === 27) this.props.closeModal(event);
