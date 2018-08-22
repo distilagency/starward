@@ -17,7 +17,6 @@ const createTrackingScript = () => (trackingID ? createAnalyticsSnippet(tracking
 
 const createStylesheets = () => `
 <link rel="shortcut icon" href="${favicon}" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed" />
 <link rel="stylesheet" href="${assets['app.css']}" />
 `;
 
