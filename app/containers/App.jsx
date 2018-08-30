@@ -4,11 +4,18 @@ import { renderRoutes } from 'react-router-config';
 import { Header } from '../components/Common/Header';
 import { Footer } from '../components/Common/Footer';
 import { TrackingScript } from '../components/Common/TrackingScript';
+import { isClient } from '../config/app';
 import '../sass/global/styles.scss';
 import './App.scss';
 
-// eslint-disable-next-line
 class App extends Component {
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+    const { location: prevLocation } = prevProps;
+    if (isClient && (prevLocation.pathname !== location.pathname)) {
+      window.scrollTo(0, 0);
+    }
+  }
   render() {
     const {
       route,
