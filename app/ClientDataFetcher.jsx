@@ -12,6 +12,7 @@ class ClientDataFetcher extends Component {
     if (navigated) {
       const queries = queryString.parse(nextProps.location.search);
       store.dispatch({ type: types.CREATE_REQUEST });
+      window.scrollTo(0, 0);
       fetchDataForRoute(matchRoutes(routes, nextProps.location.pathname), queries)
       .then((data) => {
         return (
