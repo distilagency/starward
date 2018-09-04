@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = ({ production = false, browser = false } = {}) => {
@@ -33,9 +33,9 @@ module.exports = ({ production = false, browser = false } = {}) => {
     return [
       new webpack.EnvironmentPlugin(['NODE_ENV']),
       new webpack.DefinePlugin(compileTimeConstantForMinification),
-      new ExtractTextPlugin({
-        filename: '[md5:contenthash:hex:20].css',
-        allChunks: true
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css"
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new ManifestPlugin({
