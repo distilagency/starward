@@ -18,6 +18,13 @@
 - [**Code Splitting**](https://webpack.js.org/guides/code-splitting/)
 - [**Express 4.x**](https://expressjs.com/en/api.html) server
 
+## Sites using Starward
+- [**3 Points Digital**](https://www.3pointsdigital.com.au/)
+- [**Connect**](https://www.connectccs.com.au/)
+- [**Peritas**](https://www.peritasgroup.com.au/)
+- [**Red Lily**](https://www.redlilyrenovations.com.au/)
+- [**Chalk Property**](http://www.chalkproperty.com.au/)
+
 ## Wordpress Dependencies
 Requires a Wordpress setup using the following plugins:
 - [**WP Rest API**](https://en-au.wordpress.org/plugins/rest-api/)
@@ -158,3 +165,11 @@ Pulls data from a [custom option page](https://www.advancedcustomfields.com/reso
 `GET: api/gravityforms?id=*`
 
 *Please note submitting the Gravity Form is handled by a direct API post request to the WP GF API v2 service inside an action, please view app/actions/gravityforms.js*
+
+## Debugging 🐛
+1) Have you installed and activated all plugins listed above including [Search By Path](https://github.com/samlogan/wp-rest-api-search-by-path)
+2) Have you checked the API endpoints listed above in your browser including `GET: api/settings` && `GET: api/page?slug=*`.
+3) Have you checked the API endpoints listed above in Postman, does it flag any encoding errors within data from a WYSIWYG inside WordPress? Sometimes illegal characters can be pasted into WordPress that drive the API crazy. We try and santise this [here](https://github.com/distilagency/starward/blob/master/server/init/api.js#L18) using this [Regex](https://github.com/distilagency/starward/blob/master/server/config/app-template.js#L11) but this does not cover edge cases. Using the clear formatting option within the WordPress WYSIWYG editor usually fixes this issue.
+4) Is WordPress running and returning data from it's API. You can find the WordPress API endpoints [here](https://developer.wordpress.org/rest-api/reference/)
+5) Is Redis enabled? If so try flushing the cache by hitting the API endpoint `GET: api/flushredis`
+6) Something else? [Let us know](https://github.com/distilagency/starward/issues) or add your solution here
