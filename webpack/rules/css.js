@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PATHS = require('../paths');
 
 module.exports = ({ production = false, browser = false } = {}) => {
@@ -46,10 +46,12 @@ module.exports = ({ production = false, browser = false } = {}) => {
 
   const createBrowserLoaders = extractCssToFile => loaders => {
     if (extractCssToFile) {
-      return ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: loaders
-      });
+      return ([
+        {
+          loader: MiniCssExtractPlugin.loader
+        },
+        ...loaders
+      ]);
     }
     return [{ loader: 'style-loader' }, ...loaders];
   };
