@@ -6,6 +6,7 @@ import {
   SEARCH_SLUG
 } from './config/app';
 import { fetchWPData } from './fetch-data';
+import { Loading } from './components/Content/Loading';
 import App from './containers/App';
 
 function asyncComponent(getComponent) {
@@ -27,7 +28,7 @@ function asyncComponent(getComponent) {
       if (Component) {
         return <Component {...this.props} />;
       }
-      return null;
+      return <Loading />;
     }
   };
 }
