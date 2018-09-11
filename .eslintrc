@@ -18,9 +18,10 @@
     },
     "rules": {
         "comma-dangle": 0,
-        "indent": 0,
+        "indent": ["warn", 4],
+        "react/jsx-indent": ["warn", 4],
+        "react/jsx-indent-props": ["warn", 4],
         "react/prop-types": 0,
-        "react/jsx-indent-props" : 0,
         "linebreak-style": 0,
         "react/jsx-closing-bracket-location" : 0,
         "object-curly-spacing" : 0,
@@ -34,7 +35,6 @@
         "no-underscore-dangle": 0,
         "radix": 0,
         "prefer-spread": 0,
-        "object-curly-newline": 0,
         "jsx-a11y/anchor-is-valid": 0,
         "jsx-a11y/label-has-for": 0
     },
