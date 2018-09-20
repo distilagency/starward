@@ -2,7 +2,7 @@ import React from 'react';
 import MiniCart from '../Cart/MiniCart';
 import { Navigation } from './Navigation';
 import { Logo } from './Logo';
-import { CART_SLUG } from '../../config/app';
+import { SHOP_CART_SLUG } from '../../config/app';
 import './Header.scss';
 
 export const Header = (props) => {
@@ -19,7 +19,7 @@ export const Header = (props) => {
           url="/"
         />
         <div className="header-group">
-          { (currentPath !== `/${CART_SLUG}`) &&
+          { (currentPath !== `/${SHOP_CART_SLUG}`) &&
             <MiniCart />
           }
           <Navigation
