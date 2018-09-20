@@ -4,9 +4,10 @@ import {
   CATEGORY_SLUG,
   AUTHOR_SLUG,
   SEARCH_SLUG,
-  CART_SLUG,
-  STORE_SLUG,
-  STORE_PRODUCTS_SLUG
+  WOOCOMMERCE_ENABLED,
+  SHOP_CART_SLUG,
+  SHOP_SLUG,
+  SHOP_PRODUCTS_SLUG
 } from './config/app';
 import { fetchWPData, fetchWooCommerceData } from './fetch-data';
 import { Loading } from './components/Content/Loading';
@@ -39,6 +40,31 @@ function asyncComponent(getComponent) {
 const getComponent = (name) => {
   return asyncComponent(() => import(/* webpackChunkName: "[request]" */ `./containers/${name}`));
 };
+
+// WooCommerce Routes (optional)
+const wooCommerceRoutes = WOOCOMMERCE_ENABLED ? [
+  {
+    path: `/${SHOP_SLUG}/:category`,
+    name: 'ProductCategory',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
+  }, {
+    path: `/${SHOP_SLUG}/:category/page/:page`,
+    name: 'ProductCategory',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
+  }, {
+    path: `/${SHOP_PRODUCTS_SLUG}/:product`,
+    name: 'Product',
+    fetchData: fetchWooCommerceData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Product" */ './containers/Product')),
+  }, {
+    path: `/${SHOP_CART_SLUG}`,
+    name: 'Cart',
+    fetchData: fetchWPData,
+    component: asyncComponent(() => import(/* webpackChunkName: "Cart" */ './containers/Cart')),
+  }
+] : [];
 
 export default [{
   component: App,
@@ -82,27 +108,9 @@ export default [{
     name: 'Search',
     fetchData: fetchWPData,
     component: getComponent('Search'),
-  }, {
-    path: `/${STORE_SLUG}/:category`,
-    name: 'ProductCategory',
-    fetchData: fetchWooCommerceData,
-    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
-  }, {
-    path: `/${STORE_SLUG}/:category/page/:page`,
-    name: 'ProductCategory',
-    fetchData: fetchWooCommerceData,
-    component: asyncComponent(() => import(/* webpackChunkName: "ProductCategory" */ './containers/ProductCategory')),
-  }, {
-    path: `/${STORE_PRODUCTS_SLUG}/:product`,
-    name: 'Product',
-    fetchData: fetchWooCommerceData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Product" */ './containers/Product')),
-  }, {
-    path: `/${CART_SLUG}`,
-    name: 'Cart',
-    fetchData: fetchWPData,
-    component: asyncComponent(() => import(/* webpackChunkName: "Cart" */ './containers/Cart')),
-  }, {
+  },
+  ...wooCommerceRoutes,
+  {
     path: '*',
     name: 'Page',
     fetchData: fetchWPData,
