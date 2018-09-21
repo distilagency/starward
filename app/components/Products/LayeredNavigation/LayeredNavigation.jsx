@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import qs from 'query-string';
 import { withRouter } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PriceSlider } from './PriceSlider';
 import { SubCategoriesFilter } from './SubCategoriesFilter';
 import { AttributeFilters } from './AttributeFilters';
@@ -73,7 +73,7 @@ class LayeredNavigation extends Component {
           <Title title={categoryName} />
           <div className="header">
             <span className="title">Refine</span>
-            <NavLink to={`/${urlBase}`}>Clear all</NavLink>
+            <Link to={`/${urlBase}`}>Clear all</Link>
           </div>
           {Object.keys(filters).map((filterType) => {
             if (filterType === 'price') {

@@ -1,50 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { WP_URL } from '../../config/app';
+import './Gallery.scss';
 
-export function Gallery(props) {
-  const {
-    baseImage,
-    images,
-    variations,
-    selectedOptions
-  } = props;
-  // If our selectedOptions matches a variation's attributes,
-  // then display the matched variation's image
-  const filteredVariations = variations.filter((variation) => {
-    const variationAttributeTaxonomies = Object.keys(variation.attributes);
-    const selectionOptionsTaxonomies = Object.keys(selectedOptions);
-    // Variation must have all selectedOptions
-    // check if same number of keys in variation attributes as there are
-    // in the selection
-    if (variationAttributeTaxonomies.length === selectionOptionsTaxonomies.length) {
-      return selectionOptionsTaxonomies.every((taxonomy) => {
-        return selectedOptions[taxonomy] === variation.attributes[taxonomy];
-      });
+export default class Gallery extends Component {
+  state = {
+    activeImageIndex: 0
+  };
+  selectImage = (event, selectedImaged) => {
+    if (event) event.preventDefault();
+    const { activeTab } = this.state;
+    if (activeTab !== selectedImaged) {
+      this.setState({ activeImageIndex: selectedImaged });
     }
-    return null;
-  });
-  // Get image urls for matching variations
-  const filteredVariationsImageUrls = filteredVariations.map((variation) => {
-    return variation.image_url;
-  });
-  // If there are variation images to show, show them
-  if (filteredVariationsImageUrls.length > 0) {
+  }
+  render() {
+    const {
+      images,
+      showGallery
+    } = this.props;
+    const { activeImageIndex } = this.state;
+    const activeImage = showGallery ? images[activeImageIndex] : images[0];
     return (
       <div className="gallery">
-        { filteredVariationsImageUrls.map((src) => {
-          return <img src={src} alt="" key={src} />;
-        })}
+        <img className="active-image" src={`${WP_URL}${activeImage.src}`} alt={activeImage.src} />
+        { showGallery &&
+          <ul className="gallery-images">
+            {(images && images.length > 1) && images.map((image, index) => {
+              const imageUrl = `${WP_URL}${image.src}`;
+              return (
+                <li className="gallery-image" key={imageUrl}>
+                  <Link
+                    to="#"
+                    onClick={event => this.selectImage(event, index)}
+                    className="inner-image"
+                    style={{backgroundImage: `url('${imageUrl}')`}} />
+                </li>
+              );
+            })}
+          </ul>
+      }
       </div>
     );
   }
-  return (
-    <div className="gallery">
-      { baseImage && <img src={`${baseImage.src}`} alt={baseImage.src} /> }
-      { images.length > 1 &&
-        images.map((image) => {
-          return (
-            <img src={image.src} alt={image.alt} key={image.position} />
-          );
-        })}
-    </div>
-  );
 }

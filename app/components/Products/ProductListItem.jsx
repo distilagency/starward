@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { ProductImage } from './ProductImage';
+import { Link } from 'react-router-dom';
+import { WP_URL, SHOP_PRODUCTS_SLUG } from '../../config/app';
+import './ProductListItem.scss';
 
 export const ProductListItem = (props) => {
   const {
@@ -9,7 +10,9 @@ export const ProductListItem = (props) => {
     images,
     regular_price: regularPrice,
     sale_price: salePrice,
-    price_html: priceHtml
+    price_html: priceHtml,
+    active,
+    on_sale: onSale
   } = props;
   let price = <div className="price" dangerouslySetInnerHTML={{ __html: priceHtml }} />;
   if (salePrice || regularPrice) {
@@ -37,14 +40,22 @@ export const ProductListItem = (props) => {
     );
   }
   return (
-    <li className="product">
-      <NavLink to={`/products/${slug}`}>
-        { images.length > 0 &&
-          <ProductImage baseImage={images[0]} />
-        }
-        <h3>{name}</h3>
-        {price}
-      </NavLink>
+    <li className={`product-list-item ${active ? 'active' : ''}`}>
+      { onSale && <span className="sale-flag button orange">Sale!</span> }
+      { images && images.length > 0 &&
+        <div className="inner-image" style={{backgroundImage: `url('${WP_URL}${images[0].src}')`}}>
+          <div className="hover-buttons">
+            <Link to={`/${SHOP_PRODUCTS_SLUG}/${slug}`} className="button light">
+              Details
+            </Link>
+            <Link to={`/${SHOP_PRODUCTS_SLUG}/${slug}`} className="button cyan">
+              Buy
+            </Link>
+          </div>
+        </div>
+      }
+      <h3 className="product-title">{name}</h3>
+      {price}
     </li>
   );
 };
