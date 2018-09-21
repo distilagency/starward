@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { wpService, wooCommerceService } from './services';
-import { SITE_NAME } from '../config/app';
+import { SITE_NAME, SHOP_PRODUCTS_SLUG } from '../config/app';
 
 const {
   getCategory,
@@ -9,7 +9,8 @@ const {
 
 const {
   getSettings,
-  getMenu
+  getMenu,
+  getPage
 } = wpService;
 
 const getAppData = () => {
@@ -41,11 +42,24 @@ const getRouteData = (params, routeName, queries) => {
     }
     case 'Product': {
       const productSlug = params.product;
-      return getProduct(productSlug)
-      .then((res) => {
-        return res.data.data;
+      const pathName = `${SHOP_PRODUCTS_SLUG}/${productSlug}`;
+      console.log('Attempting to fetch data at:', pathName);
+      return axios.all([
+        getPage(pathName, queries),
+        getProduct(productSlug)
+      ])
+      .then(([
+        page,
+        product
+      ]) => {
+        console.log(`page data @ ${pathName}`, page.data);
+        return ({
+          page: page.data.data.active_page,
+          product: product.data.data.product
+        });
       })
       .catch(error => console.log('error', error));
+      // --------------------
     }
     default:
       return ({handleNotFound: '404'});

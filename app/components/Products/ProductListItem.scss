@@ -1,0 +1,32 @@
+.product-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $white;
+
+  .inner-image {
+    width: 230px;
+    height: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+  }
+
+  .product-title {
+
+  }
+  .price {
+
+    del {
+      color: $off-black;
+    }
+
+    ins {
+      text-decoration: none;
+    }
+  }
+}
