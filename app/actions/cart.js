@@ -49,7 +49,7 @@ export const fetchCart = () => async (dispatch) => {
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const payload = await axios.get(`${ROOT_API}/getcart`, {
+    const payload = await axios.get(`${ROOT_API}/cart/get`, {
       withCredentials: true,
       headers: config
     });
@@ -77,11 +77,11 @@ export const fetchCartTotals = () => async (dispatch) => {
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const resp = await axios.get(`${ROOT_API}/calculatecarttotals`, {
+    await axios.get(`${ROOT_API}/cart/calculate`, {
       withCredentials: true,
       headers: config
     });
-    const payload = await axios.get(`${ROOT_API}/getcarttotals`, {
+    const payload = await axios.get(`${ROOT_API}/cart/totals`, {
       withCredentials: true,
       headers: config
     });
@@ -102,13 +102,14 @@ const addToSuccess = payload => async (dispatch) => {
   dispatch({type: ADD_TO_CART_SUCCESS, payload});
 };
 
-export const addToCart = (productId, quantity) => async (dispatch) => {
+export const addToCart = (productId, quantity, variationId) => async (dispatch) => {
   dispatch({type: ADD_TO_CART});
+  const getParams = `?productId=${productId}&quantity=${quantity}${variationId ? `&variationId=${variationId}` : ''}`;
   const sessionData = getSessionData();
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const payload = await axios.get(`${ROOT_API}/addtocart?productId=${productId}&quantity=${quantity}`, {
+    const payload = await axios.get(`${ROOT_API}/cart/add${getParams}`, {
       withCredentials: true,
       headers: config
     });
@@ -126,6 +127,7 @@ const removeFromCartFailure = error => async (dispatch) => {
 const removeFromCartSuccess = payload => async (dispatch) => {
   console.log('addToCart success', payload);
   dispatch(fetchCart());
+  dispatch(fetchCartTotals());
   dispatch({type: REMOVE_FROM_CART_SUCCESS, payload});
 };
 
@@ -135,7 +137,7 @@ export const removeFromCart = itemKey => async (dispatch) => {
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const payload = await axios.get(`${ROOT_API}/removefromcart?itemKey=${itemKey}`, {
+    const payload = await axios.get(`${ROOT_API}/cart/remove?itemKey=${itemKey}`, {
       withCredentials: true,
       headers: config
     });
@@ -153,6 +155,7 @@ const updateItemQuantityFailure = error => async (dispatch) => {
 const updateItemQuantitySuccess = response => async (dispatch) => {
   console.log('updateItemQuantity success', response);
   dispatch(fetchCart());
+  dispatch(fetchCartTotals());
   dispatch({type: UPDATE_CART_QTY_SUCCESS});
 };
 
@@ -162,7 +165,7 @@ export const updateItemQuantity = (itemKey, newQty) => async (dispatch) => {
   const config = {};
   if (sessionData) config['session-data'] = sessionData;
   try {
-    const response = await axios.get(`${ROOT_API}/updatequantity?itemKey=${itemKey}&newQty=${newQty}`, {
+    const response = await axios.get(`${ROOT_API}/cart/update?itemKey=${itemKey}&newQty=${newQty}`, {
       withCredentials: true,
       headers: config
     });
