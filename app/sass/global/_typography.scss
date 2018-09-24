@@ -1,0 +1,115 @@
+/*=============================================>>>>>
+= Default typography styles =
+===============================================>>>>>*/
+
+body {
+  @include body-font();
+  font-size: 16px;
+  font-weight: $font-weight-regular;
+  font-size-adjust: auto;
+  line-height: 1.75em;
+  text-align: left;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-smoothing: antialiased;
+
+  @include media-down(mobile) {
+    font-size: 14px;
+  }
+}
+
+
+// --------------------------------------------------------------------------
+//   Headings
+// --------------------------------------------------------------------------
+
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h5 + h6 {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include headings-font();
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 32px; }
+h3 { font-size: 24px; }
+h4 { font-size: 16px; }
+h5 { font-size: 16px; }
+h6 { font-size: 14px; }
+
+@include media-down(mobile) {
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 14px; }
+  h5 { font-size: 14px; }
+  h6 { font-size: 14px; }
+
+}
+
+// --------------------------------------------------------------------------
+//   Content Elements
+// --------------------------------------------------------------------------
+
+a {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+strong {
+  font-weight: $font-weight-bold;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  display: block;
+  margin: 20px 0;
+  border: 0;
+}
+
+blockquote {
+  margin: 0 0 20px;
+  font-family: cambria, georgia, times, serif;
+  font-style: italic;
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}

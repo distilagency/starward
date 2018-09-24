@@ -27,6 +27,12 @@ const render = async (req, res) => {
     const history = createMemoryHistory();
     const store = configureStore({}, history);
     if (!req.url || req.url.includes('assets') || req.url.includes('favicon')) return null;
+    // Force trailing slash for SEO
+    const hasTrailingSlash = req.url.match(/(\/\s*$)|(\?.*$)/g);
+    if (!hasTrailingSlash) {
+      res.redirect(301, req.url + '/');
+      res.end();
+    }
     const matchedRoutes = matchRoutes(routes, req.url);
     store.dispatch({ type: types.CREATE_REQUEST });
     const data = await fetchDataForRoute(matchedRoutes, req.query);

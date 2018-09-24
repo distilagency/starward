@@ -4,11 +4,18 @@ import { renderRoutes } from 'react-router-config';
 import { Header } from '../components/Common/Header';
 import { Footer } from '../components/Common/Footer';
 import { TrackingScript } from '../components/Common/TrackingScript';
+import { addToCart } from '../actions/cart';
+import { isClient } from '../config/app';
+import '../sass/global/styles.scss';
 import './App.scss';
-import '../sass/global/fonts.scss';
 
 // eslint-disable-next-line
 class App extends Component {
+  addToCartHandler = (event, productId, quantity) => {
+    event.preventDefault();
+    const { addToCart } = this.props; // eslint-disable-line
+    addToCart(productId, quantity);
+  }
   render() {
     const {
       route,

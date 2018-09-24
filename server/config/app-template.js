@@ -8,4 +8,4 @@ export const GRAVITY_PRIVATE = 'Add private key from gravity forms settings';
 export const REDIS_PREFIX = null; // change me to your project name, for example: 'starward-'
 
 // General
-export const serversideStateCharacterBlacklistRegex = /\u2028/g;
+export const characterBlacklistRegex = /\u2028/g;

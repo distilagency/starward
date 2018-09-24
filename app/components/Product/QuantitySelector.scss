@@ -1,0 +1,59 @@
+.quantity-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .quantity-button {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid $off-black;
+    font-size: 0;
+    position: relative;
+    transition: border-color 0.3s ease;
+    background-color: $white;
+
+    &:hover, &:focus, &:active {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-color: $off-black;
+      &:after {
+        color: $off-black;
+      }
+    }
+
+    &:after {
+      @include center-align();
+      color: $off-black;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    &.decrement-button {
+      &:after {
+        content: '-';
+      }
+      margin-right: 5px;
+    }
+
+    &.increment-button {
+      &:after {
+        content: '+';
+      }
+      margin-left: 5px;
+    }
+  }
+
+  .quantity-counter {
+    display: block;
+    width: 75px;
+    padding: 10px 20px;
+    background-color: $white;
+    border: 1px solid $off-black;
+    border-radius: 30px;
+    text-align: center;
+  }
+}

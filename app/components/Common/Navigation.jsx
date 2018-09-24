@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const NavigationLink = ({ item }) => {

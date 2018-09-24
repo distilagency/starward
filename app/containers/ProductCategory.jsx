@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { STORE_SLUG } from '../config/app';
+import { SHOP_SLUG } from '../config/app';
 import LayeredNavigation from '../components/Products/LayeredNavigation/LayeredNavigation';
 import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
@@ -36,7 +36,7 @@ class ProductCategory extends Component {
     const { products } = this.state;
     const { params } = match;
     const { details, filters } = category;
-    const urlBase = `${STORE_SLUG}/${params.category}`;
+    const urlBase = `${SHOP_SLUG}/${params.category}`;
     if (loading && !products) return <Loading />;
     if (!category || !details) return <FourOhFour />;
     return (

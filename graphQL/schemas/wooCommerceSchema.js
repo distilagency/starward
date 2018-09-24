@@ -20,6 +20,12 @@ const wooCommerceSchema = `
     totalProducts: Int
     totalPages: Int
   }
+  type CategoryInfo {
+    # CategoryInfo
+    id: Int,
+    name: String,
+    slug: String
+  }
   type Product {
     # Product
     sku: String
@@ -34,7 +40,9 @@ const wooCommerceSchema = `
     sale_price: Float,
     price_html: String,
     attributes: [Attribute],
+    categories: [CategoryInfo],
     in_stock: Boolean,
+    on_sale: Boolean,
     stock_quantity: Int,
     type: String,
     featured: Boolean,

@@ -8,8 +8,7 @@
       "app/routes.jsx",
       "graphQL",
       "server",
-      "webpack/webpack.config.dev-client.js",
-      "webpack/webpack.config.dev-server.js"
+      "webpack"
     ],
     "exec": "npm run build:dev && node compiled/server.dev.js"
 }

@@ -2,36 +2,39 @@ import React from 'react';
 
 export function Price(props) {
   const {
-    price,
-    salePrice,
-    regularPrice,
-    productType
+    priceHtml,
+    productType,
+    activeVariation
   } = props;
-  switch (productType) {
-    // Simple product price
-    case 'simple':
-      return (
-        <div className="price-container">
-          { salePrice ? (
-            <div className="price">
-              <p className="regular-price">Was {regularPrice}</p>
-              <p className="sale-price">Now {salePrice}</p>
-            </div>
-          ) : (
-            <div className="price">
-              <p className="regular-price">{regularPrice}</p>
-            </div>
-          )}
-        </div>
-      );
-    // Variable product price
-    case 'variable':
-      return (
-        <div className="price-container">
-          <div className="price">{price}</div>
-        </div>
-      );
-    default:
-      return null;
+  let { salePrice, regularPrice } = props;
+  if (productType === 'variable' && activeVariation) {
+    const { variation_regular_price: varRegPrice, variation_sale_price: varSalePrice } = activeVariation;
+    regularPrice = varRegPrice;
+    salePrice = varSalePrice;
   }
+  if (salePrice || regularPrice) {
+    return salePrice ? (
+      <div className="price">
+        <del>
+          <span className="woocommerce-Price-amount amount">
+            <span className="woocommerce-Price-currencySymbol">$</span>{`${parseFloat(regularPrice).toFixed(2)}`}
+          </span>
+        </del>
+        <span>{' '}</span>
+        <ins>
+          <span className="woocommerce-Price-amount amount">
+            <span className="woocommerce-Price-currencySymbol">$</span>{`${parseFloat(salePrice).toFixed(2)}`}
+          </span>
+        </ins>
+      </div>
+    ) : (
+      <div className="price">
+        <span className="woocommerce-Price-amount amount">
+          <span className="woocommerce-Price-currencySymbol">$</span>
+          {`${parseFloat(regularPrice).toFixed(2)}`}
+        </span>
+      </div>
+    );
+  }
+  return <div className="price" dangerouslySetInnerHTML={{ __html: priceHtml }} />;
 }
