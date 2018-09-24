@@ -5,6 +5,7 @@ import Gallery from '../../Product/Gallery';
 import { Price } from '../../Product/Price';
 import { PurchaseOptions } from '../../Product/PurchaseOptions';
 import RelatedProducts from '../../Product/RelatedProducts';
+import { SHOP_SLUG } from '../../../config/app';
 import './ProductBlock.scss';
 
 export default class ProductBlock extends Component {
@@ -82,19 +83,16 @@ export default class ProductBlock extends Component {
       // stock_quantity: stockQuantity,
       // catalog_visibility: catalogVisibility,
     } = product;
-    console.log({activeVariation});
     const category = (categories && categories.length > 0) ? categories[0] : false;
     return (
       <section className="product-block">
         <div className="wrap">
-          <div className="half-wrap half-wrap--right">
-            <div className="breadcrumbs">
-              <Link to="/">Home</Link>
-              <span className="separator">/</span>
-              <Link to={`/${category.slug}/`}>{category.name}</Link>
-              <span className="separator">/</span>
-              <span>{name}</span>
-            </div>
+          <div className="breadcrumbs">
+            <Link to="/">Home</Link>
+            <span className="separator">/</span>
+            <Link to={`/${SHOP_SLUG}/${category.slug}/`}>{category.name}</Link>
+            <span className="separator">/</span>
+            <span>{name}</span>
           </div>
           <div className="cols">
             <div className="col gallery-col">
