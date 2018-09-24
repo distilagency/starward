@@ -23,18 +23,18 @@ export default class Gallery extends Component {
     const activeImage = showGallery ? images[activeImageIndex] : images[0];
     return (
       <div className="gallery">
-        <img className="active-image" src={`${WP_URL}${activeImage.src}`} alt={activeImage.src} />
+        <img className="active-image" src={`${WP_URL}${activeImage.src}`} alt={activeImage.alt} />
         { showGallery &&
           <ul className="gallery-images">
             {(images && images.length > 1) && images.map((image, index) => {
-              const imageUrl = `${WP_URL}${image.src}`;
+              const { src, alt } = image;
               return (
-                <li className="gallery-image" key={imageUrl}>
+                <li className="gallery-image" key={src}>
                   <Link
                     to="#"
-                    onClick={event => this.selectImage(event, index)}
-                    className="inner-image"
-                    style={{backgroundImage: `url('${imageUrl}')`}} />
+                    onClick={event => this.selectImage(event, index)}>
+                    <img className="inner-image" src={`${WP_URL}${src}`} alt={alt} />
+                  </Link>
                 </li>
               );
             })}
