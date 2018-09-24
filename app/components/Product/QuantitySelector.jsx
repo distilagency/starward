@@ -13,14 +13,14 @@ export const QuantitySelector = (props) => {
         className="quantity-button decrement-button"
         disabled={quantity <= 1}
         onClick={event => decreaseQuantityHandler(event)}>
-        <span>-</span>
+        <span>Decrease</span>
       </button>
       <span className="quantity-counter">{quantity}</span>
       <button
         className="quantity-button increment-button"
         disabled={quantity >= 99}
         onClick={event => increaseQuantityHandler(event)}>
-        <span>+</span>
+        <span>Increase</span>
       </button>
     </div>
   );

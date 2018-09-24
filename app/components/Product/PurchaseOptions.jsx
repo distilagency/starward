@@ -1,5 +1,5 @@
 import React from 'react';
-import { PurchaseOption } from './PurchaseOption';
+import { ProductVariationOption } from './ProductVariationOption';
 import { SwatchOption } from './SwatchOption';
 import { QuantitySelector } from './QuantitySelector';
 import './PurchaseOptions.scss';
@@ -11,6 +11,7 @@ export const PurchaseOptions = (props) => {
     productType,
     inStock,
     quantity,
+    activeVariation,
     selectedOptions,
     increaseQuantityHandler,
     decreaseQuantityHandler,
@@ -35,7 +36,7 @@ export const PurchaseOptions = (props) => {
               );
             }
             return (
-              <PurchaseOption
+              <ProductVariationOption
                 key={attribute.name}
                 attribute={attribute}
                 variationAttributes={variationAttributes}
@@ -54,8 +55,8 @@ export const PurchaseOptions = (props) => {
           decreaseQuantityHandler={decreaseQuantityHandler} />
       </div>
       <button
-        className="button cyan add-to-cart-button"
-        disabled={!inStock || (isVariable && Object.keys(selectedOptions).length === 0)}
+        className="add-to-cart-button"
+        disabled={!inStock || (isVariable && !activeVariation)}
         onClick={event => addToCartHandler(event)}>
         Add to cart
       </button>

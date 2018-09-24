@@ -55,12 +55,7 @@ export default class ProductBlock extends Component {
       product,
       description,
       showImageGallery,
-      enableImageZoom,
       showPurchaseOptions,
-      hasButtons,
-      buttons,
-      footNotes,
-      informationTabs,
       showRelatedProducts,
       relatedProductsTitle
     } = this.props;
@@ -87,6 +82,7 @@ export default class ProductBlock extends Component {
       // stock_quantity: stockQuantity,
       // catalog_visibility: catalogVisibility,
     } = product;
+    console.log({activeVariation});
     const category = (categories && categories.length > 0) ? categories[0] : false;
     return (
       <section className="product-block">
@@ -106,7 +102,6 @@ export default class ProductBlock extends Component {
                 onSale={onSale}
                 showGallery={showImageGallery}
                 images={images}
-                enableImageZoom={enableImageZoom}
               />
             </div>
             <div className="col text-col">
@@ -128,6 +123,7 @@ export default class ProductBlock extends Component {
                   productType={type}
                   inStock={inStock}
                   quantity={quantity}
+                  activeVariation={activeVariation}
                   selectedOptions={selectedOptions}
                   increaseQuantityHandler={this.increaseQuantityHandler}
                   decreaseQuantityHandler={this.decreaseQuantityHandler}
@@ -135,14 +131,9 @@ export default class ProductBlock extends Component {
                   addToCartHandler={this.addToCartHandler}
                 />
               }
-              <div className="footnotes" dangerouslySetInnerHTML={{__html: footNotes}} />
-              { hasButtons && <ButtonGroup buttons={buttons} /> }
             </div>
           </div>
         </div>
-        { informationTabs &&
-          <InformationTabs tabs={informationTabs} />
-        }
         { showRelatedProducts &&
           <RelatedProducts
             title={relatedProductsTitle}
