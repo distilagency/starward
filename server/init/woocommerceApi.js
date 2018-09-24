@@ -10,11 +10,11 @@ import { serversideStateCharacterBlacklistRegex, WP_API, WP_URL, WP_AUTH } from 
 const sanitizeJSON = (json) => {
   const stringified = JSON.stringify(json);
   const wpUrlRegex = new RegExp(WP_URL, 'g');
-  const wpContentUrlRegex = new RegExp('/wp-content', 'g');
+  const wpContentUrlRegex = new RegExp('/assets', 'g');
   const cleaned = stringified
   .replace(serversideStateCharacterBlacklistRegex, '')
   .replace(wpUrlRegex, '')
-  .replace(wpContentUrlRegex, `${WP_URL}/wp-content`);
+  .replace(wpContentUrlRegex, `${WP_URL}/assets`);
   return JSON.parse(cleaned);
 };
 /* Handle success and sanitize JSON response */
