@@ -232,6 +232,7 @@ export default(app) => {
           price,
           regular_price,
           sale_price,
+          on_sale,
           price_html,
           attributes {
             id,
@@ -250,6 +251,11 @@ export default(app) => {
             }
             swatches
           },
+          categories {
+            id,
+            name,
+            slug
+          },
           in_stock,
           stock_quantity,
           type,
@@ -265,6 +271,8 @@ export default(app) => {
             name,
             regular_price,
             sale_price,
+            price_html,
+            on_sale,
             price,
             slug
           },
