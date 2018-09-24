@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './MiniCartContent.scss';
 
 const CartItems = (props) => {
@@ -7,20 +7,17 @@ const CartItems = (props) => {
   return (
     items.map(item => (
       <li className="cart-item" key={item.key}>
-        <div className="product-image" />
+        <div className="product-image" style={{ backgroundImage: `url('${item.product_image}')` }} />
         <div className="product-info">
-          <div className="name">{item.product_name}</div>
-          <div className="quantity">
-            <span className="value">{`x ${item.quantity}`}</span>
-          </div>
-          <div className="item-footer">
-            <NavLink
+          <div className="name">
+            <span>{item.product_name}</span>
+            <Link
               to="#"
               className="remove-button"
-              onClick={event => removeFromCartHandler(event, item.key)}>
-              Remove
-            </NavLink>
-            <span className="item-subtotal">{`$${item.line_subtotal}`}</span>
+              onClick={event => removeFromCartHandler(event, item.key)} />
+          </div>
+          <div className="subtotal">
+            <span className="item-subtotal">{`${item.quantity} x $${(parseFloat(item.line_subtotal) / parseFloat(item.quantity)).toFixed(2)}`}</span>
           </div>
         </div>
       </li>
@@ -29,33 +26,37 @@ const CartItems = (props) => {
 };
 
 export const MiniCartContent = (props) => {
-  const { items, removeFromCartHandler } = props;
+  const { items, removeFromCartHandler, toggleMiniCartHandler } = props;
   let subtotal = 0;
   for (let i = 0; i < items.length; i += 1) {
     subtotal += items[i].line_subtotal;
   }
   if (!items || items.length <= 0) {
     return (
-      <div className="empty-cart">
-        <span className="title">Your cart is empty...</span>
-        <span className="subtitle">...for now</span>
+      <div className="cart-contents cart-empty">
+        <span className="empty-cart-message">Your cart is empty</span>
+        <div className="cart-actions">
+          <Link to="#close-minicart" className="button" onClick={event => toggleMiniCartHandler(event)}>
+            Continue Shopping
+          </Link>
+        </div>
       </div>
     );
   }
   return (
     <div className="cart-contents">
+      <span className="cart-title">{`Your cart (${items.length})`}</span>
       <ul className="cart-items">
         <CartItems items={items} removeFromCartHandler={removeFromCartHandler} />
       </ul>
       <div className="cart-totals">
         <div className="totals-row subtotal">
           <span className="label">Subtotal:</span>
-          <span className="value">{`$${subtotal}`}</span>
+          <span className="value">{`$${parseFloat(subtotal).toFixed(2)}`}</span>
         </div>
       </div>
       <div className="cart-actions">
-        <NavLink to="/cart" className="cart-action">View Cart</NavLink>
-        <NavLink to="/checkout" className="cart-action">Checkout</NavLink>
+        <Link to="/cart" className="button orange">Checkout</Link>
       </div>
     </div>
   );
