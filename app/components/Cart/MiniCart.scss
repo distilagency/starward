@@ -1,6 +1,12 @@
 .mini-cart {
   position: relative;
 
+  &.active {
+    .cart-dropdown {
+      display: block
+    }
+  }
+
   .mini-cart-button {
     display: block;
     width: 40px;
@@ -36,9 +42,6 @@
   }
   .cart-dropdown {
     display: none;
-    &.active {
-      display: block
-    }
     position: absolute;
     top: calc(100% + 15px);
     right: 15px;
