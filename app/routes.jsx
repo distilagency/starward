@@ -64,7 +64,7 @@ const wooCommerceRoutes = WOOCOMMERCE_ENABLED ? [
   }, {
     path: `/${SHOP_CART_SLUG}`,
     name: 'Cart',
-    fetchData: fetchWPData,
+    fetchData: fetchWooCommerceData,
     component: asyncComponent(() => import(/* webpackChunkName: "Cart" */ './containers/Cart')),
   }, {
     path: `/${SHOP_CHECKOUT_SLUG}`,

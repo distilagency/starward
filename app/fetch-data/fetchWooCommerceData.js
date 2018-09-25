@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { wpService, wooCommerceService } from './services';
-import { SITE_NAME, SHOP_PRODUCTS_SLUG } from '../config/app';
+import { SITE_NAME, SHOP_PRODUCTS_SLUG, SHOP_CART_SLUG } from '../config/app';
 
 const {
   getCategory,
@@ -55,7 +55,9 @@ const getRouteData = (params, routeName, queries) => {
         product: product.data.data.product
       }))
       .catch(error => console.log('error', error));
-      // --------------------
+    }
+    case 'Cart': {
+      return {};
     }
     default:
       return ({handleNotFound: '404'});

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Head } from '../components/Common/Head';
 import { fetchCart, fetchCartTotals, removeFromCart, updateItemQuantity } from '../actions/cart';
 import { WP_URL, SHOP_CHECKOUT_SLUG } from '../config/app';
 import { CartTable } from '../components/WooCommerce/Cart/CartTable';
@@ -61,17 +62,19 @@ class Cart extends Component {
       items,
       totals
     } = this.state;
-    const { cart } = this.props;
+    const { cart, loading, settings } = this.props;
+    const { name } = settings;
     const {
       loadingItems,
       loadingTotals
     } = cart;
     const updatingCart = loadingItems || loadingTotals;
     const cartHasItems = items && items.length > 0;
-    if (!cartHasItems && updatingCart) return <Loading />;
+    if (loading || (!cartHasItems && updatingCart)) return <Loading />;
     if (!cartHasItems) {
       return (
-        <div className="cart-overview">
+        <main id="page-content" className="cart-overview" role="main">
+          <Head defaultTitle={`Cart - ${name}`} />
           <div className="wrap">
             <h1 className="title">Your Cart</h1>
             <div className="empty-cart-container">
@@ -79,7 +82,7 @@ class Cart extends Component {
               <Link to="/" className="button light">Return to Shop</Link>
             </div>
           </div>
-        </div>
+        </main>
       );
     }
     const checkoutStages = [
@@ -121,9 +124,12 @@ class Cart extends Component {
   }
 }
 
-function mapStateToProps({ cart }) {
+function mapStateToProps({ cart, loading, starward }) {
+  const { settings } = starward;
   return {
-    cart
+    cart,
+    loading,
+    settings
   };
 }
 
