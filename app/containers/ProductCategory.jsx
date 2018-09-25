@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SHOP_SLUG } from '../config/app';
-import LayeredNavigation from '../components/Products/LayeredNavigation/LayeredNavigation';
+import LayeredNavigation from '../components/WooCommerce/Products/LayeredNavigation/LayeredNavigation';
 import { Head } from '../components/Common/Head';
 import { Loading } from '../components/Content/Loading';
 import { FourOhFour } from '../components/Content/FourOhFour';
-import { ProductList } from '../components/Products/ProductList';
+import { ProductList } from '../components/WooCommerce/Products/ProductList';
 
 import './ProductCategory.scss';
 
