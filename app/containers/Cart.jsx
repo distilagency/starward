@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { fetchCart, fetchCartTotals, removeFromCart, updateItemQuantity } from '../actions/cart';
 import { Loading } from '../components/Content/Loading';
-import { CartTable } from '../components/Cart/CartTable';
+import { CartTable } from '../components/WooCommerce/Cart/CartTable';
 import './Cart.scss';
 
 class Cart extends Component {
   componentDidMount() {
-    const { fetchCart, fetchCartTotals } = this.props;
+    const { fetchCart, fetchCartTotals } = this.props; // eslint-disable-line
     fetchCart();
     fetchCartTotals();
   }
   removeFromCartHandler = (event, itemKey) => {
     event.preventDefault();
-    const { removeFromCart } = this.props;
+    const { removeFromCart } = this.props; // eslint-disable-line
     removeFromCart(itemKey);
   }
   updateQuantityHandler = (event, itemKey, newQty) => {
     event.preventDefault();
-    const { updateItemQuantity } = this.props;
+    const { updateItemQuantity } = this.props; // eslint-disable-line
     if (newQty <= 0) removeFromCart(itemKey);
     updateItemQuantity(itemKey, newQty);
   }
@@ -32,7 +32,6 @@ class Cart extends Component {
       loadingTotals
     } = cart;
     if (loadingItems || loadingTotals) return <Loading />;
-    console.log(totals);
     return (
       <div className="cart">
         <div className="wrap">

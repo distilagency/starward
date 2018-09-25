@@ -1,5 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import {
+  WP_URL,
   BLOG_SLUG,
   CATEGORY_SLUG,
   AUTHOR_SLUG,
@@ -7,7 +9,8 @@ import {
   WOOCOMMERCE_ENABLED,
   SHOP_CART_SLUG,
   SHOP_SLUG,
-  SHOP_PRODUCTS_SLUG
+  SHOP_PRODUCTS_SLUG,
+  SHOP_CHECKOUT_SLUG
 } from './config/app';
 import { fetchWPData, fetchWooCommerceData } from './fetch-data';
 import { Loading } from './components/Content/Loading';
@@ -63,6 +66,9 @@ const wooCommerceRoutes = WOOCOMMERCE_ENABLED ? [
     name: 'Cart',
     fetchData: fetchWPData,
     component: asyncComponent(() => import(/* webpackChunkName: "Cart" */ './containers/Cart')),
+  }, {
+    path: `/${SHOP_CHECKOUT_SLUG}`,
+    component: () => <Redirect to={`${WP_URL}/checkout`} />
   }
 ] : [];
 
