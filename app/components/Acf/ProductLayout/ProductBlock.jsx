@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import Gallery from '../../Product/Gallery';
-import { Price } from '../../Product/Price';
-import { PurchaseOptions } from '../../Product/PurchaseOptions';
-import RelatedProducts from '../../Product/RelatedProducts';
+import Gallery from '../../WooCommerce/Product/Gallery';
+import { Price } from '../../WooCommerce/Product/Price';
+import { PurchaseOptions } from '../../WooCommerce/Product/PurchaseOptions';
+import RelatedProducts from '../../WooCommerce/Product/RelatedProducts';
 import { SHOP_SLUG } from '../../../config/app';
 import './ProductBlock.scss';
 

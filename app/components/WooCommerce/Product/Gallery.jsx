@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { WP_URL } from '../../config/app';
 import './Gallery.scss';
 
 export default class Gallery extends Component {

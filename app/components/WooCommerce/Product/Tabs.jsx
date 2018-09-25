@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function Tabs(props) {
-  const { description } = props
+  const { description } = props;
   return (
     <div className="product-tabs">
       <div className="tab description">

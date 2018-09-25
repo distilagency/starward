@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WP_URL, SHOP_PRODUCTS_SLUG } from '../../config/app';
+import { SHOP_PRODUCTS_SLUG } from '../../../config/app';
 import './ProductListItem.scss';
 
 export const ProductListItem = (props) => {

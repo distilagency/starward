@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductListItem } from './ProductListItem';
 import { Pagination } from './Pagination';
-import { Loading } from '../Content/Loading';
+import { Loading } from '../../Content/Loading';
 import './ProductList.scss';
 
 export const ProductList = (props) => {

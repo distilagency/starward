@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { PriceSlider } from './PriceSlider';
 import { SubCategoriesFilter } from './SubCategoriesFilter';
 import { AttributeFilters } from './AttributeFilters';
-import { Title } from '../../Content/Title';
+import { Title } from '../../../Content/Title';
 import './LayeredNavigation.scss';
 
 class LayeredNavigation extends Component {

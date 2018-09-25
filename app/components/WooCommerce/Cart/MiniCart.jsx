@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MiniCartContent } from './MiniCartContent';
-import { fetchCart, removeFromCart } from '../../actions/cart';
+import { fetchCart, removeFromCart } from '../../../actions/cart';
 import './MiniCart.scss';
 
 class MiniCart extends Component {
