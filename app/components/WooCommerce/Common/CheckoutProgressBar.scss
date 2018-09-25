@@ -17,8 +17,30 @@
     padding: 15px 10px;
 
     a, span {
-      color: $secondary;
+      color: $primary;
+      text-transform: uppercase;
       z-index: 1;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: auto;
+      right: 0.5px;
+      transform: translateX(100%);
+      display: block;
+      height: 100%;
+      width: 20px;
+      background-color: $white;
+      -webkit-clip-path: polygon(0 0, 0% 100%, 100% 50%);
+      clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
     }
 
     a {
@@ -29,22 +51,6 @@
 
       &:hover {
         text-decoration: none;
-      }
-    }
-
-    .after-triangle {
-      @include vertical-align(absolute);
-      left: auto;
-      right: 1px;
-      transform: translateX(100%) translateY(-50%);
-      height: 100%;
-      background-color: $white;
-      svg {
-        height: 100%;
-        .triangle {
-          fill: $white;
-          stroke: $black;
-        }
       }
     }
 
@@ -72,26 +78,18 @@
     }
 
     &.complete {
-      background-color: darken($secondary, 5%);
+      background-color: darken($primary, 5%);
 
-      .after-triangle {
-        svg {
-          .triangle {
-            fill: darken($secondary, 5%);
-          }
-        }
+      &:after {
+        background-color: darken($primary, 5%);
       }
     }
 
     &.active {
-      background-color: $secondary;
+      background-color: $primary;
 
-      .after-triangle {
-        svg {
-          .triangle {
-            fill: $secondary;
-          }
-        }
+      &:after {
+        background-color: $primary;
       }
     }
   }

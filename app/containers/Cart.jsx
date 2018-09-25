@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchCart, fetchCartTotals, removeFromCart, updateItemQuantity } from '../actions/cart';
-import { WP_URL, STORE_CHECKOUT_SLUG } from '../config/app';
+import { WP_URL, SHOP_CHECKOUT_SLUG } from '../config/app';
 import { CartTable } from '../components/WooCommerce/Cart/CartTable';
 import { CheckoutProgressBar } from '../components/WooCommerce/Common/CheckoutProgressBar';
 import { Loading } from '../components/Content/Loading';
@@ -108,8 +108,8 @@ class Cart extends Component {
             </div>
             <div className="group-right">
               <a
-                href={`${WP_URL}/${STORE_CHECKOUT_SLUG}`}
-                className={`button orange checkout ${updatingCart ? 'disabled' : ''} ${items.length <= 0 ? 'hidden' : ''}`}
+                href={`${WP_URL}/${SHOP_CHECKOUT_SLUG}`}
+                className={`button checkout-button ${updatingCart ? 'disabled' : ''} ${items.length <= 0 ? 'hidden' : ''}`}
                 onClick={updatingCart ? e => e.preventDefault() : null}>
                 Checkout
               </a>

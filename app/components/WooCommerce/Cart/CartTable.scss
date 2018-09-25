@@ -1,33 +1,48 @@
 @mixin image-col() {
-  width: 100px;
+  width: 130px;
+  margin-right: 50px;
 }
 
 @mixin info-col() {
-  flex: 3
-}
-
-@mixin price-col() {
-  flex: 2
+  flex: 7;
 }
 
 @mixin quantity-col() {
-  flex: 2
+  flex: 3;
+
+  @include media-down(tablet) {
+    flex: 4;
+  }
 }
 
 @mixin total-price-col() {
-  flex: 2
+  flex: 1;
+
+  @include media-down(tablet) {
+    flex: 2;
+  }
 }
 
 @mixin remove-col() {
-  flex: 1
+  flex: 1;
 }
 
 .cart-table {
+  position: relative;
 
   .table-header {
     display: flex;
     flex-direction: row;
-    margin-bottom: 5px;
+    padding: 18px 0px;
+    background-color: $off-white;
+
+    @include media-down(mobile) {
+      display: none;
+    }
+
+    .col-header {
+      font-weight: $font-weight-semi-bold;
+    }
 
     .image-header {
       @include image-col();
@@ -35,10 +50,6 @@
 
     .info-header {
       @include info-col();
-    }
-
-    .price-header {
-      @include price-col();
     }
 
     .quantity-header {
@@ -55,83 +66,211 @@
   }
 
   .table-rows {
+    position: relative;
     display: flex;
     flex-direction: column;
+
+    &.updating {
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($white, 0.7);
+      }
+    }
 
     .row {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      border-bottom: 1px solid rgba($black, 0.2);
+      border-bottom: 1px solid $off-white;
+      padding: 25px 0;
 
-      &:first-child {
-        border-top: 1px solid rgba($black, 0.2);
+      @include media-down(mobile) {
+        padding: 25px 8px;
+
+        &:first-child {
+          border-top: 1px solid $off-white;
+        }
       }
 
       .image {
         @include image-col();
-        height: 100px;
-        background-color: $off-white;
+        flex-shrink: 0;
+        height: 130px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        @include media-down(mobile) {
+          height: 75px;
+          width: 75px;
+          margin-right: 30px;
+        }
       }
 
-      .info {
-        @include info-col();
-      }
+      .details {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex: auto;
 
-      .price {
-        @include price-col();
-      }
+        @include media-down(mobile) {
+          flex-direction: column;
+        }
 
-      .quantity {
-        @include quantity-col();
-      }
+        .info {
+          @include info-col();
 
-      .total-price {
-        @include total-price-col();
-      }
+          @include media-down(mobile) {
+            order: 0;
+          }
 
-      .remove {
-        @include remove-col();
+          .name {
+            font-weight: $font-weight-semi-bold;
+            padding-top: 10px;
+
+            @include media-down(mobile) {
+              padding-top: 0;
+            }
+          }
+        }
+
+        .quantity {
+          @include quantity-col();
+
+          @include media-down(mobile) {
+            order: 2;
+          }
+        }
+
+        .total-price {
+          @include total-price-col();
+          padding-top: 10px;
+
+          @include media-down(mobile) {
+            order: 1;
+            padding-bottom: 20px;
+          }
+        }
+
+        .remove {
+          @include remove-col();
+          padding-top: 10px;
+
+          @include media-down(mobile) {
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+          }
+
+          .remove-button {
+            display: block;
+            height: 12px;
+            color: $off-white;
+            text-align: right;
+            margin-right: 20px;
+
+            @include media-down(mobile) {
+              margin-right: 0;
+            }
+
+            &:hover, &:active, &:focus {
+              text-decoration: none;
+            }
+
+            &:hover {
+              &:after {
+                color: $secondary;
+              }
+            }
+
+            &:after {
+              content: 'x';
+              font-size: 12px;
+              color: $off-black;
+              transition: color 0.3s ease;
+            }
+          }
+        }
       }
     }
   }
 
   .table-footer {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 32px 0;
+
+    &.updating {
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($white, 0.7);
+      }
+    }
 
     .totals {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       min-width: 450px;
+      border: 1px solid $off-white;
+      border-radius: 5px;
+      overflow: hidden;
+
+      @include media-down(mobile) {
+        min-width: 0;
+        width: 100%;
+      }
 
       .row {
         width: 100%;
         display: flex;
         flex-direction: row;
+        align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid rgba($black, 0.3);
-
+        padding: 18px 15px;
 
         span {
 
           &.label {
-
+            font-weight: $font-weight-light;
           }
 
           &.value {
-
+            font-weight: $font-weight-semi-bold;
           }
         }
 
+        &.subtotal {
+          background-color: #F5F5F5;
+        }
+
+        &.shipping {
+          border-top: 1px solid $off-white;
+        }
+
         &.total {
+          background-color: $off-white;
+
+          .label {
+            font-weight: $font-weight-semi-bold;
+            text-transform: uppercase;
+          }
+
           .value {
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 18px;
           }
         }
       }

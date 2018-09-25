@@ -1,5 +1,6 @@
 .mini-cart {
   position: relative;
+  z-index: 1;
 
   &.active {
     .cart-dropdown {
