@@ -1,0 +1,46 @@
+.order-confirmation-block {
+  padding: 80px 0;
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      @include headings-font();
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .text-container {
+      max-width: 600px;
+      text-align: center;
+      padding: 50px 0px;
+
+      h2 {
+        @include headings-font();
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      p {
+        @include body-font();
+        text-align: center;
+
+        .order-number {
+          font-weight: $font-weight-semi-bold;
+          color: $secondary;
+        }
+
+        &:last-of-type {
+          margin-bottom: 50px;
+        }
+      }
+
+      a {
+        text-align: center;
+      }
+    }
+  }
+}
