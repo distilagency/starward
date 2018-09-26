@@ -7,6 +7,12 @@
     position: relative;
     margin-right: 15px;
 
+    &.active {
+      .mark {
+        border: 1px solid $highlight;
+      }
+    }
+
     &:last-child {
       margin-right: 0;
     }

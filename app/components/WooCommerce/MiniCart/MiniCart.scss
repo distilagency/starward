@@ -1,11 +1,18 @@
 .mini-cart {
   position: relative;
+  z-index: 1;
+
+  &.active {
+    .cart-dropdown {
+      display: block
+    }
+  }
 
   .mini-cart-button {
     display: block;
     width: 40px;
     height: 35px;
-    background-image: url('../../images/minicart.svg');
+    background-image: url('../../../images/minicart.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -36,9 +43,6 @@
   }
   .cart-dropdown {
     display: none;
-    &.active {
-      display: block
-    }
     position: absolute;
     top: calc(100% + 15px);
     right: 15px;

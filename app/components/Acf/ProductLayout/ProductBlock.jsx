@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import Gallery from '../../Product/Gallery';
-import { Price } from '../../Product/Price';
-import { PurchaseOptions } from '../../Product/PurchaseOptions';
-import RelatedProducts from '../../Product/RelatedProducts';
+import Gallery from '../../WooCommerce/Product/Gallery';
+import { Price } from '../../WooCommerce/Product/Price';
+import { PurchaseOptions } from '../../WooCommerce/Product/PurchaseOptions';
+import RelatedProducts from '../../WooCommerce/Product/RelatedProducts';
+import { SHOP_SLUG } from '../../../config/app';
 import './ProductBlock.scss';
 
 export default class ProductBlock extends Component {
@@ -55,12 +56,7 @@ export default class ProductBlock extends Component {
       product,
       description,
       showImageGallery,
-      enableImageZoom,
       showPurchaseOptions,
-      hasButtons,
-      buttons,
-      footNotes,
-      informationTabs,
       showRelatedProducts,
       relatedProductsTitle
     } = this.props;
@@ -91,14 +87,12 @@ export default class ProductBlock extends Component {
     return (
       <section className="product-block">
         <div className="wrap">
-          <div className="half-wrap half-wrap--right">
-            <div className="breadcrumbs">
-              <Link to="/">Home</Link>
-              <span className="separator">/</span>
-              <Link to={`/${category.slug}/`}>{category.name}</Link>
-              <span className="separator">/</span>
-              <span>{name}</span>
-            </div>
+          <div className="breadcrumbs">
+            <Link to="/">Home</Link>
+            <span className="separator">/</span>
+            <Link to={`/${SHOP_SLUG}/${category.slug}/`}>{category.name}</Link>
+            <span className="separator">/</span>
+            <span>{name}</span>
           </div>
           <div className="cols">
             <div className="col gallery-col">
@@ -106,7 +100,6 @@ export default class ProductBlock extends Component {
                 onSale={onSale}
                 showGallery={showImageGallery}
                 images={images}
-                enableImageZoom={enableImageZoom}
               />
             </div>
             <div className="col text-col">
@@ -128,6 +121,7 @@ export default class ProductBlock extends Component {
                   productType={type}
                   inStock={inStock}
                   quantity={quantity}
+                  activeVariation={activeVariation}
                   selectedOptions={selectedOptions}
                   increaseQuantityHandler={this.increaseQuantityHandler}
                   decreaseQuantityHandler={this.decreaseQuantityHandler}
@@ -135,14 +129,9 @@ export default class ProductBlock extends Component {
                   addToCartHandler={this.addToCartHandler}
                 />
               }
-              <div className="footnotes" dangerouslySetInnerHTML={{__html: footNotes}} />
-              { hasButtons && <ButtonGroup buttons={buttons} /> }
             </div>
           </div>
         </div>
-        { informationTabs &&
-          <InformationTabs tabs={informationTabs} />
-        }
         { showRelatedProducts &&
           <RelatedProducts
             title={relatedProductsTitle}

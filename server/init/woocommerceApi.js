@@ -10,11 +10,11 @@ import { serversideStateCharacterBlacklistRegex, WP_API, WP_URL, WP_AUTH } from 
 const sanitizeJSON = (json) => {
   const stringified = JSON.stringify(json);
   const wpUrlRegex = new RegExp(WP_URL, 'g');
-  const wpContentUrlRegex = new RegExp('/wp-content', 'g');
+  const wpContentUrlRegex = new RegExp('/assets', 'g');
   const cleaned = stringified
   .replace(serversideStateCharacterBlacklistRegex, '')
   .replace(wpUrlRegex, '')
-  .replace(wpContentUrlRegex, `${WP_URL}/wp-content`);
+  .replace(wpContentUrlRegex, `${WP_URL}/assets`);
   return JSON.parse(cleaned);
 };
 /* Handle success and sanitize JSON response */
@@ -29,18 +29,18 @@ const handleError = (res) => {
 export default(app) => {
   /* ----------- Cart Operations ----------- */
 
-  app.get('/api/getcart', async (req, res) => {
+  app.get('/api/cart/get', async (req, res) => {
     try {
       const sessionData = req.headers['session-data'];
       const headers = {};
       if (sessionData) headers.Cookie = sessionData;
-      const response = await axios.get(`${WP_API}/wc/v2/cart`, { headers });
+      const response = await axios.get(`${WP_API}/wc/v2/cart?thumb=true`, { headers });
       return res.json(response.data);
     } catch (error) {
       return res.json(error);
     }
   });
-  app.get('/api/calculatecarttotals', async (req, res) => {
+  app.get('/api/cart/calculate', async (req, res) => {
     try {
       const sessionData = req.headers['session-data'];
       const headers = {};
@@ -51,7 +51,7 @@ export default(app) => {
       return res.json(error);
     }
   });
-  app.get('/api/getcarttotals', async (req, res) => {
+  app.get('/api/cart/totals', async (req, res) => {
     try {
       const sessionData = req.headers['session-data'];
       const headers = {};
@@ -62,16 +62,18 @@ export default(app) => {
       return res.json(error);
     }
   });
-  app.get('/api/addtocart', async (req, res) => {
+  app.get('/api/cart/add', async (req, res) => {
     try {
       const productId = parseInt(req.query.productId);
       const quantity = parseInt(req.query.quantity);
+      const variationId = parseInt(req.query.variationId);
       const sessionData = req.headers['session-data'];
       const headers = {};
       if (sessionData) headers.Cookie = sessionData;
       const response = await axios.post(`${WP_API}/wc/v2/cart/add`, {
         product_id: productId,
-        quantity
+        quantity,
+        variation_id: variationId
       }, { headers });
       if (!sessionData) {
         const cookies = response.headers['set-cookie'];
@@ -89,10 +91,6 @@ export default(app) => {
             const expires = new Date(cookieOptions.expires);
             cookieOptions.expires = expires;
           }
-          if (cookieOptions.expires) {
-            const expires = new Date(cookieOptions.expires);
-            cookieOptions.expires = expires;
-          }
           if (cookieOptions.path) {
             cookieOptions.path = '/';
           }
@@ -106,7 +104,7 @@ export default(app) => {
       return res.json(error);
     }
   });
-  app.get('/api/updatequantity', async (req, res) => {
+  app.get('/api/cart/update', async (req, res) => {
     try {
       const { itemKey } = req.query;
       const newQty = parseInt(req.query.newQty);
@@ -123,7 +121,7 @@ export default(app) => {
       return res.json(error);
     }
   });
-  app.get('/api/removefromcart', async (req, res) => {
+  app.get('/api/cart/remove', async (req, res) => {
     try {
       const { itemKey } = req.query;
       const data = {
@@ -160,6 +158,7 @@ export default(app) => {
               description,
               id,
               regular_price,
+              on_sale,
               sale_price,
               price_html,
               images {
@@ -232,6 +231,7 @@ export default(app) => {
           price,
           regular_price,
           sale_price,
+          on_sale,
           price_html,
           attributes {
             id,
@@ -250,6 +250,11 @@ export default(app) => {
             }
             swatches
           },
+          categories {
+            id,
+            name,
+            slug
+          },
           in_stock,
           stock_quantity,
           type,
@@ -265,6 +270,8 @@ export default(app) => {
             name,
             regular_price,
             sale_price,
+            price_html,
+            on_sale,
             price,
             slug
           },
@@ -289,22 +296,7 @@ export default(app) => {
       }))
       .then((relatedProductsResponse) => {
         return relatedProductsResponse.map((relatedProduct) => {
-          const {
-            images,
-            id,
-            name,
-            regular_price,
-            sale_price,
-            slug
-          } = relatedProduct.data;
-          return {
-            images,
-            id,
-            name,
-            regular_price,
-            sale_price,
-            slug
-          };
+          return (relatedProduct.data);
         });
       });
       return res.json(sanitizeJSON(relatedProductsArray));

@@ -36,7 +36,6 @@ class Product extends Component {
       addToCart, // eslint-disable-line
       page
     } = this.props;
-    console.log('Props @ Product container', this.props);
     if (loading) return <Loading />;
     if (!product || !page) return <FourOhFour />;
     const {

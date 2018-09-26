@@ -1,12 +1,7 @@
 import React from 'react';
-import './PurchaseOption.scss';
+import './ProductVariationOption.scss';
 
-const handleChange = (value, taxonomy, optionSelectHandler) => {
-  const { value: selectedValue } = value;
-  optionSelectHandler(taxonomy, selectedValue);
-};
-
-export const PurchaseOption = (props) => {
+export const ProductVariationOption = (props) => {
   const {
     attribute,
     variationAttributes,
@@ -20,11 +15,14 @@ export const PurchaseOption = (props) => {
     <div className="attribute-options">
       <span className="attribute-title">{attribute.name}</span>
       <select onChange={event => optionSelectHandler(attribute.taxonomy, event.target.value)}>
-        <option value="" disabled>{placeholderText}</option>
+        <option value="" selected={!activeOption}>{placeholderText}</option>
         {attribute.options.map((option) => {
           if (variationAttributes[attribute.taxonomy].indexOf(option.slug) !== -1) {
             return (
-              <option value={option.slug} selected={activeOption === option.slug}>
+              <option
+                key={option.slug}
+                value={option.slug}
+                selected={activeOption === option.slug}>
                 {option.name}
               </option>
             );

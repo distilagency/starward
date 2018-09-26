@@ -7,5 +7,18 @@ header#banner {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    .header-group {
+      display: flex;
+      flex-direction: row;
+
+      > * {
+        margin-right: 20px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }

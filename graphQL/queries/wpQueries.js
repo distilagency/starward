@@ -122,7 +122,6 @@ const wpQueries = {
         .then(res => res.data[0]);
       }
       const wpPageURL = `${wpSearchByPath}${args.slug}`;
-      console.log(`Attempting to fetch page @ ${wpPageURL}`);
       return axios.get(wpPageURL)
       .then((res) => {
         return res.data;
