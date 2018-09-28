@@ -6,6 +6,7 @@ import { Button } from './Button';
 import { FormError } from './FormError';
 import { FormConfirmation } from './FormConfirmation';
 import { Loading } from '../Content/Loading';
+import './Form.scss';
 
 const getButtonClasses = (isValid, loading) => {
   if (loading) return 'loading';
