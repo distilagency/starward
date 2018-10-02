@@ -3,12 +3,6 @@ const isEmail = (email) => {
   return re.test(email);
 };
 
-const isPhone = (phoneNumber) => {
-  const cleanedPhoneNumber = phoneNumber.replace(/-|\s/g, ''); // Remove spaces and hyphens before performing test
-  const aussiePhonePattern = new RegExp('^(?:\\+?(61))? ?(?:\\((?=.*\\)))?(0?[2-57-8])\\)? ?(\\d\\d(?:[- ](?=\\d{3})|(?!\\d\\d[- ]?\\d[- ]))\\d\\d[- ]?\\d[- ]?\\d{3})$');
-  return aussiePhonePattern.test(cleanedPhoneNumber);
-};
-
 const isUrl = (url) => {
   const pattern = new RegExp('^(https?:\\/\\/)?' +
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' +
@@ -44,7 +38,7 @@ export const emailValdation = (required, value) => {
   return !(isEmpty(required, value) || (value && !isEmail(value)));
 };
 export const phoneValdation = (required, value) => {
-  return !(isEmpty(required, value) || (value && !isPhone(value)));
+  return !isEmpty(required, value);
 };
 export const websiteValdation = (required, value) => {
   return !(isEmpty(required, value) || (value && !isUrl(value)));
