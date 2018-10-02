@@ -15,7 +15,7 @@
     height: 75px;
     margin-bottom: 20vh; // Slightly raise loading indicator
     background-image: url('../../images/loading.svg');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 

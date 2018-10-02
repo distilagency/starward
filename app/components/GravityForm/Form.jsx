@@ -76,7 +76,6 @@ class GravityForm extends Component {
     const currentForm = this.props.gravityforms[this.props.formId];
     const postFailed = currentForm && currentForm.hasSubmitted && !currentForm.submitting && !currentForm.submitSuccess;
     // Handle form with zero fields
-    if (currentForm.submitting) return <Loading inline />;
     if (!fields) return <span>Form with ID {formId} has no fields</span>;
     return (
       <div className="form" id={`gravity_form_${formId}`}>
@@ -103,7 +102,7 @@ class GravityForm extends Component {
             <Button
               text={button}
               className={getButtonClasses(isValid, loading)}
-              showLoading={submitting}
+              showLoading={currentForm.submitting}
             />
           </form>
       )}
