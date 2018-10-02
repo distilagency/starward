@@ -36,9 +36,14 @@ const render = async (req, res) => {
     const matchedRoutes = matchRoutes(routes, req.url);
     store.dispatch({ type: types.CREATE_REQUEST });
     const data = await fetchDataForRoute(matchedRoutes, req.query);
+    const { handleNotFound } = data || {};
+    const handle404 = handleNotFound === '404';
     store.dispatch({
       type: types.REQUEST_SUCCESS,
-      data
+      data: {
+          ...data,
+          handle404,
+      },
     });
     const initialState = store.getState();
     const context = {};
@@ -57,7 +62,7 @@ const render = async (req, res) => {
     }
     const headAssets = Helmet.renderStatic();
     const finalHTML = `<!DOCTYPE html>${pageRenderer({ initialState, componentHTML, headAssets })}`;
-    return res.status(200).send(finalHTML);
+    return res.status(handle404 ? 404 : 200).send(finalHTML);
   } catch (error) {
     console.error('renderError', error);
     return res.status(500).json(error);
