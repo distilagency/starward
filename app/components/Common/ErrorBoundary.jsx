@@ -7,12 +7,11 @@ export default class ErrorBoundary extends Component {
   };
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
-    console.error({error, info}); // redundant?
+    console.error({error, info});
   }
   render() {
     const { hasError } = this.state;
-    const errorMessage = 'Whoops, look like something went wrong here!';
-    if (hasError) return <ErrorBlock errorMessage={errorMessage} />;
+    if (hasError) return <ErrorBlock />;
     return this.props.children;
   }
 }
