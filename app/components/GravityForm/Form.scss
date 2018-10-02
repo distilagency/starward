@@ -15,12 +15,8 @@
   }
 
   form {
-
     .fields {
-
-
       .field {
-
         &.error {
           > * {
             label {
@@ -31,15 +27,11 @@
             }
           }
         }
-
         > * {
-
           &.populated {
 
           }
-
           label {
-
             input, select, textarea {
               // Disable platform native styling for form input elements
               -webkit-appearance: none;
