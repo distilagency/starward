@@ -4,14 +4,17 @@ import { Head } from '../Common/Head';
 import { FourOhFour } from '../Content/FourOhFour';
 import { Title } from '../Content/Title';
 import { RenderContent } from '../Content/RenderContent';
+import ErrorBoundary from '../Common/ErrorBoundary';
 
 const AcfComponent = ({ item, location }) => {
   const ComponentName = Layout[item.acf_fc_layout];
   return (
-    <ComponentName
-      location={location}
-      {...item}
-    />
+    <ErrorBoundary>
+      <ComponentName
+        location={location}
+        {...item}
+      />
+    </ErrorBoundary>
   );
 };
 
