@@ -1,0 +1,47 @@
+.form {
+
+  .form-error {
+    // Error message
+    margin-bottom: 20px;
+    color: rgba($error, 0.5);
+  }
+
+  .form-confirmation {
+    // Confirmation message
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 100px 0px;
+  }
+
+  form {
+    .fields {
+      .field {
+        &.error {
+          > * {
+            label {
+              input, select, textarea {
+                // Invalid field highlighting
+                border: 1px solid rgba($error, 0.5);
+              }
+            }
+          }
+        }
+        > * {
+          &.populated {
+
+          }
+          label {
+            input, select, textarea {
+              // Disable platform native styling for form input elements
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+            }
+          }
+
+        }
+      }
+    }
+  }
+}

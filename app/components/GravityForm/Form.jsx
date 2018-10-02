@@ -5,6 +5,8 @@ import { RenderFields } from './RenderFields';
 import { Button } from './Button';
 import { FormError } from './FormError';
 import { FormConfirmation } from './FormConfirmation';
+import { Loading } from '../Content/Loading';
+import './Form.scss';
 
 const getButtonClasses = (isValid, loading) => {
   if (loading) return 'loading';
@@ -58,7 +60,7 @@ class GravityForm extends Component {
       isValid
     } = gravityforms[formId];
     // Handle form loading
-    if (loading) return <p className="loading">Loading</p>;
+    if (loading) return <Loading inline />;
     // Handle error
     if (!activeForm) return <span>Something went wrong loading form with ID: {formId}</span>;
     // Pluck values from activeForm in the Gravity Forms API response
@@ -87,21 +89,23 @@ class GravityForm extends Component {
           confirmation={confirmation}
           showConfirmation={submitSuccess && confirmation}
         />
-        <form onSubmit={this.submit} noValidate>
-          <RenderFields
-            fields={fields}
-            formValues={formValues}
-            submitFailed={submitFailed}
-            submitSuccess={submitSuccess}
-            updateForm={this.updateFormHandler}
-            location={location}
-          />
-          <Button
-            text={button}
-            className={getButtonClasses(isValid, loading)}
-            showLoading={submitting}
-          />
-        </form>
+        {!submitSuccess && (
+          <form onSubmit={this.submit} noValidate>
+            <RenderFields
+              fields={fields}
+              formValues={formValues}
+              submitFailed={submitFailed}
+              submitSuccess={submitSuccess}
+              updateForm={this.updateFormHandler}
+              location={location}
+            />
+            <Button
+              text={button}
+              className={getButtonClasses(isValid, loading)}
+              showLoading={currentForm.submitting}
+            />
+          </form>
+      )}
       </div>
     );
   }
