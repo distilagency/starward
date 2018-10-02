@@ -22,7 +22,6 @@ module.exports = (env = {}) => {
 
   const prodServerRender = {
     mode: 'production',
-    devtool: 'source-map',
     context: PATHS.app,
     entry: { server: ['babel-polyfill', '../server/index'] },
     target: 'node',
@@ -41,7 +40,6 @@ module.exports = (env = {}) => {
 
   const prodBrowserRender = {
     mode: 'production',
-    devtool: 'cheap-module-source-map',
     context: PATHS.app,
     entry: { app: ['babel-polyfill', './client'] },
     node,
@@ -58,7 +56,7 @@ module.exports = (env = {}) => {
 
   const devBrowserRender = {
     mode: 'development',
-    devtool: 'eval',
+    devtool: 'eval-source-map',
     context: PATHS.app,
     entry: { app: ['babel-polyfill', 'react-hot-loader/patch', './client', hotMiddlewareScript] },
     node,
@@ -74,7 +72,7 @@ module.exports = (env = {}) => {
 
   const devServerRender = {
     mode: 'development',
-    devtool: 'sourcemap',
+    devtool: 'source-map',
     context: PATHS.app,
     entry: { server: ['babel-polyfill', '../server/index'] },
     target: 'node',
