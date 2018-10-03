@@ -1,4 +1,5 @@
 import React from 'react';
+import serialize from 'serialize-javascript';
 import staticAssets from './static-assets/index';
 
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
@@ -14,7 +15,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
   </head>
   <body>
     <div id="app">${componentHTML}</div>
-    <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
+    <script>window.__INITIAL_STATE__ = ${serialize(initialState)}</script>
     ${staticAssets.createAppScript()}
   </body>
 </html>`;
