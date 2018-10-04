@@ -18,9 +18,10 @@
     },
     "rules": {
         "comma-dangle": 0,
-        "indent": 0,
+        "indent": ["warn", 2],
+        "react/jsx-indent": ["warn", 2],
+        "react/jsx-indent-props": ["warn", 2],
         "react/prop-types": 0,
-        "react/jsx-indent-props" : 0,
         "linebreak-style": 0,
         "react/jsx-closing-bracket-location" : 0,
         "object-curly-spacing" : 0,
