@@ -18,9 +18,9 @@
     },
     "rules": {
         "comma-dangle": 0,
-        "indent": ["warn", 4],
-        "react/jsx-indent": ["warn", 4],
-        "react/jsx-indent-props": ["warn", 4],
+        "indent": ["warn", 2],
+        "react/jsx-indent": ["warn", 2],
+        "react/jsx-indent-props": ["warn", 2],
         "react/prop-types": 0,
         "linebreak-style": 0,
         "react/jsx-closing-bracket-location" : 0,
