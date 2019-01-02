@@ -10,5 +10,5 @@
       "server",
       "webpack"
     ],
-    "exec": "npm run build:dev && node compiled/server.dev.js"
+    "exec": "npm run build:dev && node --inspect=0.0.0.0 compiled/server.dev.js"
 }

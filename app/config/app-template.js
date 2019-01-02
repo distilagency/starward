@@ -11,6 +11,8 @@ export const SEARCH_SLUG = 'search';
 
 // Starward
 export const baseURL = `http://${HOST}:${PORT}`;
+// if using docker:
+// export const baseURL = `http://dev.docker`;
 
 // GraphQL
 export const ROOT_API = `${baseURL}/api`;
