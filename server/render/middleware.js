@@ -47,16 +47,22 @@ const render = async (req, res) => {
     });
     const initialState = store.getState();
     const context = {};
-    // eslint-disable-next-line
-    const componentHTML = renderToString(
-    // eslint-disable-next-line
-    <Provider store={store} key="provider">
-      <StaticRouter location={req.url} context={context}>
-        {renderRoutes(routes)}
-      </StaticRouter>
-    </Provider>,
-    // eslint-disable-next-line
-    );
+
+
+    let componentHTML = '';
+
+    try {
+      componentHTML = renderToString(
+        <Provider store={store} key="provider">
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>
+      );
+    } catch (e) {
+      console.log('Error occured when trying to ssr: ', e);
+    }
+
     if (context.url) {
       return res.status(301).redirect(context.url);
     }
